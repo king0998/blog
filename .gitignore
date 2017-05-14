@@ -1,0 +1,7 @@
+
+*.db
+
+
+/target/*
+/.idea/*
+/myblog.iml
