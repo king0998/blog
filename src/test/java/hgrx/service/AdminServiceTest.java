@@ -1,5 +1,6 @@
 package hgrx.service;
 
+import hgrx.bean.Follow;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -19,6 +20,11 @@ public class AdminServiceTest {
     @Test
     public void getUserByUsername() throws Exception {
         Assert.assertTrue(adminService.getUserByUsername("hahah") == null);
+    }
+
+    @Test
+    public void addFollower() {
+        adminService.addFollow(new Follow(1L, 2L));
     }
 
 }

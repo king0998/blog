@@ -1,32 +1,52 @@
 package hgrx.bean;
 
+
+import hgrx.entity.ArticleDetailVO;
+
 /**
  * Created by HGRX on 2017/5/11
  */
 public class Article {
-    private long    id;
-    private long    userId;
+    private Long id;
+    private Long userId;
     private String title;
-    private String tags;
-    private long    timestamp;
+    private Long timestamp;
     private String content;
+    private Boolean draft;
 
     public Article() {
     }
 
-    public long getId() {
+    public Article(Long userId, String title, Long timestamp, String content) {
+        this.userId = userId;
+        this.title = title;
+        this.timestamp = timestamp;
+        this.content = content;
+    }
+
+    public Article(ArticleDetailVO advo) {
+        id = advo.getId();
+        userId = advo.getUserId();
+        title = advo.getTitle();
+        timestamp = advo.getTimestamp();
+        content = advo.getContent();
+        draft = advo.getDraft();
+    }
+
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public long getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(long userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 
@@ -38,19 +58,12 @@ public class Article {
         this.title = title;
     }
 
-    public String getTags() {
-        return tags;
-    }
 
-    public void setTags(String tags) {
-        this.tags = tags;
-    }
-
-    public long getTimestamp() {
+    public Long getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(long timestamp) {
+    public void setTimestamp(Long timestamp) {
         this.timestamp = timestamp;
     }
 
@@ -62,13 +75,20 @@ public class Article {
         this.content = content;
     }
 
+    public Boolean getDraft() {
+        return draft;
+    }
+
+    public void setDraft(Boolean draft) {
+        this.draft = draft;
+    }
+
     @Override
     public String toString() {
         return "Article{" +
                 "id=" + id +
                 ", userId=" + userId +
                 ", title='" + title + '\'' +
-                ", tags='" + tags + '\'' +
                 ", timestamp=" + timestamp +
                 ", content='" + content + '\'' +
                 '}';

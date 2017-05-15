@@ -12,11 +12,11 @@
     <title>添加文章</title>
 </head>
 <body>
-<form action="<c:url value="article/addHandle"/>" method="post">
+<form action="<c:url value="/admin/article/addHandle"/>" method="post">
     <label>title<input type="text" name="title"> </label>
     <label>tags<input type="text" name="tags"> </label>
-    <label>timestamp<input type="text" name="timestamp"> </label>
     <label>content<input type="text" name="content"> </label>
+    <input type="submit" value="提交">
 </form>
 </body>
 </html>

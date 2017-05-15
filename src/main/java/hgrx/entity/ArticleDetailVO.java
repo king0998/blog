@@ -1,9 +1,8 @@
 package hgrx.entity;
 
 import hgrx.bean.Article;
+import hgrx.util.MyUtils;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -17,23 +16,27 @@ public class ArticleDetailVO {
     private List<String> tags;
     private long timestamp;
     private String content;
+    private Boolean draft;
 
     private int likeNum;    //点赞
     private int starNum;    //收藏
+
+    public ArticleDetailVO() {
+    }
 
     public ArticleDetailVO(Article article) {
         id = article.getId();
         userId = article.getUserId();
         title = article.getTitle();
-        setTags(article.getTags());
         timestamp = article.getTimestamp();
         content = article.getContent();
+        draft = article.getDraft();
     }
 
 
     //tags : java,linux,spring
     private void setTags(String tagsStr) {
-        tags = new ArrayList<>(Arrays.asList(tagsStr.split(",")));
+        tags = MyUtils.transformTagsToList(tagsStr);
     }
 
 
@@ -50,6 +53,14 @@ public class ArticleDetailVO {
                 ", likeNum=" + likeNum +
                 ", starNum=" + starNum +
                 '}';
+    }
+
+    public Boolean getDraft() {
+        return draft;
+    }
+
+    public void setDraft(Boolean draft) {
+        this.draft = draft;
     }
 
     public long getId() {
