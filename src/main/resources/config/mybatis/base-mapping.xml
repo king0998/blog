@@ -6,7 +6,7 @@
 <mapper namespace="hgrx.dao.BaseDao">
 
     <!--//这个地方查询非常复杂，感觉join并不靠谱，使用mybatis配置也很烦，试着使用程序代码解决-->
-    <!--<resultMap id="listAdvo" type="hgrx.entity.ArticleDetailVO">-->
+    <!--<resultMap id="listAdvo" type="hgrx.dtoticleDetailVO">-->
     <!--<collection property="tags" column="{user_id,id}" select="listTagsByArticleId"/>-->
     <!--</resultMap>-->
 
@@ -14,17 +14,5 @@
     <!--SELECT name FROM tag WHERE-->
     <!--</select>-->
 
-    <select id="listAdvoWithoutTagsByUserId" resultType="hgrx.entity.ArticleDetailVO">
-        SELECT
-            id,
-            user_id,
-            title,
-            content,
-            timestamp,
-            like_num,
-            star_num
-        FROM article
-        WHERE user_id = #{id}
-        ORDER BY timestamp DESC;
-    </select>
+
 </mapper>

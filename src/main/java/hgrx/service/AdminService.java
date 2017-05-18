@@ -2,12 +2,15 @@ package hgrx.service;
 
 import hgrx.bean.*;
 import hgrx.dao.AdminDao;
+import hgrx.dto.ArticleDetailVO;
 import hgrx.util.MyUtils;
 import hgrx.util.RegexUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by HGRX on 2017/5/14
@@ -40,12 +43,16 @@ public class AdminService {
         adminDao.addArticle(article);
         //TODO 暂时只考虑实现，后期考虑使用缓存之类的进行控制
 
+        setTags(article, tags);
+
+    }
+
+    private void setTags(Article article, String tags) {
         List<String> tagsList = MyUtils.transformTagsToList(tags);
         for (String tag : tagsList) {
             Long tagId = getTagId(new Tag(tag, article.getUserId()));
             adminDao.addTagLink(new ArticleTagsLink(article.getId(), tagId));
         }
-
     }
 
 
@@ -64,5 +71,25 @@ public class AdminService {
 
     public Boolean addFollow(Follow follow) {
         return adminDao.addFollow(follow);
+    }
+
+    public Boolean deleteArticleByUserIdAndId(Long userId, Long id) {
+        Map<String, Long> par = new HashMap<>();
+        par.put("userId", userId);
+        par.put("id", id);
+        return adminDao.deleteArticleByPar(par);
+
+    }
+
+    public void updateArticle(ArticleDetailVO advo, String tags, Boolean updateTimestamp) {
+        Map<String, Object> par = new HashMap<>();
+        par.put("advo", advo);
+        // 在外面先更新timestamp,sql中决定是否更新到数据库
+        advo.setTimestamp(System.currentTimeMillis());
+        par.put("updateTimestamp", updateTimestamp);
+        adminDao.updateArticle(par);
+
+        setTags(new Article(advo), tags);
+
     }
 }

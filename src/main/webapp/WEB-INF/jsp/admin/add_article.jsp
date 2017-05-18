@@ -10,13 +10,25 @@
 <html>
 <head>
     <title>添加文章</title>
+    <style>
+        textarea {
+            width: 200px;
+            height: 200px;;
+        }
+    </style>
 </head>
 <body>
+
+todo:提供一个在线编辑器,直接输入md文档
 <form action="<c:url value="/admin/article/addHandle"/>" method="post">
-    <label>title<input type="text" name="title"> </label>
-    <label>tags<input type="text" name="tags"> </label>
-    <label>content<input type="text" name="content"> </label>
-    <input type="submit" value="提交">
+    <input type="text" name="title"/>
+    <label>
+        <textarea name="content"></textarea>
+    </label>
+    <input type="text" name="tags"/>
+    <input type="checkbox" name="draft">
+    <input type="submit">
 </form>
+
 </body>
 </html>

@@ -25,7 +25,7 @@ public class BaseServiceTest {
 
     @Test
     public void getArticleById() throws Exception {
-//        System.out.println(baseService.getArticleById(1));
+//        System.out.println(baseService.getAdvoById(1));
         InputStream inputStream = Resources.getResourceAsStream("config/mybatis/mybatis-config.xml");
         SqlSessionFactory factory = new SqlSessionFactoryBuilder().build(inputStream);
         SqlSession session = factory.openSession();
@@ -35,11 +35,11 @@ public class BaseServiceTest {
 
     @Test
     public void testSmt(){
-//        System.out.println(baseService.getArticleById(1));
+//        System.out.println(baseService.getAdvoById(1));
 //        baseService = new BaseService(MyBatisUtils.getSqlSession().getMapper(hgrx.dao.BaseDao.class));
-//        System.out.println(baseService.getArticleById(1));
-        System.out.println(baseService.getArticleById(1L));
-//        System.out.println(new BaseService(baseDao).getArticleById(1));
+//        System.out.println(baseService.getAdvoById(1));
+        System.out.println(baseService.getAdvoById(1L));
+//        System.out.println(new BaseService(baseDao).getAdvoById(1));
     }
 
 

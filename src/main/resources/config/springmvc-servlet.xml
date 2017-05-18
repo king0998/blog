@@ -19,5 +19,10 @@
     <context:component-scan base-package="hgrx.controller"/>
     <context:component-scan base-package="hgrx.exception"/>
 
-
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/admin/**"/>
+            <bean class="hgrx.interceptor.PermissionInterceptor"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
 </beans>

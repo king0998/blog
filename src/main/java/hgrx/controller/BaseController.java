@@ -2,7 +2,8 @@ package hgrx.controller;
 
 import hgrx.bean.Tag;
 import hgrx.bean.User;
-import hgrx.entity.ArticleDetailVO;
+import hgrx.dto.ArticleDetailVO;
+import hgrx.service.AdminService;
 import hgrx.service.BaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,15 +22,20 @@ public class BaseController {
     final
     BaseService baseService;
 
+    final
+    AdminService adminService;
+
+
     @Autowired
-    public BaseController(BaseService baseService) {
+    public BaseController(BaseService baseService, AdminService adminService) {
+        this.adminService = adminService;
         this.baseService = baseService;
     }
 
 
     @RequestMapping("/article/{id}")
     public String getArticle(@PathVariable Long id,Model model){
-        ArticleDetailVO advo = baseService.getArticleById(id);
+        ArticleDetailVO advo = baseService.getAdvoById(id);
         //TODO 没有该文章
         model.addAttribute("advo",advo);
         return "article";
@@ -71,6 +77,15 @@ public class BaseController {
         model.addAttribute("about", about);
         model.addAttribute("user", user);
         return "about";
+    }
+
+    @RequestMapping("square")
+    public String gotoSquare(Model model) {
+        //TODO 计划在这里还要放上个人follow和收藏的文章,暂时先放所有文章
+
+        List<ArticleDetailVO> advoList = baseService.listAllAdvo();
+        model.addAttribute("advoList", advoList);
+        return "square_page";
     }
 
 }

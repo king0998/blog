@@ -3,7 +3,9 @@ package hgrx.controller;
 import hgrx.bean.Article;
 import hgrx.bean.Follow;
 import hgrx.bean.User;
+import hgrx.dto.ArticleDetailVO;
 import hgrx.service.AdminService;
+import hgrx.service.BaseService;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 /**
  * Created by HGRX on 2017/5/14
@@ -27,8 +30,11 @@ public class AdminController {
     final
     AdminService adminService;
 
+    final BaseService baseService;
+
     @Autowired
-    public AdminController(AdminService adminService) {
+    public AdminController(AdminService adminService, BaseService baseService) {
+        this.baseService = baseService;
         this.adminService = adminService;
     }
 
@@ -44,7 +50,7 @@ public class AdminController {
 
         log.info("新注册了用户:" + user);
         session.setAttribute("user",user);
-        return "square";
+        return "forward:/square";
     }
 
     @RequestMapping("login")
@@ -65,7 +71,7 @@ public class AdminController {
             return "login";
         }
         session.setAttribute("user",u);
-        return "square";
+        return "forward:/square";
     }
 
     @RequestMapping("admin/article/add")
@@ -77,8 +83,7 @@ public class AdminController {
     public String addArticleHandle(Article article, String tags, HttpSession session, Model model) {
         //TODO 校验article,tags参数
         User user = getUser(session);
-        article.setUserId(user.getId());
-        article.setTimestamp(System.currentTimeMillis());
+        article.init(user.getId());
         try {
             adminService.addArticle(article, tags);
         } catch (RuntimeException e) {
@@ -86,7 +91,25 @@ public class AdminController {
             model.addAttribute("msg", "添加文章失败，请重试");
             return "error";
         }
-        return "square";
+        return "forward:/square";
+    }
+
+    @RequestMapping("admin/article/edit/{id}")
+    public String editArticle(@PathVariable Long id, Model model) {
+        //TODO 查询文章详细内容并填充
+        ArticleDetailVO advo = baseService.getAdvoById(id);
+        model.addAttribute("advo", advo);
+        return "admin/article_edit";
+    }
+
+    @RequestMapping("admin/article/editHandle")
+    public String editArticleHandle(ArticleDetailVO advo, String tags, Boolean updateTimestamp, HttpSession session, Model model) {
+        //TODO 校验article与tags参数
+        // 因为id是从客户端过来的,需要加入session中的userId作限制条件以避免可以随意修改他人的文章
+        advo.setUserId(getUser(session).getId());
+        adminService.updateArticle(advo, tags, updateTimestamp);
+        //TODO 跳到文章管理界面
+        return "forward:/square";
     }
 
     private User getUser(HttpSession session) {
@@ -101,6 +124,30 @@ public class AdminController {
         adminService.addFollow(new Follow(id, user.getId()));
         //TODO 用ajax发送请求
         return "";
+    }
+
+    @RequestMapping("admin/article/manage")
+    public String articleManage(HttpSession session, Model model) {
+        User user = getUser(session);
+        List<ArticleDetailVO> advoList = baseService.listAdvoByUserId(user.getId());
+        model.addAttribute("advoList", advoList);
+        return "admin/article_manage";
+    }
+
+    @RequestMapping("admin/article/delete/{id}")
+    @ResponseBody
+    public String articleDelete(@PathVariable Long id, HttpSession session, Model model) {
+        User user = getUser(session);
+        Boolean f = adminService.deleteArticleByUserIdAndId(user.getId(), id);
+        //TODO ajax操作,返回提示
+        return "" + f;
+    }
+
+    @RequestMapping("admin/center")
+    public String mainCenter(HttpSession session, Model model) {
+        User user = getUser(session);
+        model.addAttribute("user", user);
+        return "admin/main_center";
     }
 
 }

@@ -3,7 +3,7 @@ package hgrx.service;
 import hgrx.bean.Tag;
 import hgrx.bean.User;
 import hgrx.dao.BaseDao;
-import hgrx.entity.ArticleDetailVO;
+import hgrx.dto.ArticleDetailVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,7 +23,7 @@ public class BaseService {
         this.baseDao = baseDao;
     }
 
-    public ArticleDetailVO getArticleById(Long id) {
+    public ArticleDetailVO getAdvoById(Long id) {
         ArticleDetailVO advo = new ArticleDetailVO(baseDao.getArticleById(id));
         advo.setUsername(baseDao.getUsernameById(id));
 //        advo.setLikeNum(baseDao.getLikeNumById(id));
@@ -52,5 +52,9 @@ public class BaseService {
 
     public String getAboutMeByUserId(Long id) {
         return baseDao.getAboutByUserId(id);
+    }
+
+    public List<ArticleDetailVO> listAllAdvo() {
+        return baseDao.listAllAdvo();
     }
 }

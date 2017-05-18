@@ -25,6 +25,7 @@
 
     <mappers>
         <mapper resource="config/mybatis/base-mapping.xml"/>
+        <mapper resource="config/mybatis/admin-mapping.xml"/>
     </mappers>
 
 </configuration>

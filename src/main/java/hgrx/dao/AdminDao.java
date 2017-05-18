@@ -1,10 +1,10 @@
 package hgrx.dao;
 
 import hgrx.bean.*;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Options;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
+
+import java.util.Map;
 
 /**
  * Created by HGRX on 2017/5/14
@@ -36,4 +36,15 @@ public interface AdminDao {
     @Insert("INSERT INTO follow (follower_id, main_user_id) VALUES (#{followerId},#{mainUserId})")
     Boolean addFollow(Follow follow);
 
+    /**
+     * map 结构:
+     * userId: 123
+     * id : 456
+     *
+     * @param par 参数
+     */
+    @Delete("DELETE FROM article WHERE id = ${id} AND user_id = #{userId}")
+    Boolean deleteArticleByPar(Map<String, Long> par);
+
+    Boolean updateArticle(Map<String, Object> par);
 }

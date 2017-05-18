@@ -1,4 +1,4 @@
-package hgrx.entity;
+package hgrx.dto;
 
 import hgrx.bean.Article;
 import hgrx.util.MyUtils;
@@ -22,6 +22,7 @@ public class ArticleDetailVO {
     private int starNum;    //收藏
 
     public ArticleDetailVO() {
+
     }
 
     public ArticleDetailVO(Article article) {

@@ -1,7 +1,7 @@
 package hgrx.bean;
 
 
-import hgrx.entity.ArticleDetailVO;
+import hgrx.dto.ArticleDetailVO;
 
 /**
  * Created by HGRX on 2017/5/11
@@ -13,8 +13,12 @@ public class Article {
     private Long timestamp;
     private String content;
     private Boolean draft;
+    private Integer likeNum;
+    private Integer starNum;
+
 
     public Article() {
+
     }
 
     public Article(Long userId, String title, Long timestamp, String content) {
@@ -33,6 +37,34 @@ public class Article {
         draft = advo.getDraft();
     }
 
+    /**
+     * 如果是新建一篇文章,则需要初始化下列参数
+     *
+     * @param userId 发布者的id
+     */
+    public void init(Long userId) {
+        this.userId = userId;
+        this.timestamp = System.currentTimeMillis();
+        this.likeNum = 0;
+        this.starNum = 0;
+    }
+
+
+    public Integer getLikeNum() {
+        return likeNum;
+    }
+
+    public void setLikeNum(Integer likeNum) {
+        this.likeNum = likeNum;
+    }
+
+    public Integer getStarNum() {
+        return starNum;
+    }
+
+    public void setStarNum(Integer starNum) {
+        this.starNum = starNum;
+    }
 
     public Long getId() {
         return id;
@@ -93,4 +125,6 @@ public class Article {
                 ", content='" + content + '\'' +
                 '}';
     }
+
+
 }

@@ -1,16 +1,16 @@
 <%--
   Created by IntelliJ IDEA.
   User: 75747
-  Date: 2017/5/14
-  Time: 21:41
+  Date: 2017/5/17
+  Time: 10:49
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>广场</title>
+    <title>标签管理页面</title>
 </head>
 <body>
-    <h1> Hi 我是广场</h1>
+todo:提供删除,管理标签功能
 </body>
 </html>
