@@ -15,8 +15,11 @@ import java.util.List;
 @Repository
 public interface BaseDao {
 
-    @Select("SELECT id,user_id,title,timestamp,content,draft FROM article WHERE id = #{id}")
+    @Select("SELECT id,user_id,title,content,timestamp,like_num,star_num FROM article WHERE id = #{id}")
     Article getArticleById(Long id);
+
+    @Select("SELECT article.id,user_id,nickname,title,timestamp,content FROM article,user WHERE user_id = user.id AND article.id = #{id}")
+    ArticleDetailVO getAdvoById(Long id);
 
     @Select("SELECT username FROM user WHERE id = #{id}")
     String getUsernameById(Long id);

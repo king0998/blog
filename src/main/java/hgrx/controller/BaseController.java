@@ -36,7 +36,7 @@ public class BaseController {
     @RequestMapping("/article/{id}")
     public String getArticle(@PathVariable Long id,Model model){
         ArticleDetailVO advo = baseService.getAdvoById(id);
-        //TODO 没有该文章
+        //TODO 处理没有该文章的情况
         model.addAttribute("advo",advo);
         return "article";
     }

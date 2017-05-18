@@ -20,7 +20,7 @@ todo : 提供follow的人的最新博文及最热博文
     <c:forEach items="${advoList}" var="advo">
         <li>
             <a href="<c:url value="/article/${advo.id}"/>">${advo.title}</a>
-            <a href="<c:url value="/home-page/${advo.userId}"/> ">${advo.username}</a>
+            <a href="<c:url value="/home-page/${advo.userId}"/> ">${advo.nickname}</a>
         </li>
     </c:forEach>
 </ul>

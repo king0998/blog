@@ -92,4 +92,8 @@ public class AdminService {
         setTags(new Article(advo), tags);
 
     }
+
+    public List<User> listFollowingListByUserId(Long id) {
+        return adminDao.listFollowingListByUserId(id);
+    }
 }

@@ -22,7 +22,7 @@
     <c:forEach items="${advoList}" var="advo">
         <h3>${advo.title}</h3>
         <h4>id : [ ${advo.id} ]</h4>
-        <h3>作者</h3>${advo.username}
+        <h3>作者</h3>${advo.nickname}
         <h3>发表时间</h3>${advo.timestamp}
         <h3>点赞数量</h3>${advo.likeNum} 收藏
 

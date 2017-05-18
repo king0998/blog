@@ -12,9 +12,9 @@
     <title>个人中心</title>
 </head>
 <body>
-<label><a href="<c:url value="/admin/article/add"/> ">发表文章</a> </label>
-<label><a href="<c:url value="/admin/article/manage"/> "> 文章管理 </a></label>
-<label>查看我的follow:给一个list,包含头像,昵称,intro,有一个按钮可以取消关注</label>
+<label><a href="<c:url value="/admin/article/add"/> ">发表文章</a> </label><br/>
+<label><a href="<c:url value="/admin/article/manage"/> "> 文章管理 </a></label><br/>
+<label><a href="<c:url value="/admin/following"/> ">我的关注</a> </label><br/>
 <label>查看follow我的:和楼上一样</label>
 <label>查看我的收藏</label>
 </body>

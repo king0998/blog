@@ -4,6 +4,7 @@ import hgrx.bean.*;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -47,4 +48,7 @@ public interface AdminDao {
     Boolean deleteArticleByPar(Map<String, Long> par);
 
     Boolean updateArticle(Map<String, Object> par);
+
+    @Select("SELECT id,nickname,intro FROM user WHERE id = #{id}")
+    List<User> listFollowingListByUserId(Long id);
 }

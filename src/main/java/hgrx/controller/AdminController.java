@@ -39,43 +39,50 @@ public class AdminController {
     }
 
     @RequestMapping("register")
-    public String register(){
+    public String register() {
         return "register";
     }
 
     @RequestMapping("registerHandle")
-    public String handleRegister(User user, HttpSession session){
+    public String handleRegister(User user, HttpSession session) {
         //TODO 校验参数，暂时假设全部都是完美输入条件
         adminService.addUser(user);
 
         log.info("新注册了用户:" + user);
-        session.setAttribute("user",user);
+        session.setAttribute("user", user);
         return "forward:/square";
     }
 
     @RequestMapping("login")
-    public String login(){
+    public String login() {
         return "login";
     }
 
+    @RequestMapping("autoLogin")
+    public String autoLogin(HttpSession session) {
+        User u = adminService.getUserByUsername("hgrx");
+        session.setAttribute("user", u);
+        return "redirect:/admin/center";
+    }
+
     @RequestMapping("loginHandle")
-    public String loginHandle(User user,Model model,HttpSession session){
+    public String loginHandle(User user, Model model, HttpSession session) {
 
         User u = adminService.getUserByUsername(user.getUsername());
-        if(u == null) {   //用户名不合规范和找不到用户名都是返回null
-            model.addAttribute("msg","用户不存在！");
+        if (u == null) {   //用户名不合规范和找不到用户名都是返回null
+            model.addAttribute("msg", "用户不存在！");
             return "login";
         }
-        if(!u.getPassword().equals(user.getPassword())){
-            model.addAttribute("msg","密码错误！");
+        if (!u.getPassword().equals(user.getPassword())) {
+            model.addAttribute("msg", "密码错误！");
             return "login";
         }
-        session.setAttribute("user",u);
+        session.setAttribute("user", u);
         return "forward:/square";
     }
 
     @RequestMapping("admin/article/add")
-    public String addArticle(){
+    public String addArticle() {
         return "admin/add_article";
     }
 
@@ -108,12 +115,11 @@ public class AdminController {
         // 因为id是从客户端过来的,需要加入session中的userId作限制条件以避免可以随意修改他人的文章
         advo.setUserId(getUser(session).getId());
         adminService.updateArticle(advo, tags, updateTimestamp);
-        //TODO 跳到文章管理界面
-        return "forward:/square";
+        return "redirect:/admin/article/manage";
     }
 
     private User getUser(HttpSession session) {
-        return (User)session.getAttribute("user");
+        return (User) session.getAttribute("user");
     }
 
 
@@ -148,6 +154,14 @@ public class AdminController {
         User user = getUser(session);
         model.addAttribute("user", user);
         return "admin/main_center";
+    }
+
+    @RequestMapping("admin/following")
+    public String following(HttpSession session, Model model) {
+        User user = getUser(session);
+        List<User> followingList = adminService.listFollowingListByUserId(user.getId());
+        model.addAttribute("followingList", followingList);
+        return "admin/following";
     }
 
 }

@@ -11,7 +11,7 @@ import java.util.List;
 public class ArticleDetailVO {
     private long id;
     private long userId;
-    private String username;
+    private String nickname;
     private String title;
     private List<String> tags;
     private long timestamp;
@@ -46,7 +46,7 @@ public class ArticleDetailVO {
         return "ArticleDetailVO{" +
                 "id=" + id +
                 ", userId=" + userId +
-                ", username='" + username + '\'' +
+                ", nickname='" + nickname + '\'' +
                 ", title='" + title + '\'' +
                 ", tags=" + tags +
                 ", timestamp=" + timestamp +
@@ -80,12 +80,12 @@ public class ArticleDetailVO {
         this.userId = userId;
     }
 
-    public String getUsername() {
-        return username;
+    public String getNickname() {
+        return nickname;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
     }
 
     public String getTitle() {

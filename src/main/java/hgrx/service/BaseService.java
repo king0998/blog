@@ -24,10 +24,7 @@ public class BaseService {
     }
 
     public ArticleDetailVO getAdvoById(Long id) {
-        ArticleDetailVO advo = new ArticleDetailVO(baseDao.getArticleById(id));
-        advo.setUsername(baseDao.getUsernameById(id));
-//        advo.setLikeNum(baseDao.getLikeNumById(id));
-//        advo.setStarNum(baseDao.getStarNumById(id));
+        ArticleDetailVO advo = baseDao.getAdvoById(id);
         //TODO 直接在article中加了starNum与likeNum两个变量，考虑是继续使用触发器还是程序来控制这两个值
         advo.setTags(baseDao.listTagsWithArticleId(id));
         return advo;

@@ -14,7 +14,6 @@
 </head>
 <body>
 <table>
-    todo : draft状态可点击改变
     <c:forEach items="${advoList}" var="advo">
         <tr>
             <td>${advo.title}</td>

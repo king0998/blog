@@ -12,7 +12,7 @@
 </head>
 <body>
 <h3>${advo.title}</h3>
-<h3>作者</h3>${advo.username}
+<h3>作者</h3>${advo.nickname}
 <h3>发表时间</h3>${advo.timestamp}
 <h3>点赞按钮</h3>
 <button onclick="">点赞</button>
