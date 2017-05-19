@@ -2,7 +2,10 @@ package hgrx.dao;
 
 import hgrx.bean.*;
 import hgrx.dto.ArticleDetailVO;
-import org.apache.ibatis.annotations.*;
+import org.apache.ibatis.annotations.Delete;
+import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Options;
+import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -59,4 +62,7 @@ public interface AdminDao {
     @Select("SELECT article.id ,nickname,article.user_id,title,content,timestamp,like_num,star_num " +
             "FROM star,article,user WHERE  star.article_id = article.id AND user.id = article.user_id AND  star.user_id = #{id}")
     List<ArticleDetailVO> listStarArticleByUserId(Long id);
+
+    @Delete("DELETE FROM article_tags_link WHERE article_id = #{articleId} AND tag_id = #{tagId}")
+    void deleteTagLink(ArticleTagsLink atl);
 }

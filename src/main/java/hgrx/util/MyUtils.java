@@ -16,7 +16,7 @@ public class MyUtils {
     }
 
     /**
-     * ["java","linux","spring"]
+     *   ["java","linux","spring"]
      */
     public static String transformListToTags(List<String> list) {
         return new Gson().toJson(list);

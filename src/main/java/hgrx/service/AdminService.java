@@ -5,9 +5,11 @@ import hgrx.dao.AdminDao;
 import hgrx.dto.ArticleDetailVO;
 import hgrx.util.MyUtils;
 import hgrx.util.RegexUtils;
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -87,7 +89,8 @@ public class AdminService {
 
     }
 
-    public void updateArticle(ArticleDetailVO advo, String tags, Boolean updateTimestamp) {
+    @SuppressWarnings("unchecked")
+    public void updateArticle(ArticleDetailVO advo, String tags, Boolean updateTimestamp, List<String> beforeEdit) {
         Map<String, Object> par = new HashMap<>();
         par.put("advo", advo);
         // 在外面先更新timestamp,sql中决定是否更新到数据库
@@ -95,7 +98,24 @@ public class AdminService {
         par.put("updateTimestamp", updateTimestamp);
         adminDao.updateArticle(par);
 
-        setTags(new Article(advo), tags);
+        // 处理变动的tags,步骤是获取两者的交集,再从before与after中去除该交集
+        // before中留下的是要被删除的,after中留下的新增的
+        List<String> afterEdit = MyUtils.transformTagsToList(tags);
+        List<String> intersection = (ArrayList) CollectionUtils.retainAll(beforeEdit, afterEdit);
+
+        beforeEdit.removeAll(intersection);
+        afterEdit.removeAll(intersection);
+
+        for (String tag : beforeEdit) {
+            // 可以保证before中一定是"数据库中存在的tag
+            ArticleTagsLink atl = new ArticleTagsLink(advo.getId(), getTagId(new Tag(tag, advo.getUserId())));
+            adminDao.deleteTagLink(atl);
+        }
+
+        for (String tag : afterEdit) {
+            ArticleTagsLink atl = new ArticleTagsLink(advo.getId(), getTagId(new Tag(tag, advo.getUserId())));
+            adminDao.addTagLink(atl);
+        }
 
     }
 

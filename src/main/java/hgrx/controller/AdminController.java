@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -102,19 +103,22 @@ public class AdminController {
     }
 
     @RequestMapping("admin/article/edit/{id}")
-    public String editArticle(@PathVariable Long id, Model model) {
-        //TODO 查询文章详细内容并填充
+    public String editArticle(@PathVariable Long id, Model model, HttpSession session) {
         ArticleDetailVO advo = baseService.getAdvoById(id);
+        // 先将tags存到session中,在提交表单上来的时候检查变动并做相应操作
+        session.setAttribute("beforeEdit", advo.getTags());
         model.addAttribute("advo", advo);
         return "admin/article_edit";
     }
 
+    @SuppressWarnings("unchecked")
     @RequestMapping("admin/article/editHandle")
     public String editArticleHandle(ArticleDetailVO advo, String tags, Boolean updateTimestamp, HttpSession session, Model model) {
         //TODO 校验article与tags参数
         // 因为id是从客户端过来的,需要加入session中的userId作限制条件以避免可以随意修改他人的文章
         advo.setUserId(getUser(session).getId());
-        adminService.updateArticle(advo, tags, updateTimestamp);
+        List<String> beforeEdit = (ArrayList) session.getAttribute("beforeEdit");
+        adminService.updateArticle(advo, tags, updateTimestamp, beforeEdit);
         return "redirect:/admin/article/manage";
     }
 
