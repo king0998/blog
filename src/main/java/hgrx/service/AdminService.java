@@ -70,7 +70,13 @@ public class AdminService {
     }
 
     public Boolean addFollow(Follow follow) {
-        return adminDao.addFollow(follow);
+        try {
+            //设置了unique键,如果重复插入会抛异常
+            return adminDao.addFollow(follow);
+        } catch (Exception e) {
+            return false;
+        }
+
     }
 
     public Boolean deleteArticleByUserIdAndId(Long userId, Long id) {
@@ -95,5 +101,9 @@ public class AdminService {
 
     public List<User> listFollowingListByUserId(Long id) {
         return adminDao.listFollowingListByUserId(id);
+    }
+
+    public List<User> listFollowerListByUserId(Long id) {
+        return adminDao.listFollowerListByUserId(id);
     }
 }

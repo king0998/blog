@@ -9,7 +9,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>我的跟随者</title>
+    <title>我的关注</title>
 </head>
 <body>
     <ol>

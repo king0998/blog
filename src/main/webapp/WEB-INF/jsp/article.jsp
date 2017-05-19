@@ -22,7 +22,7 @@
 <button onclick="">收藏</button>
 <h3>收藏数量</h3>${advo.starNum}
 <h3>文章主体</h3>${advo.content}
-<h3>标签</h3>${advo.tags}}
+<h3>标签</h3>${advo.tags}
 <h3>上一篇</h3>
 <button onclick="">上一篇</button>
 <h3>下一篇</h3>

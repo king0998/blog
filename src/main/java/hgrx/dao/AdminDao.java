@@ -49,6 +49,9 @@ public interface AdminDao {
 
     Boolean updateArticle(Map<String, Object> par);
 
-    @Select("SELECT id,nickname,intro FROM user WHERE id = #{id}")
+    @Select("SELECT main_user_id as id,nickname,intro FROM follow,user WHERE user.id = main_user_id AND follower_id = #{id}")
     List<User> listFollowingListByUserId(Long id);
+
+    @Select("SELECT follower_id as id,nickname,intro FROM follow,user WHERE user.id = follower_id AND main_user_id = #{id}")
+    List<User> listFollowerListByUserId(Long id);
 }

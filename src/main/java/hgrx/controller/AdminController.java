@@ -127,9 +127,9 @@ public class AdminController {
     @ResponseBody
     public String addFollow(@PathVariable Long id, HttpSession session, HttpServletResponse response) {
         User user = getUser(session);
-        adminService.addFollow(new Follow(id, user.getId()));
+        boolean f = adminService.addFollow(new Follow(id, user.getId()));
         //TODO 用ajax发送请求
-        return "";
+        return "" + f;
     }
 
     @RequestMapping("admin/article/manage")
@@ -156,6 +156,9 @@ public class AdminController {
         return "admin/main_center";
     }
 
+    /**
+     * 我的关注
+     */
     @RequestMapping("admin/following")
     public String following(HttpSession session, Model model) {
         User user = getUser(session);
@@ -163,5 +166,18 @@ public class AdminController {
         model.addAttribute("followingList", followingList);
         return "admin/following";
     }
+
+    /**
+     * 关注我的
+     */
+    @RequestMapping("admin/follower")
+    public String follower(HttpSession session, Model model) {
+        User user = getUser(session);
+        List<User> followerList = adminService.listFollowerListByUserId(user.getId());
+        System.out.println(followerList);
+        model.addAttribute("followerList", followerList);
+        return "admin/follower";
+    }
+
 
 }

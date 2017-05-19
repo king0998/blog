@@ -15,7 +15,7 @@
 <label><a href="<c:url value="/admin/article/add"/> ">发表文章</a> </label><br/>
 <label><a href="<c:url value="/admin/article/manage"/> "> 文章管理 </a></label><br/>
 <label><a href="<c:url value="/admin/following"/> ">我的关注</a> </label><br/>
-<label>查看follow我的:和楼上一样</label>
+<label><a href="<c:url value="/admin/follower"/> ">关注我的</a> </label>
 <label>查看我的收藏</label>
 </body>
 </html>

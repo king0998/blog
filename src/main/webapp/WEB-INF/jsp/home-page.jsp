@@ -20,19 +20,21 @@
 
 <ul>
     <c:forEach items="${advoList}" var="advo">
-        <h3>${advo.title}</h3>
-        <h4>id : [ ${advo.id} ]</h4>
-        <h3>作者</h3>${advo.nickname}
-        <h3>发表时间</h3>${advo.timestamp}
-        <h3>点赞数量</h3>${advo.likeNum} 收藏
+        <li>
+            <h4>${advo.title}</h4>
+            <label>id : [ ${advo.id} ]</label><br/>
+            <label>作者</label>${advo.nickname}<br/>
+            <label>发表时间</label>${advo.timestamp}<br/>
+            <label>点赞数量</label>${advo.likeNum} 收藏<br/>
 
-        <h3>收藏数量</h3>${advo.starNum}
-        <h3>文章主体</h3>${advo.content}
-        <h3>标签</h3>${advo.tags}
-        <a href="<c:url value="/article/${advo.id}"/>">查看全文</a>
-        <br/>
-        -------------------------------------------------------
-        <br/>
+            <label>收藏数量</label>${advo.starNum}<br/>
+            <label>文章主体</label>${advo.content}<br/>
+            <label>标签</label>${advo.tags}<br/>
+            <a href="<c:url value="/article/${advo.id}"/>">查看全文</a>
+            <br/>
+            -----------------------------------------------------------------
+            <br/>
+        </li>
     </c:forEach>
 
 </ul>
