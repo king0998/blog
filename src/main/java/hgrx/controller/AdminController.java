@@ -184,11 +184,20 @@ public class AdminController {
     }
 
     @RequestMapping("admin/star/list")
-    public String listStar(HttpSession session,Model model){
+    public String listStar(HttpSession session, Model model) {
         User user = getUser(session);
         List<ArticleDetailVO> advoList = adminService.listStarArticleByUserId(user.getId());
-        model.addAttribute("advoList",advoList);
+        model.addAttribute("advoList", advoList);
         return "admin/star_page";
+    }
+
+    @RequestMapping("admin/following/delete/{id}")
+    @ResponseBody
+    public String deleteFollowing(@PathVariable Long id, HttpSession session) {
+        //TODO ajax
+        User user = getUser(session);
+        Follow follow = new Follow(id, user.getId());
+        return "" + adminService.deleteFollowing(follow);
     }
 
 

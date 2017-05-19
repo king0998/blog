@@ -130,4 +130,8 @@ public class AdminService {
     public List<ArticleDetailVO> listStarArticleByUserId(Long id) {
         return adminDao.listStarArticleByUserId(id);
     }
+
+    public Boolean deleteFollowing(Follow follow) {
+        return adminDao.deleteFollowing(follow);
+    }
 }

@@ -17,6 +17,7 @@
             <li>
                 <a href="/home-page/${user.id}">${user.nickname}</a>
                 <p>${user.intro}</p>
+                <a href="<c:url value="/admin/following/delete/${user.id}"/>">取消收藏</a>
             </li>
         </c:forEach>
     </ol>

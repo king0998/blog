@@ -65,4 +65,7 @@ public interface AdminDao {
 
     @Delete("DELETE FROM article_tags_link WHERE article_id = #{articleId} AND tag_id = #{tagId}")
     void deleteTagLink(ArticleTagsLink atl);
+
+    @Delete("DELETE FROM follow WHERE main_user_id = #{mainUserId} AND follower_id = #{followerId}")
+    Boolean deleteFollowing(Follow follow);
 }

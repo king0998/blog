@@ -17,6 +17,5 @@
 <label><a href="<c:url value="/admin/following"/> ">我的关注</a> </label><br/>
 <label><a href="<c:url value="/admin/follower"/> ">关注我的</a> </label>
 <label><a href="<c:url value="/admin/star/list"/> ">我的收藏</a> </label>
-<label>查看我的收藏</label>
 </body>
 </html>

@@ -20,6 +20,10 @@ public class Follow {
                 '}';
     }
 
+    /**
+     * @param mainUserId 被关注人
+     * @param followerId 关注人
+     */
     public Follow(Long mainUserId, Long followerId) {
         this.mainUserId = mainUserId;
         this.followerId = followerId;
