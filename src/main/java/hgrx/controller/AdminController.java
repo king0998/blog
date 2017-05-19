@@ -2,6 +2,7 @@ package hgrx.controller;
 
 import hgrx.bean.Article;
 import hgrx.bean.Follow;
+import hgrx.bean.Star;
 import hgrx.bean.User;
 import hgrx.dto.ArticleDetailVO;
 import hgrx.service.AdminService;
@@ -198,6 +199,23 @@ public class AdminController {
         User user = getUser(session);
         Follow follow = new Follow(id, user.getId());
         return "" + adminService.deleteFollowing(follow);
+    }
+
+    @RequestMapping("admin/star/delete/{id}")
+    @ResponseBody
+    public String deleteStar(@PathVariable Long id, HttpSession session) {
+        //TODO ajax
+        User user = getUser(session);
+        Star star = new Star(id, user.getId());
+        return adminService.deleteStar(star) + "";
+    }
+
+    @RequestMapping("admin/star/add/{id}")
+    @ResponseBody
+    public String addStar(@PathVariable Long id, HttpSession session) {
+        User user = getUser(session);
+        Star star = new Star(id, user.getId());
+        return adminService.addStar(star) + "";
     }
 
 

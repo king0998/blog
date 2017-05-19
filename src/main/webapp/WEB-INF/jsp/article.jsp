@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: 75747
@@ -11,21 +12,25 @@
     <title>文章详情页</title>
 </head>
 <body>
-<h3>${advo.title}</h3>
-<h3>作者</h3>${advo.nickname}
-<h3>发表时间</h3>${advo.timestamp}
-<h3>点赞按钮</h3>
+todo : 根据情况显示是否已收藏
+<h3>${advo.title}</h3><br/>
+<label>作者</label>${advo.nickname}<br/>
+<label>发表时间</label>${advo.timestamp}<br/>
 <button onclick="">点赞</button>
-<h3>点赞数量</h3>${advo.likeNum} 收藏
-
-<h3>收藏按钮</h3>
-<button onclick="">收藏</button>
-<h3>收藏数量</h3>${advo.starNum}
-<h3>文章主体</h3>${advo.content}
-<h3>标签</h3>${advo.tags}
-<h3>上一篇</h3>
+<br/>
+<label>点赞数量</label>${advo.likeNum}<br/>
+<br/>
+<a href="<c:url value="/admin/star/add/${advo.id}"/> ">收藏</a><br/>
+<br/>
+<label>收藏数量</label>${advo.starNum}<br/>
+<label>文章主体:</label>
+<p>${advo.content}</p><br/>
+<label>标签</label>${advo.tags}<br/>
+<label>上一篇</label><br/>
 <button onclick="">上一篇</button>
-<h3>下一篇</h3>
+<br/>
+<label>下一篇</label><br/>
 <button onclick="">下一篇</button>
+<br/>
 </body>
 </html>

@@ -68,4 +68,10 @@ public interface AdminDao {
 
     @Delete("DELETE FROM follow WHERE main_user_id = #{mainUserId} AND follower_id = #{followerId}")
     Boolean deleteFollowing(Follow follow);
+
+    @Delete("DELETE FROM star WHERE article_id = #{articleId} AND user_id = #{userId}")
+    Boolean deleteStar(Star star);
+
+    @Delete("INSERT INTO star (article_id, user_id) VALUES (#{articleId},#{userId})")
+    Boolean addStar(Star star);
 }

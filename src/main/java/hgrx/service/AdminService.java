@@ -134,4 +134,12 @@ public class AdminService {
     public Boolean deleteFollowing(Follow follow) {
         return adminDao.deleteFollowing(follow);
     }
+
+    public Boolean deleteStar(Star star) {
+        return adminDao.deleteStar(star);
+    }
+
+    public Boolean addStar(Star star) {
+        return adminDao.addStar(star);
+    }
 }
