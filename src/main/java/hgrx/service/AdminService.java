@@ -106,4 +106,8 @@ public class AdminService {
     public List<User> listFollowerListByUserId(Long id) {
         return adminDao.listFollowerListByUserId(id);
     }
+
+    public List<ArticleDetailVO> listStarArticleByUserId(Long id) {
+        return adminDao.listStarArticleByUserId(id);
+    }
 }

@@ -1,6 +1,7 @@
 package hgrx.dao;
 
 import hgrx.bean.*;
+import hgrx.dto.ArticleDetailVO;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 
@@ -54,4 +55,8 @@ public interface AdminDao {
 
     @Select("SELECT follower_id as id,nickname,intro FROM follow,user WHERE user.id = follower_id AND main_user_id = #{id}")
     List<User> listFollowerListByUserId(Long id);
+
+    @Select("SELECT article.id ,nickname,article.user_id,title,content,timestamp,like_num,star_num " +
+            "FROM star,article,user WHERE  star.article_id = article.id AND user.id = article.user_id AND  star.user_id = #{id}")
+    List<ArticleDetailVO> listStarArticleByUserId(Long id);
 }

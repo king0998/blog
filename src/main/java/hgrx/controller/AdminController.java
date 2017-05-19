@@ -179,5 +179,13 @@ public class AdminController {
         return "admin/follower";
     }
 
+    @RequestMapping("admin/star/list")
+    public String listStar(HttpSession session,Model model){
+        User user = getUser(session);
+        List<ArticleDetailVO> advoList = adminService.listStarArticleByUserId(user.getId());
+        model.addAttribute("advoList",advoList);
+        return "admin/star_page";
+    }
+
 
 }
