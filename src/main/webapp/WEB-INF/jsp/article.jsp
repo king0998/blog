@@ -16,7 +16,7 @@ todo : 根据情况显示是否已收藏
 <h3>${advo.title}</h3><br/>
 <label>作者</label>${advo.nickname}<br/>
 <label>发表时间</label>${advo.timestamp}<br/>
-<button onclick="">点赞</button>
+<a href="<c:url value="/admin/like/add/${advo.id}"/> ">点赞</a>
 <br/>
 <label>点赞数量</label>${advo.likeNum}<br/>
 <br/>
@@ -26,10 +26,7 @@ todo : 根据情况显示是否已收藏
 <label>文章主体:</label>
 <p>${advo.content}</p><br/>
 <label>标签</label>${advo.tags}<br/>
-<label>上一篇</label><br/>
 <button onclick="">上一篇</button>
-<br/>
-<label>下一篇</label><br/>
 <button onclick="">下一篇</button>
 <br/>
 </body>

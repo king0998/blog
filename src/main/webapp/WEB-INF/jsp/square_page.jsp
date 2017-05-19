@@ -24,7 +24,7 @@ todo : 提供follow的人的最新博文及最热博文
         </li>
     </c:forEach>
 </ul>
-<a href="<c:url value="/admin/center"/> ">个人中心</a>
+<a href="<c:url value="/admin/center"/> ">个人中心</a><br>
 <a href="<c:url value="/login"/>">login</a>
 <a href="<c:url value="/register"/>">register</a>
 </body>

@@ -1,9 +1,6 @@
 package hgrx.controller;
 
-import hgrx.bean.Article;
-import hgrx.bean.Follow;
-import hgrx.bean.Star;
-import hgrx.bean.User;
+import hgrx.bean.*;
 import hgrx.dto.ArticleDetailVO;
 import hgrx.service.AdminService;
 import hgrx.service.BaseService;
@@ -218,5 +215,13 @@ public class AdminController {
         return adminService.addStar(star) + "";
     }
 
+    @RequestMapping("admin/like/add/{id}")
+    @ResponseBody
+    public String addLike(@PathVariable Long id, HttpSession session) {
+        //TODO ajax
+        User user = getUser(session);
+        Like like = new Like(id, user.getId());
+        return adminService.addLike(like) + "";
+    }
 
 }

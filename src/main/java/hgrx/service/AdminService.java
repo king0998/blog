@@ -142,4 +142,8 @@ public class AdminService {
     public Boolean addStar(Star star) {
         return adminDao.addStar(star);
     }
+
+    public Boolean addLike(Like like) {
+        return adminDao.addLike(like);
+    }
 }
