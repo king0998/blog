@@ -36,8 +36,10 @@ public class BaseController {
     @RequestMapping("/article/{id}")
     public String getArticle(@PathVariable Long id,Model model){
         ArticleDetailVO advo = baseService.getAdvoById(id);
+        User user = baseService.getUserById(id);
         //TODO 处理没有该文章的情况
         model.addAttribute("advo",advo);
+        model.addAttribute("user", user);
         return "article";
     }
 
@@ -51,11 +53,16 @@ public class BaseController {
         return "home-page";
     }
 
+    /**
+     * 归档
+     */
     @RequestMapping("/archives/{id}")
     public String archives(@PathVariable Long id, Model model) {
         //TODO 暂时都不考虑分页
         List<ArticleDetailVO> advoList = baseService.listAdvoByUserId(id);
+        User user = baseService.getUserById(id);
         model.addAttribute("num", advoList.size());
+        model.addAttribute("user", user);
         model.addAttribute("advoList", advoList);
         return "article-list";
 

@@ -1,55 +1,57 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-
 <html lang="zh-CN"
       class=" wf-source-han-serif-sc-n4-active wf-source-han-serif-sc-n9-active wf-active wf-loading wf-source-han-serif-sc-n4-loading wf-source-han-serif-sc-n9-loading">
 <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
-    <%--<title>春去春又来 | 屠城</title>--%>
-    <title>归档 | ${user.nickname}</title>
-    <link rel="stylesheet" type="text/css" href="<c:url value="/css/style.css?v=2.0.1"/>"/>
-    <link rel="stylesheet" type="text/css" href="<c:url value="/css/normalize.min.css?v=2.0.1"/>"/>
-    <link rel="stylesheet" type="text/css" href="<c:url value="/css/pure-min.css?v=2.0.1"/>"/>
-    <link rel="stylesheet" type="text/css" href="<c:url value="/css/grids-responsive-min.css?v=2.0.1"/>"/>
-    <link rel="stylesheet" type="text/css" href="<c:url value="/css/my-style.css"/>"/>
+    <title>春去春又来 | 屠城</title>
+    <link rel="stylesheet" type="text/css" href="/css/style.css?v=2.0.1"/>
+    <link rel="stylesheet" type="text/css" href="/css/normalize.min.css?v=2.0.1"/>
+    <link rel="stylesheet" type="text/css" href="/css/pure-min.css?v=2.0.1"/>
+    <link rel="stylesheet" type="text/css" href="/css/grids-responsive-min.css?v=2.0.1"/>
+    <link rel="stylesheet" type="text/css" href="/css/my-style.css"/>
     <link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css"/>
-    <script type="text/javascript" src="<c:url value="/js/jquery.min.js?v=2.0.1"/>"></script>
+    <script type="text/javascript" src="/js/jquery.min.js?v=2.0.1"></script>
 </head>
 <body>
 <div class="body_container">
     <div id="header">
         <div class="site-name">
-            <%--<h1 class="hidden">春去春又来</h1>--%>
-            <%--<h1 class="hidden">${advo.title}</h1>--%>
-            <%--<a id="logo" href="/.">屠城</a>--%>
-            <a id="logo" href="#">${user.nickname}</a>
-            <%--<p class="description">屠夫9441的博客</p>--%>
-            <p class="description">${user.intro}</p>
+            <h1 class="hidden">春去春又来</h1>
+
+            <a id="logo" href="/.">屠城</a>
+            <p class="description">屠夫9441的博客</p>
         </div>
         <div id="nav-menu">
-            <a href="<c:url value="/."/>"><i class="fa fa-home"> 首页</i></a>
-            <a href="<c:url value="/archives/${user.id}"/>"><i class="fa fa-archive"> 归档</i></a>
-            <a href="<c:url value="/about/${user.id}"/>" class="current"><i class="fa fa-user"> 关于</i></a>
+            <a href="/." class="current"><i class="fa fa-home"> 首页</i></a>
+            <a href="/archives/"><i class="fa fa-archive"> 归档</i></a>
+            <a href="/about/"><i class="fa fa-user"> 关于</i></a>
         </div>
     </div>
-
-
     <div id="layout" class="pure-g">
         <div class="pure-u-1 pure-u-md-3-4">
             <div class="content_container">
                 <div class="post">
-
-
-                    ${about}
-
-
+                    <h1 class="post-title">春去春又来</h1>
+                    <div class="post-meta">
+                        Apr 4, 2017
+                    </div>
+                    <div class="post-content">
+                        <p>
+                            忙碌了近一个月，终于能够出来透口气了。北京的春天总是短暂，晴空万里时让人愉快，阴郁雾霾时让人心塞。所以每一次天朗气清都会不忍其入夜，每一回惠风和畅都会加倍地珍惜。然而，这些已经在身边变换了九年的季节和情绪即将离我而去了，也不知道南方的气候是否友好，是否需要挣扎一番才能适应。</p>
+                        <p>
+                            这几天校园里的花都开了，尽管不能分辨出那些花朵各是什么品种，但并不影响欣赏它们的怒放。好像每一朵都开放得很用力罢，毕竟一生可能也就那么一两个星期的时间。而我们的一生好几十年，应该在哪个时间段最为认真对待呢？我并没有想过这个问题。我只知道，最美的二十多岁的青春，一转眼就快要过去了。</p>
+                        <p><a href="https://dn-haomwei.qbox.me/images/west_playground.jpg" title="2017年3月31日@清华园西操场"
+                              class="fancybox" rel="gallery"> </a><span class="caption">2017年3月31日@清华园西操场</span></p>
+                    </div>
+                    <div class="tags">
+                        <a href="/tags/emotion/">心情</a>
+                        <a href="/tags/manuscript/">随笔</a>
+                    </div>
+                    <div class="post-nav">
+                        <a href="/emotion/last-twilight.html" class="next">最后的黄昏</a>
+                    </div>
                 </div>
             </div>
         </div>
-
-
-        <%-- footer and sidebar  --%>
-
         <div class="pure-u-1-4 pure-u-md-1-4">
             <div id="sidebar">
                 <div class="widget">
@@ -113,13 +115,16 @@
         </div>
         <div class="pure-u-1 pure-u-md-3-4"></div>
     </div>
-    <script type="text/javascript" src="<c:url value="/js/totop.js?v=2.0.1"/>" async=""></script>
-    <script type="text/javascript" src="<c:url value="/js/jquery.fancybox.min.js?v=2.0.1"/>" async=""></script>
-    <script type="text/javascript" src="<c:url value="/js/fancybox.js?v=2.0.1"/>" async=""></script>
-    <link rel="stylesheet" type="text/css" href="<c:url value="/css/jquery.fancybox.min.css?v=2.0.1"/>"/>
-    <script type="text/javascript" src="<c:url value="/js/codeblock-resizer.js?v=2.0.1"/>"></script>
-    <script type="text/javascript" src="<c:url value="/js/smartresize.js?v=2.0.1"/>"></script>
+    <script type="text/javascript" src="/js/totop.js?v=2.0.1" async=""></script>
+    <script type="text/javascript" src="/js/jquery.fancybox.min.js?v=2.0.1" async=""></script>
+    <script type="text/javascript" src="/js/fancybox.js?v=2.0.1" async=""></script>
+    <link rel="stylesheet" type="text/css" href="/css/jquery.fancybox.min.css?v=2.0.1"/>
+    <script type="text/javascript" src="/js/codeblock-resizer.js?v=2.0.1"></script>
+    <script type="text/javascript" src="/js/smartresize.js?v=2.0.1"></script>
 </div>
+<iframe style="display: none;"></iframe>
+<div></div>
+<iframe style="display: none;"></iframe>
 <div></div>
 </body>
 </html>

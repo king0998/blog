@@ -1,0 +1,13 @@
+#nav-menu > a.current {
+    height: 30px;
+    padding-top: 3px;
+}
+
+#nav-menu > a.current > i {
+    padding-top: 8px;
+}
+
+.widget-title {
+    height: 31px;
+}
+

@@ -16,8 +16,9 @@
 <p>${user.intro}</p>
 
 <a href="<c:url value="/admin/follow/add/${user.id}"/>">follow</a>
-
-
+<a href="<c:url value="/archives/${user.id}"/> ">归档</a>
+<a href="<c:url value="/tags/${user.id}"/> ">标签</a>
+<a href="<c:url value="/about/${user.id}"/> ">关于我</a>
 <ul>
     <c:forEach items="${advoList}" var="advo">
         <li>
