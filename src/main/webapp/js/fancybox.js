@@ -1,6 +1,4 @@
-/**
- * Created by 75747 on 2017/5/25.
- */
+
 $(document).ready(function () {
     $('img').each(function () {
         if ($(this).parent().hasClass('fancybox')) return;

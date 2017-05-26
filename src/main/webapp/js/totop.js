@@ -1,6 +1,4 @@
-/**
- * Created by 75747 on 2017/5/25.
- */
+
 $(window).scroll(function () {
     $(window).scrollTop() > 500 ? $("#rocket").addClass("show") : $("#rocket").removeClass("show");
 });

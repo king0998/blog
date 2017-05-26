@@ -27,14 +27,13 @@
             <p class="description">${user.intro}</p>
         </div>
         <div id="nav-menu">
-            <a href="<c:url value="/"/>"><i class="fa fa-home"> 首页</i></a>
+            <a href="<c:url value="/home-page/${user.id}"/>"><i class="fa fa-home"> 首页</i></a>
             <a href="<c:url value="/archives/${user.id}"/>" class="current"><i class="fa fa-archive"> 归档</i></a>
             <a href="<c:url value="/about/${user.id}"/>"><i class="fa fa-user"> 关于</i></a>
         </div>
     </div>
 
     <%-- header --%>
-    todo : 关键字搜索 标签选择:从文章底部直接点进来
 
     <div id="layout" class="pure-g">
         <div class="pure-u-1 pure-u-md-3-4">
@@ -50,9 +49,7 @@
                                        title="${advo.title}">${advo.title}</a>
                                 </li>
                             </c:forEach>
-
                         </ul>
-
                     </div>
                 </div>
             </div>

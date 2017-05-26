@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Created by HGRX on 2017/5/14
  */
-public class ArticleDetailVO {
+public class ArticleDetailVO implements Comparable<ArticleDetailVO> {
     private long id;
     private long userId;
     private String nickname;
@@ -40,6 +40,13 @@ public class ArticleDetailVO {
         tags = MyUtils.transformTagsToList(tagsStr);
     }
 
+    @Override
+    public int compareTo(ArticleDetailVO o) {
+        if (o == null) {
+            return -1;
+        }
+        return (int) (this.getTimestamp() - o.getTimestamp());
+    }
 
     @Override
     public String toString() {
@@ -135,4 +142,6 @@ public class ArticleDetailVO {
     public void setStarNum(int starNum) {
         this.starNum = starNum;
     }
+
+
 }

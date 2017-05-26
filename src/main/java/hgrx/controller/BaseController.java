@@ -10,7 +10,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -34,11 +36,11 @@ public class BaseController {
 
 
     @RequestMapping("/article/{id}")
-    public String getArticle(@PathVariable Long id,Model model){
+    public String getArticle(@PathVariable Long id, Model model) {
         ArticleDetailVO advo = baseService.getAdvoById(id);
-        User user = baseService.getUserById(id);
+        User user = baseService.getUserById(advo.getUserId());
         //TODO 处理没有该文章的情况
-        model.addAttribute("advo",advo);
+        model.addAttribute("advo", advo);
         model.addAttribute("user", user);
         return "article";
     }
@@ -58,9 +60,10 @@ public class BaseController {
      */
     @RequestMapping("/archives/{id}")
     public String archives(@PathVariable Long id, Model model) {
-        //TODO 暂时都不考虑分页
+        //TODO 不考虑分页
         List<ArticleDetailVO> advoList = baseService.listAdvoByUserId(id);
         User user = baseService.getUserById(id);
+        Collections.sort(advoList);
         model.addAttribute("num", advoList.size());
         model.addAttribute("user", user);
         model.addAttribute("advoList", advoList);
@@ -93,6 +96,27 @@ public class BaseController {
         List<ArticleDetailVO> advoList = baseService.listAllAdvo();
         model.addAttribute("advoList", advoList);
         return "square_page";
+    }
+
+
+    /**
+     * archives?name={tagName}&userId={userId}
+     *
+     * @param name   tag 名称
+     * @param userId tag所属的用户id
+     */
+    @RequestMapping(value = "archives")
+    public String getTagsByName(@RequestParam String name, @RequestParam Long userId, Model model) {
+        List<ArticleDetailVO> advoList = baseService.listAdvoByUserId(userId);
+        advoList.removeIf(
+                it -> !it.getTags().contains(name)
+        );
+        Collections.sort(advoList);
+        User user = baseService.getUserById(userId);
+        model.addAttribute("num", advoList.size());
+        model.addAttribute("advoList", advoList);
+        model.addAttribute("user", user);
+        return "article-list";
     }
 
 }

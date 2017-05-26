@@ -47,7 +47,7 @@
                     </div>
                     <div class="tags">
                         <c:forEach items="${advo.tags}" var="tag">
-                            <a href="<c:url value="/tags/name/${tag}?userId=${user.id}"/> ">${tag}</a>
+                            <a href="<c:url value="/archives?name=${tag}&userId=${user.id}"/> ">${tag}</a>
                         </c:forEach>
                     </div>
                     <div class="post-nav">
