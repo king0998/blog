@@ -5,9 +5,8 @@ import com.google.gson.Gson;
 import org.apache.commons.collections.CollectionUtils;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 /**
  * Created by HGRX on 2017/5/11
@@ -35,6 +34,12 @@ public class TempTest {
         ArrayList<String> a = Lists.newArrayList("1", "2", "3", "4");
         ArrayList<String> b = Lists.newArrayList("3", "4", "5", "6");
         System.out.println(CollectionUtils.retainAll(a, b));
+    }
+
+    @Test
+    public void testTimestamp() {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy");
+        System.out.println(sdf.format(new Date(1495784252044L)));
     }
 
 }

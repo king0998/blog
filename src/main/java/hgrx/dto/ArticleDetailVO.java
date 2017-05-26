@@ -45,7 +45,7 @@ public class ArticleDetailVO implements Comparable<ArticleDetailVO> {
         if (o == null) {
             return -1;
         }
-        return (int) (this.getTimestamp() - o.getTimestamp());
+        return (int) (o.getTimestamp() - this.getTimestamp());
     }
 
     @Override

@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.Collections;
-import java.util.List;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 /**
  * Created by HGRX on 2017/5/11
@@ -66,9 +66,26 @@ public class BaseController {
         Collections.sort(advoList);
         model.addAttribute("num", advoList.size());
         model.addAttribute("user", user);
-        model.addAttribute("advoList", advoList);
+
+        //TODO 将年份分好,以year:list存入map中,在页面上直接输出
+        Map<String, List<ArticleDetailVO>> yearMap = getYearMap(advoList);
+        model.addAttribute("yearMap", yearMap);
         return "article-list";
 
+    }
+
+    public Map<String, List<ArticleDetailVO>> getYearMap(List<ArticleDetailVO> advoList) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy");
+        // 归档页面,需要年份,时间都是逆序
+        Map<String, List<ArticleDetailVO>> map = new TreeMap<>((a, b) -> -a.compareTo(b));
+        advoList.forEach(it -> {
+            String year = sdf.format(it.getTimestamp());
+            if (!map.containsKey(year)) {
+                map.put(year, new ArrayList<>());
+            }
+            map.get(year).add(it);
+        });
+        return map;
     }
 
     @RequestMapping("/tags/{id}")
@@ -114,8 +131,9 @@ public class BaseController {
         Collections.sort(advoList);
         User user = baseService.getUserById(userId);
         model.addAttribute("num", advoList.size());
-        model.addAttribute("advoList", advoList);
         model.addAttribute("user", user);
+        Map<String, List<ArticleDetailVO>> yearMap = getYearMap(advoList);
+        model.addAttribute("yearMap", yearMap);
         return "article-list";
     }
 

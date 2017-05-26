@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <html lang="zh-CN"
@@ -15,7 +16,7 @@
     <link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css"/>
     <script type="text/javascript" src="<c:url value="/js/jquery.min.js?v=2.0.1"/>"></script>
 </head>
-<body>
+<body onload="changeTimeFormat()">
 <div class="body_container">
     <div id="header">
         <div class="site-name">
@@ -40,16 +41,20 @@
             <div class="content_container">
                 <div class="post">
                     <div class="post-archive">
-                        <h2>2017</h2>
-                        <ul class="listing">
-                            <c:forEach items="${advoList}" var="advo">
-                                <li>
-                                    <span class="date">${advo.timestamp}</span>
-                                    <a href="<c:url value="/article/${advo.id}"/>"
-                                       title="${advo.title}">${advo.title}</a>
-                                </li>
-                            </c:forEach>
-                        </ul>
+                        <c:forEach items="${yearMap}" var="value">
+                            <h2>${value.key}</h2>
+                            <ul class="listing">
+                                <c:forEach items="${value.value}" var="advo">
+                                    <li>
+                                        <span class="date">${advo.timestamp}</span>
+
+                                        <a href="<c:url value="/article/${advo.id}"/>"
+                                           title="${advo.title}">${advo.title}</a>
+                                    </li>
+                                </c:forEach>
+                            </ul>
+                        </c:forEach>
+                        <%-- map end --%>
                     </div>
                 </div>
             </div>
@@ -128,6 +133,19 @@
     <script type="text/javascript" src="<c:url value="/js/codeblock-resizer.js?v=2.0.1"/>"></script>
     <script type="text/javascript" src="<c:url value="/js/smartresize.js?v=2.0.1"/>"></script>
 </div>
-<div></div>
 </body>
+<script>
+
+    function getLocalTime(nS) {
+        return new Date(parseInt(nS)).toLocaleString().substr(0, 9).replace("-", "/").replace("-", "/");
+    }
+
+    function changeTimeFormat() {
+        $(".date").each(function () {
+            $(this).html(getLocalTime($(this).html()));
+        })
+    }
+
+
+</script>
 </html>

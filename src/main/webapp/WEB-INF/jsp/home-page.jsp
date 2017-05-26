@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css"/>
     <script type="text/javascript" src="<c:url value="/js/jquery.min.js?v=2.0.1"/>"></script>
 </head>
-<body>
+<body onload="changeArticlePageTimeFormat()">
 <div class="body_container">
     <div id="header">
         <div class="site-name">
@@ -133,4 +133,17 @@
     <script type="text/javascript" src="<c:url value="/js/smartresize.js?v=2.0.1"/>"></script>
 </div>
 </body>
+<script>
+    function getLocalTime(nS) {
+//        return new Date(parseInt(nS)).toLocaleString().replace(/:\d{1,2}$/,' ');
+        return new Date(parseInt(nS)).toLocaleString().substr(0, 9).replace("-", "/").replace("-", "/");
+    }
+
+    function changeArticlePageTimeFormat() {
+        $(".post-meta").each(function () {
+            $(this).html(getLocalTime($(this).html()));
+        })
+    }
+
+</script>
 </html>
