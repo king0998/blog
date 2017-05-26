@@ -132,7 +132,8 @@ div {
 }
 
 #sidebar .widget {
-    margin-bottom: 30px;
+    margin-top: 10px;;
+    margin-bottom: 40px;
 }
 
 #sidebar .widget .widget-title {

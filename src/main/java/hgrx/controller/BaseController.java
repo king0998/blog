@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -134,7 +135,14 @@ public class BaseController {
         model.addAttribute("user", user);
         Map<String, List<ArticleDetailVO>> yearMap = getYearMap(advoList);
         model.addAttribute("yearMap", yearMap);
+        model.addAttribute("keyword", name);
         return "article-list";
+    }
+
+    @RequestMapping(value = "listTags")
+    @ResponseBody
+    public List<Tag> listTagsByUserId(@RequestParam Long userId) {
+        return baseService.listTagsByUserId(userId);
     }
 
 }

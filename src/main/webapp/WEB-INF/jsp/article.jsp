@@ -5,7 +5,6 @@
       class=" wf-source-han-serif-sc-n4-active wf-source-han-serif-sc-n9-active wf-active wf-loading wf-source-han-serif-sc-n4-loading wf-source-han-serif-sc-n9-loading">
 <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
-    <%--<title>春去春又来 | 屠城</title>--%>
     <title>${advo.title} | ${user.nickname}</title>
     <link rel="stylesheet" type="text/css" href="<c:url value="/css/style.css?v=2.0.1"/>"/>
     <link rel="stylesheet" type="text/css" href="<c:url value="/css/normalize.min.css?v=2.0.1"/>"/>
@@ -19,11 +18,7 @@
 <div class="body_container">
     <div id="header">
         <div class="site-name">
-            <%--<h1 class="hidden">春去春又来</h1>--%>
-            <%--<h1 class="hidden">${advo.title}</h1>--%>
-            <%--<a id="logo" href="/.">屠城</a>--%>
             <a id="logo" href="#">${user.nickname}</a>
-            <%--<p class="description">屠夫9441的博客</p>--%>
             <p class="description">${user.intro}</p>
         </div>
         <div id="nav-menu">
@@ -60,7 +55,7 @@
                 <div class="widget">
                     <form action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank"
                           class="search-form">
-                        <input type="text" name="q" maxlength="20" placeholder="Search"/>
+                        <input id="query-input" type="text" name="q" maxlength="20" placeholder="Search"/>
                         <input type="hidden" name="sitesearch" value="https://www.haomwei.com"/>
                     </form>
                 </div>
