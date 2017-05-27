@@ -57,7 +57,7 @@ public interface BaseDao {
 
     @Select("SELECT id, user_id, title,  content, timestamp, like_num,  star_num " +
             " FROM article " +
-            " WHERE user_id = #{id} " +
+            " WHERE user_id = #{userId} " +
             "  AND title LIKE concat('%', #{keyword} ,'%') " +
             " ORDER BY timestamp DESC")
     List<ArticleDetailVO> listAdvoByUserIdAndKeyword(Map<String, Object> par);

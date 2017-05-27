@@ -138,7 +138,7 @@ public class BaseController {
         return "article-list";
     }
 
-    @RequestMapping(value = "archives", params = {"keyword", "userId"})
+    @RequestMapping(value = "archives/search", params = {"keyword", "userId"})
     public String listAdvoWithKeyword(@RequestParam String keyword,
                                       @RequestParam Long userId, Model model) {
         List<ArticleDetailVO> advoList = baseService.listAdvoByUserIdAndKeyword(keyword, userId);
@@ -147,7 +147,6 @@ public class BaseController {
         model.addAttribute("user", user);
         model.addAttribute("yearMap", yearMap);
         return "article-list";
-
     }
 
     @RequestMapping(value = "listTags")

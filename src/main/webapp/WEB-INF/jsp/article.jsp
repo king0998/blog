@@ -50,42 +50,15 @@
                 </div>
             </div>
         </div>
+
+
         <div class="pure-u-1-4 pure-u-md-1-4">
-            <div id="sidebar">
-                <div class="widget">
-                    <form action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank"
-                          class="search-form">
-                        <input id="query-input" type="text" name="q" maxlength="20" placeholder="Search"/>
-                        <input type="hidden" name="sitesearch" value="https://www.haomwei.com"/>
-                    </form>
-                </div>
-                <div class="widget">
-                    <div class="widget-title">
-                        <i class="fa fa-star-o"> 标签</i>
-                    </div>
-                    <div class="tagcloud">
-
-                        <%@ include file="slice/tagsHtmlSlice.jsp" %>
-
-                    </div>
-                </div>
-                <div class="widget">
-                    <div class="widget-title">
-                        <i class="fa fa-file-o"> 最近文章</i>
-                    </div>
-                    <ul class="post-list">
-
-                        <%@ include file="slice/latestArticleSlice.jsp" %>
-
-                    </ul>
-                </div>
-            </div>
+            <%@include file="slice/sideBarSlice.jsp" %>
         </div>
-        <div class="pure-u-1 pure-u-md-3-4"></div>
+
+        <%@include file="slice/IncludeJsSlice.jsp" %>
+
     </div>
-
-    <%@include file="slice/IncludeJsSlice.jsp" %>
-
 </div>
 </body>
 <script>
