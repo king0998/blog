@@ -6,6 +6,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>个人中心</title>
+    <link rel="stylesheet" type="text/css" href="<c:url value="/css/admin-style.css"/>">
+    <link rel="stylesheet" type="text/css" href="<c:url value="/css/style.css"/>"/>
     <link rel="stylesheet" href="<c:url value="/css/pure-min.css"/>">
     <link rel="stylesheet" href="<c:url value="/css/side-menu.css"/>">
 </head>
@@ -44,7 +46,22 @@
         </div>
 
         <table>
-            <c:forEach items="${advoList}" var="advo">
+
+        </table>
+
+        <div class="admin_content">
+            <table class="pure-table pure-table-horizontal">
+                <thead>
+                <tr>
+                    <th>标题</th>
+                    <th>时间</th>
+                    <th>草稿</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+
+                <c:forEach items="${advoList}" var="advo">
                 <tr>
                     <td>${advo.title}</td>
                     <td>${advo.timestamp}</td>
@@ -53,8 +70,9 @@
                         <a href="<c:url value="/admin/article/delete/${advo.id}"/>">删除</a>
                     </td>
                 </tr>
-            </c:forEach>
-        </table>
+                </c:forEach>
+            </table>
+        </div>
     </div>
 </div>
 

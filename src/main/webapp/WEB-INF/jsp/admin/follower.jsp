@@ -6,7 +6,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>个人中心</title>
-    <link rel="stylesheet" type="text/css" href="<c:url value="/css/style.css?v=2.0.1"/>"/>
+    <link rel="stylesheet" type="text/css" href="<c:url value="/css/admin-style.css"/>">
+    <link rel="stylesheet" type="text/css" href="<c:url value="/css/style.css"/>"/>
     <link rel="stylesheet" href="<c:url value="/css/pure-min.css"/>">
     <link rel="stylesheet" href="<c:url value="/css/side-menu.css"/>">
 </head>
@@ -41,34 +42,29 @@
     <div id="main">
         <div class="header">
             <h1>关注我的</h1>
-            <h2>这是关注我的人呀</h2>
+            <h2>世上一切痛苦,本质都是对自己无能的愤怒</h2>
         </div>
 
-        <ol>
-            <c:forEach items="${followerList}" var="item">
-                <li>
-                    <a href="/home-page/${item.id}">${item.nickname}</a>
-                    <p>${item.intro}</p>
-                </li>
-            </c:forEach>
-        </ol>
 
-        <%----%>
-
-        <div class="content_container">
-
-            <div class="post">
-                <h1 class="post-title"><a href="/article/1">第一篇文章，写点什么呢</a></h1>
-                <div class="post-meta">2017/5/27</div>
-                <div class="post-content">
-                    可以这么理解，ServletCo
-                </div>
-            </div>
-
-
+        <div class="admin_content">
+            <table class="pure-table pure-table-horizontal">
+                <thead>
+                <tr>
+                    <th width="50%">昵称</th>
+                    <th>签名</th>
+                </tr>
+                </thead>
+                <tbody>
+                <c:forEach items="${followerList}" var="item">
+                    <tr>
+                        <td><a href="/home-page/${item.id}">${item.nickname}</a></td>
+                        <td>${item.intro}</td>
+                    </tr>
+                </c:forEach>
+                </tbody>
+            </table>
         </div>
 
-        <%----%>
 
     </div>
 </div>

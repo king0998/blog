@@ -6,6 +6,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>个人中心</title>
+    <link rel="stylesheet" type="text/css" href="<c:url value="/css/admin-style.css"/>">
     <link rel="stylesheet" type="text/css" href="<c:url value="/css/style.css"/>"/>
     <link rel="stylesheet" href="<c:url value="/css/pure-min.css"/>">
     <link rel="stylesheet" href="<c:url value="/css/side-menu.css"/>">
@@ -40,16 +41,18 @@
 
     <div id="main">
         <div class="header">
-            <h1>Page Title</h1>
-            <h2>A subtitle for your page goes here</h2>
+            <h1>我的收藏</h1>
+            <h2>随口答应不如认真拒绝。</h2>
         </div>
-        <div>
+
+
+        <div class="admin_content">
             <table class="pure-table pure-table-horizontal">
                 <thead>
                 <tr>
-                    <th>文章标题</th>
-                    <th>作者</th>
-                    <th>操作</th>
+                    <th width="50%">文章标题</th>
+                    <th width="30%">作者</th>
+                    <th width="20%">操作</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -63,6 +66,8 @@
                 </tbody>
             </table>
         </div>
+
+
     </div>
 </div>
 

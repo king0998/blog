@@ -139,6 +139,7 @@ public class AdminController {
         User user = getUser(session);
         List<ArticleDetailVO> advoList = baseService.listAdvoByUserId(user.getId());
         model.addAttribute("advoList", advoList);
+        //TODO 草稿可通过ajax修改
         return "admin/article_manage";
     }
 
