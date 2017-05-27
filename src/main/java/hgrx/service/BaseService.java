@@ -10,7 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by HGRX on 2017/5/11
@@ -70,11 +72,18 @@ public class BaseService {
      * 算出每个tag所包含的文章数
      */
     private List<TagWithSize> addSizeToTag(List<Tag> tagWithSizes) {
-        //TODO 缓存   还要解决的一个问题是每次都会将连接返回池子再拿出来,希望能一次性跑完再放回去
+        //TODO 缓存   还要解决的一个问题是每次循环都会将连接返回池子再拿出来,希望能一次性跑完再放回去
         List<TagWithSize> sizeList = new ArrayList<>(tagWithSizes.size());
         tagWithSizes.forEach(it -> {
             sizeList.add(new TagWithSize(it, baseDao.getSizeOfTag(it.getId())));
         });
         return sizeList;
+    }
+
+    public List<ArticleDetailVO> listAdvoByUserIdAndKeyword(String keyword, Long userId) {
+        Map<String, Object> par = new HashMap<>();
+        par.put("keyword", keyword);
+        par.put("userId", userId);
+        return baseDao.listAdvoByUserIdAndKeyword(par);
     }
 }

@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by HGRX on 2017/5/11
@@ -53,4 +54,11 @@ public interface BaseDao {
 
     @Select("SELECT count(*) FROM article_tags_link WHERE tag_id = #{id}")
     Integer getSizeOfTag(Long id);
+
+    @Select("SELECT id, user_id, title,  content, timestamp, like_num,  star_num " +
+            " FROM article " +
+            " WHERE user_id = #{id} " +
+            "  AND title LIKE concat('%', #{keyword} ,'%') " +
+            " ORDER BY timestamp DESC")
+    List<ArticleDetailVO> listAdvoByUserIdAndKeyword(Map<String, Object> par);
 }

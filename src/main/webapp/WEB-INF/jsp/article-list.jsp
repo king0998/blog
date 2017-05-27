@@ -65,7 +65,7 @@
                 <div class="widget">
                     <form action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank"
                           class="search-form">
-                        <input style="width: 172px" type="text" name="q" maxlength="20" value="${keyword}"
+                        <input style="width: 172px" type="text" name="q" maxlength="20" "
                                placeholder="Search"/>
                     </form>
                 </div>
@@ -75,7 +75,7 @@
                     </div>
                     <div class="tagcloud">
 
-                        <%@ include file="tagsHtmlSlice.jsp" %>
+                        <%@ include file="slice/tagsHtmlSlice.jsp" %>
 
                     </div>
                 </div>
@@ -84,30 +84,18 @@
                         <i class="fa fa-file-o"> 最近文章</i>
                     </div>
                     <ul class="post-list">
-                        <script>
-                            $.ajax({
-                                url: "/latestArticle?userId=${user.id}",
-                                async: true,
-                                success: function (result) {
-                                    $(result).each(function () {
-                                        <%--$(".tagcloud").append('<a href="/archives?name=' + this.name + '&userId=${user.id}" style="font-size: 15px;">' + this.name + '</a>')--%>
-                                        $(".post-list").append('<li class="post-list-item"><a class="post-list-link" href="/article/' + this.id + '">' + this.title + '</a></li>')
-                                    })
-                                }
-                            });
-                        </script>
+
+                        <%@ include file="slice/latestArticleSlice.jsp" %>
+
                     </ul>
                 </div>
             </div>
         </div>
         <div class="pure-u-1 pure-u-md-3-4"></div>
     </div>
-    <script type="text/javascript" src="<c:url value="/js/totop.js?v=2.0.1"/>" async=""></script>
-    <script type="text/javascript" src="<c:url value="/js/jquery.fancybox.min.js?v=2.0.1"/>" async=""></script>
-    <script type="text/javascript" src="<c:url value="/js/fancybox.js?v=2.0.1"/>" async=""></script>
-    <link rel="stylesheet" type="text/css" href="<c:url value="/css/jquery.fancybox.min.css?v=2.0.1"/>"/>
-    <script type="text/javascript" src="<c:url value="/js/codeblock-resizer.js?v=2.0.1"/>"></script>
-    <script type="text/javascript" src="<c:url value="/js/smartresize.js?v=2.0.1"/>"></script>
+
+    <%@include file="slice/IncludeJsSlice.jsp" %>
+
 </div>
 </body>
 <script>

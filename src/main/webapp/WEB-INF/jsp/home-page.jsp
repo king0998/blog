@@ -74,9 +74,7 @@
                     </div>
                     <div class="tagcloud">
 
-                        <%--<a href="/tags/wudaokou/" style="font-size: 15px;">五道口</a>--%>
-
-                        <%@ include file="tagsHtmlSlice.jsp" %>
+                        <%@ include file="slice/tagsHtmlSlice.jsp" %>
 
                     </div>
                 </div>
@@ -85,28 +83,17 @@
                         <i class="fa fa-file-o"> 最近文章</i>
                     </div>
                     <ul class="post-list">
-                        <script>
-                            $.ajax({
-                                url: "/latestArticle?userId=${user.id}",
-                                async: true,
-                                success: function (result) {
-                                    $(result).each(function () {
-                                        <%--$(".tagcloud").append('<a href="/archives?name=' + this.name + '&userId=${user.id}" style="font-size: 15px;">' + this.name + '</a>')--%>
-                                        $(".post-list").append('<li class="post-list-item"><a class="post-list-link" href="/article/' + this.id + '">' + this.title + '</a></li>')
-                                    })
-                                }
-                            });
-                        </script>
+
+                        <%@ include file="slice/latestArticleSlice.jsp" %>
+
                     </ul>
                 </div>
             </div>
         </div>
     </div>
-    <script type="text/javascript" src="<c:url value="/js/jquery.fancybox.min.js?v=2.0.1"/>" async=""></script>
-    <script type="text/javascript" src="<c:url value="/js/fancybox.js?v=2.0.1"/>" async=""></script>
-    <link rel="stylesheet" type="text/css" href="<c:url value="/css/jquery.fancybox.min.css?v=2.0.1"/>"/>
-    <script type="text/javascript" src="<c:url value="/js/codeblock-resizer.js?v=2.0.1"/>"></script>
-    <script type="text/javascript" src="<c:url value="/js/smartresize.js?v=2.0.1"/>"></script>
+
+    <%@include file="slice/IncludeJsSlice.jsp" %>
+
 </div>
 </body>
 <script>

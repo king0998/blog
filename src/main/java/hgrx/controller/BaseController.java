@@ -73,12 +73,13 @@ public class BaseController {
         Map<String, List<ArticleDetailVO>> yearMap = getYearMap(advoList);
         model.addAttribute("yearMap", yearMap);
         return "article-list";
-
     }
+
 
     public Map<String, List<ArticleDetailVO>> getYearMap(List<ArticleDetailVO> advoList) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy");
         // 归档页面,需要年份,时间都是逆序
+        Collections.sort(advoList);
         Map<String, List<ArticleDetailVO>> map = new TreeMap<>((a, b) -> -a.compareTo(b));
         advoList.forEach(it -> {
             String year = sdf.format(it.getTimestamp());
@@ -124,27 +125,36 @@ public class BaseController {
      * @param name   tag 名称
      * @param userId tag所属的用户id
      */
-    @RequestMapping(value = "archives")
+    @RequestMapping(value = "archives", params = {"name", "userId"})
     public String getTagsByName(@RequestParam String name, @RequestParam Long userId, Model model) {
         List<ArticleDetailVO> advoList = baseService.listAdvoByUserId(userId);
         advoList.removeIf(
                 it -> !it.getTags().contains(name)
         );
-        Collections.sort(advoList);
-        User user = baseService.getUserById(userId);
-        model.addAttribute("num", advoList.size());
-        model.addAttribute("user", user);
         Map<String, List<ArticleDetailVO>> yearMap = getYearMap(advoList);
+        User user = baseService.getUserById(userId);
+        model.addAttribute("user", user);
         model.addAttribute("yearMap", yearMap);
-        model.addAttribute("keyword", name);
         return "article-list";
+    }
+
+    @RequestMapping(value = "archives", params = {"keyword", "userId"})
+    public String listAdvoWithKeyword(@RequestParam String keyword,
+                                      @RequestParam Long userId, Model model) {
+        List<ArticleDetailVO> advoList = baseService.listAdvoByUserIdAndKeyword(keyword, userId);
+        Map<String, List<ArticleDetailVO>> yearMap = getYearMap(advoList);
+        User user = baseService.getUserById(userId);
+        model.addAttribute("user", user);
+        model.addAttribute("yearMap", yearMap);
+        return "article-list";
+
     }
 
     @RequestMapping(value = "listTags")
     @ResponseBody
     public List<TagWithSize> listTagsByUserId(@RequestParam Long userId) {
+        //TODO 缓存
         return baseService.listTagsWithSizeByUserId(userId);
-
     }
 
 
@@ -155,5 +165,6 @@ public class BaseController {
         List<Article> list = baseService.listLatestArticleByUserId(userId);
         return list.subList(0, list.size() > 10 ? 10 : list.size());
     }
+
 
 }
