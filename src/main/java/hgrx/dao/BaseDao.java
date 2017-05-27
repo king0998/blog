@@ -50,4 +50,7 @@ public interface BaseDao {
 
     @Select("SELECT id,title FROM article WHERE user_id = #{userId} ORDER BY timestamp DESC LIMIT 10")
     List<Article> listLatestArticleByUserId(Long userId);
+
+    @Select("SELECT count(*) FROM article_tags_link WHERE tag_id = #{id}")
+    Integer getSizeOfTag(Long id);
 }

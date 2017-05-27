@@ -5,9 +5,11 @@ import hgrx.bean.Tag;
 import hgrx.bean.User;
 import hgrx.dao.BaseDao;
 import hgrx.dto.ArticleDetailVO;
+import hgrx.dto.TagWithSize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -58,5 +60,21 @@ public class BaseService {
 
     public List<Article> listLatestArticleByUserId(Long userId) {
         return baseDao.listLatestArticleByUserId(userId);
+    }
+
+    public List<TagWithSize> listTagsWithSizeByUserId(Long userId) {
+        return addSizeToTag(baseDao.listTagsByUserId(userId));
+    }
+
+    /**
+     * 算出每个tag所包含的文章数
+     */
+    private List<TagWithSize> addSizeToTag(List<Tag> tagWithSizes) {
+        //TODO 缓存   还要解决的一个问题是每次都会将连接返回池子再拿出来,希望能一次性跑完再放回去
+        List<TagWithSize> sizeList = new ArrayList<>(tagWithSizes.size());
+        tagWithSizes.forEach(it -> {
+            sizeList.add(new TagWithSize(it, baseDao.getSizeOfTag(it.getId())));
+        });
+        return sizeList;
     }
 }

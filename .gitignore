@@ -1,7 +1,11 @@
 
+#数据库连接文件
 *.db
 
-
-/target/*
+# IDEA
 /.idea/*
 /myblog.iml
+
+
+# maven
+/target/*

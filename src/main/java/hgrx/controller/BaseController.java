@@ -4,6 +4,7 @@ import hgrx.bean.Article;
 import hgrx.bean.Tag;
 import hgrx.bean.User;
 import hgrx.dto.ArticleDetailVO;
+import hgrx.dto.TagWithSize;
 import hgrx.service.AdminService;
 import hgrx.service.BaseService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -141,10 +142,11 @@ public class BaseController {
 
     @RequestMapping(value = "listTags")
     @ResponseBody
-    public List<Tag> listTagsByUserId(@RequestParam Long userId) {
-        //TODO 缓存
-        return baseService.listTagsByUserId(userId);
+    public List<TagWithSize> listTagsByUserId(@RequestParam Long userId) {
+        return baseService.listTagsWithSizeByUserId(userId);
+
     }
+
 
     @RequestMapping(value = "latestArticle")
     @ResponseBody

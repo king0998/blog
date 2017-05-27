@@ -64,17 +64,9 @@
                         <i class="fa fa-star-o"> 标签</i>
                     </div>
                     <div class="tagcloud">
-                        <script>
-                            $.ajax({
-                                url: "/listTags?userId=${user.id}",
-                                async: true,
-                                success: function (result) {
-                                    $(result).each(function () {
-                                        $(".tagcloud").append('<a href="/archives?name=' + this.name + '&userId=${user.id}" style="font-size: 15px;">' + this.name + '</a>')
-                                    })
-                                }
-                            });
-                        </script>
+
+                        <%@ include file="tagsHtmlSlice.jsp" %>
+
                     </div>
                 </div>
                 <div class="widget">
