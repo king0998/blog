@@ -22,7 +22,7 @@
             <p class="description">${user.intro}</p>
         </div>
         <div id="nav-menu">
-            <a href="<c:url value="/."/>" class="current"><i class="fa fa-home"> 首页</i></a>
+            <a href="<c:url value="/home-page/${user.id}"/>" class="current"><i class="fa fa-home"> 首页</i></a>
             <a href="<c:url value="/archives/${user.id}"/>"><i class="fa fa-archive"> 归档</i></a>
             <a href="<c:url value="/about/${user.id}"/>"><i class="fa fa-user"> 关于</i></a>
         </div>
@@ -64,25 +64,17 @@
                         <i class="fa fa-star-o"> 标签</i>
                     </div>
                     <div class="tagcloud">
-                        <a href="/tags/wudaokou/" style="font-size: 15px;">五道口</a>
-                        <a href="/tags/emotion/" style="font-size: 15px;">心情</a>
-                        <a href="/tags/music/" style="font-size: 15px;">音乐</a>
-                        <a href="/tags/sports/" style="font-size: 15px;">体育</a>
-                        <a href="/tags/NBA/" style="font-size: 15px;">NBA</a>
-                        <a href="/tags/technology/" style="font-size: 15px;">技术</a>
-                        <a href="/tags/Internet/" style="font-size: 15px;">Internet</a>
-                        <a href="/tags/Typecho/" style="font-size: 15px;">Typecho</a>
-                        <a href="/tags/movie/" style="font-size: 15px;">电影</a>
-                        <a href="/tags/manuscript/" style="font-size: 15px;">随笔</a>
-                        <a href="/tags/eat/" style="font-size: 15px;">吃</a>
-                        <a href="/tags/jeffery/" style="font-size: 15px;">李杨</a>
-                        <a href="/tags/Wordpress/" style="font-size: 15px;">Wordpress</a>
-                        <a href="/tags/blog/" style="font-size: 15px;">博客</a>
-                        <a href="/tags/GitHub/" style="font-size: 15px;">GitHub</a>
-                        <a href="/tags/Hexo/" style="font-size: 15px;">Hexo</a>
-                        <a href="/tags/duoshuo/" style="font-size: 15px;">多说</a>
-                        <a href="/tags/VPS/" style="font-size: 15px;">VPS</a>
-                        <a href="/tags/host/" style="font-size: 15px;">主机</a>
+                        <script>
+                            $.ajax({
+                                url: "/listTags?userId=${user.id}",
+                                async: true,
+                                success: function (result) {
+                                    $(result).each(function () {
+                                        $(".tagcloud").append('<a href="/archives?name=' + this.name + '&userId=${user.id}" style="font-size: 15px;">' + this.name + '</a>')
+                                    })
+                                }
+                            });
+                        </script>
                     </div>
                 </div>
                 <div class="widget">
@@ -90,23 +82,21 @@
                         <i class="fa fa-file-o"> 最近文章</i>
                     </div>
                     <ul class="post-list">
-                        <li class="post-list-item"><a class="post-list-link" href="/emotion/last-spring.html">春去春又来</a>
-                        </li>
-                        <li class="post-list-item"><a class="post-list-link"
-                                                      href="/emotion/last-twilight.html">最后的黄昏</a></li>
-                        <li class="post-list-item"><a class="post-list-link" href="/emotion/about-love.html">关于爱情</a>
-                        </li>
-                        <li class="post-list-item"><a class="post-list-link" href="/emotion/December.html">十二月</a></li>
-                        <li class="post-list-item"><a class="post-list-link" href="/emotion/saw-you-again.html">再会</a>
-                        </li>
-                        <li class="post-list-item"><a class="post-list-link" href="/emotion/summer.html">又一个夏天</a></li>
-                        <li class="post-list-item"><a class="post-list-link" href="/emotion/Tanshari.html">断，舍，离</a>
-                        </li>
-                        <li class="post-list-item"><a class="post-list-link"
-                                                      href="/emotion/help-each-other.html">相依为命</a></li>
-                        <li class="post-list-item"><a class="post-list-link" href="/emotion/dash.html">破折号使用范例</a></li>
-                        <li class="post-list-item"><a class="post-list-link" href="/emotion/Ode-to-Joy.html">并没有那么欢乐</a>
-                        </li>
+
+
+                        <script>
+                            $.ajax({
+                                url: "/latestArticle?userId=${user.id}",
+                                async: true,
+                                success: function (result) {
+                                    $(result).each(function () {
+                                        <%--$(".tagcloud").append('<a href="/archives?name=' + this.name + '&userId=${user.id}" style="font-size: 15px;">' + this.name + '</a>')--%>
+                                        $(".post-list").append('<li class="post-list-item"><a class="post-list-link" href="/article/' + this.id + '">' + this.title + '</a></li>')
+                                    })
+                                }
+                            });
+                        </script>
+
                     </ul>
                 </div>
             </div>

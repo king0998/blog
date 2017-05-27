@@ -1,5 +1,6 @@
 package hgrx.service;
 
+import hgrx.bean.Article;
 import hgrx.bean.Tag;
 import hgrx.bean.User;
 import hgrx.dao.BaseDao;
@@ -53,5 +54,9 @@ public class BaseService {
 
     public List<ArticleDetailVO> listAllAdvo() {
         return baseDao.listAllAdvo();
+    }
+
+    public List<Article> listLatestArticleByUserId(Long userId) {
+        return baseDao.listLatestArticleByUserId(userId);
     }
 }

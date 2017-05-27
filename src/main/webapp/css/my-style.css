@@ -15,3 +15,6 @@ div.tags {
     margin-top: 20px;
 }
 
+div.tagcloud > a {
+    display: inline-block
+}

@@ -1,5 +1,6 @@
 package hgrx.controller;
 
+import hgrx.bean.Article;
 import hgrx.bean.Tag;
 import hgrx.bean.User;
 import hgrx.dto.ArticleDetailVO;
@@ -68,7 +69,6 @@ public class BaseController {
         model.addAttribute("num", advoList.size());
         model.addAttribute("user", user);
 
-        //TODO 将年份分好,以year:list存入map中,在页面上直接输出
         Map<String, List<ArticleDetailVO>> yearMap = getYearMap(advoList);
         model.addAttribute("yearMap", yearMap);
         return "article-list";
@@ -142,7 +142,16 @@ public class BaseController {
     @RequestMapping(value = "listTags")
     @ResponseBody
     public List<Tag> listTagsByUserId(@RequestParam Long userId) {
+        //TODO 缓存
         return baseService.listTagsByUserId(userId);
+    }
+
+    @RequestMapping(value = "latestArticle")
+    @ResponseBody
+    public List<Article> listLatestArticle(@RequestParam Long userId) {
+        //TODO 缓存
+        List<Article> list = baseService.listLatestArticleByUserId(userId);
+        return list.subList(0, list.size() > 10 ? 10 : list.size());
     }
 
 }

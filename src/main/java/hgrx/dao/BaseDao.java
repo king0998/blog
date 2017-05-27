@@ -47,4 +47,7 @@ public interface BaseDao {
 
     @Select("SELECT id, user_id, title,  content, timestamp, like_num,  star_num  FROM article ORDER BY timestamp DESC")
     List<ArticleDetailVO> listAllAdvo();
+
+    @Select("SELECT id,title FROM article WHERE user_id = #{userId} ORDER BY timestamp DESC LIMIT 10")
+    List<Article> listLatestArticleByUserId(Long userId);
 }

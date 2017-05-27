@@ -95,23 +95,18 @@
                         <i class="fa fa-file-o"> 最近文章</i>
                     </div>
                     <ul class="post-list">
-                        <li class="post-list-item"><a class="post-list-link" href="/emotion/last-spring.html">春去春又来</a>
-                        </li>
-                        <li class="post-list-item"><a class="post-list-link"
-                                                      href="/emotion/last-twilight.html">最后的黄昏</a></li>
-                        <li class="post-list-item"><a class="post-list-link" href="/emotion/about-love.html">关于爱情</a>
-                        </li>
-                        <li class="post-list-item"><a class="post-list-link" href="/emotion/December.html">十二月</a></li>
-                        <li class="post-list-item"><a class="post-list-link" href="/emotion/saw-you-again.html">再会</a>
-                        </li>
-                        <li class="post-list-item"><a class="post-list-link" href="/emotion/summer.html">又一个夏天</a></li>
-                        <li class="post-list-item"><a class="post-list-link" href="/emotion/Tanshari.html">断，舍，离</a>
-                        </li>
-                        <li class="post-list-item"><a class="post-list-link"
-                                                      href="/emotion/help-each-other.html">相依为命</a></li>
-                        <li class="post-list-item"><a class="post-list-link" href="/emotion/dash.html">破折号使用范例</a></li>
-                        <li class="post-list-item"><a class="post-list-link" href="/emotion/Ode-to-Joy.html">并没有那么欢乐</a>
-                        </li>
+                        <script>
+                            $.ajax({
+                                url: "/latestArticle?userId=${user.id}",
+                                async: true,
+                                success: function (result) {
+                                    $(result).each(function () {
+                                        <%--$(".tagcloud").append('<a href="/archives?name=' + this.name + '&userId=${user.id}" style="font-size: 15px;">' + this.name + '</a>')--%>
+                                        $(".post-list").append('<li class="post-list-item"><a class="post-list-link" href="/article/' + this.id + '">' + this.title + '</a></li>')
+                                    })
+                                }
+                            });
+                        </script>
                     </ul>
                 </div>
             </div>
