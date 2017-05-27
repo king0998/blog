@@ -1,3 +1,5 @@
+<%@ page import="java.text.SimpleDateFormat" %>
+<%@ page import="java.util.Date" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -36,14 +38,23 @@
     <div id="layout" class="pure-g">
         <div class="pure-u-1 pure-u-md-3-4">
             <div class="content_container">
+                <c:if test="${not empty desc}">
+                    <h1 class="label-title">正在查看有关 ${desc} 的文章</h1>
+                </c:if>
+
                 <div class="post">
                     <div class="post-archive">
+                        <%-- start --%>
+                        <%--  end  --%>
+
                         <c:forEach items="${yearMap}" var="value">
                             <h2>${value.key}</h2>
                             <ul class="listing">
                                 <c:forEach items="${value.value}" var="advo">
                                     <li>
-                                        <span class="date">${advo.timestamp}</span>
+                                        <span class="date">
+                                                ${advo.timestamp}
+                                        </span>
 
                                         <a href="<c:url value="/article/${advo.id}"/>"
                                            title="${advo.title}">${advo.title}</a>

@@ -1,34 +1,61 @@
-<%@ taglib prefix="c" uri="http://www.springframework.org/tags" %>
-<%--
-  Created by IntelliJ IDEA.
-  User: 75747
-  Date: 2017/5/14
-  Time: 22:37
-  To change this template use File | Settings | File Templates.
---%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
+<!doctype html>
+<html lang="en">
 <head>
-    <title>添加文章</title>
-    <style>
-        textarea {
-            width: 200px;
-            height: 200px;;
-        }
-    </style>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>个人中心</title>
+    <link rel="stylesheet" href="<c:url value="/css/pure-min.css"/>">
+    <link rel="stylesheet" href="<c:url value="/css/side-menu.css"/>">
 </head>
 <body>
 
-todo:提供一个在线编辑器,直接输入md文档
-<form action="<c:url value="/admin/article/addHandle"/>" method="post">
-    <input type="text" name="title"/>
-    <label>
-        <textarea name="content"></textarea>
-    </label>
-    <input type="text" name="tags"/>
-    <input type="checkbox" name="draft">
-    <input type="submit">
-</form>
+<div id="layout">
+    <!-- Menu toggle -->
+    <a href="#menu" id="menuLink" class="menu-link">
+        <!-- Hamburger icon -->
+        <span></span>
+    </a>
+
+    <div id="menu">
+        <div class="pure-menu">
+            <a class="pure-menu-heading" href="<c:url value="/admin/center"/> ">个人中心</a>
+            <%--    class="menu-item-divided pure-menu-selected"    --%>
+            <ul class="pure-menu-list">
+                <li class="menu-item-divided pure-menu-selected"><a href="<c:url value="/admin/article/add"/>"
+                                                                    class="pure-menu-link">发表文章</a></li>
+                <li class="pure-menu-item"><a href="<c:url value="/admin/article/manage"/>"
+                                              class="pure-menu-link">文章管理</a></li>
+                <li class="pure-menu-item"><a href="<c:url value="/admin/following"/>" class="pure-menu-link">我的关注</a>
+                </li>
+                <li class="pure-menu-item"><a href="<c:url value="/admin/follower"/>" class="pure-menu-link">关注我的</a>
+                </li>
+                <li class="pure-menu-item"><a href="<c:url value="/admin/star/list"/>" class="pure-menu-link">我的收藏</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="main">
+        <div class="header">
+            <h1>文章管理</h1>
+            <h2>无fuck说</h2>
+        </div>
+
+        <div>
+            <form action="<c:url value="/admin/article/addHandle"/>" method="post">
+                <input type="text" name="title"/>
+                <label>
+                    <textarea name="content"></textarea>
+                </label>
+                <input type="text" name="tags"/>
+                <input type="checkbox" name="draft">
+                <input type="submit">
+            </form>
+        </div>
+    </div>
+</div>
 
 </body>
 </html>

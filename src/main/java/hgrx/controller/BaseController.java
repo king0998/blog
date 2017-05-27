@@ -134,6 +134,7 @@ public class BaseController {
         Map<String, List<ArticleDetailVO>> yearMap = getYearMap(advoList);
         User user = baseService.getUserById(userId);
         model.addAttribute("user", user);
+        model.addAttribute("desc", name);
         model.addAttribute("yearMap", yearMap);
         return "article-list";
     }
@@ -145,6 +146,7 @@ public class BaseController {
         Map<String, List<ArticleDetailVO>> yearMap = getYearMap(advoList);
         User user = baseService.getUserById(userId);
         model.addAttribute("user", user);
+        model.addAttribute("desc", keyword);
         model.addAttribute("yearMap", yearMap);
         return "article-list";
     }

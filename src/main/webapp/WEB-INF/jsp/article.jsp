@@ -44,9 +44,9 @@
                             <a href="<c:url value="/archives?name=${tag}&userId=${user.id}"/> ">${tag}</a>
                         </c:forEach>
                     </div>
-                    <div class="post-nav">
-                        <a href="/emotion/last-twilight.html" class="next">最后的黄昏</a>
-                    </div>
+                        <%--<div class="post-nav">--%>
+                        <%--<a href="/emotion/last-twilight.html" class="next">最后的黄昏</a>--%>
+                        <%--</div>--%>
                 </div>
             </div>
         </div>

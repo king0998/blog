@@ -2,7 +2,7 @@
 
 <%-- 侧栏公共部分  --%>
 
-<div id="sidebar">
+<div id="sidebar" style="min-width: 222px;">
     <div class="widget">
         <form action="<c:url value="/archives/search"/> " method="post" accept-charset="utf-8" class="search-form">
             <input style="width: 172px" type="text" name="keyword" maxlength="20" placeholder="Search"/>

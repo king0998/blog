@@ -41,7 +41,7 @@
                         <div class="post-content">
                                 ${advo.content}
                         </div>
-                        <p class="readmore"><a href="<c:url value="/article/${advo.id}"/>">阅读全文</a></p>
+                            <%--<p class="readmore"><a href="<c:url value="/article/${advo.id}"/>">阅读全文</a></p>--%>
                     </div>
                 </c:forEach>
 
@@ -69,7 +69,6 @@
 </body>
 <script>
     function getLocalTime(nS) {
-//        return new Date(parseInt(nS)).toLocaleString().replace(/:\d{1,2}$/,' ');
         return new Date(parseInt(nS)).toLocaleString().substr(0, 9).replace("-", "/").replace("-", "/");
     }
 

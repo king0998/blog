@@ -19,11 +19,7 @@
 <div class="body_container">
     <div id="header">
         <div class="site-name">
-            <%--<h1 class="hidden">春去春又来</h1>--%>
-            <%--<h1 class="hidden">${advo.title}</h1>--%>
-            <%--<a id="logo" href="/.">屠城</a>--%>
             <a id="logo" href="#">${user.nickname}</a>
-            <%--<p class="description">屠夫9441的博客</p>--%>
             <p class="description">${user.intro}</p>
         </div>
         <div id="nav-menu">
@@ -40,7 +36,7 @@
                 <div class="post">
 
 
-                    ${about}
+                    <h1> ${about} </h1>
 
 
                 </div>
