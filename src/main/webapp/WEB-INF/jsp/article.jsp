@@ -36,17 +36,21 @@
                     <div id="date" class="post-meta">
                         ${elf:date(advo.timestamp)}
                     </div>
-                    <div class="post-content">
-                        ${advo.content}
+
+
+                    <div class="post-content" id="code-html">
+                        ${elf:md(advo.content)}
                     </div>
+
+
                     <div class="tags">
                         <c:forEach items="${advo.tags}" var="tag">
                             <a href="<c:url value="/archives?name=${tag}&userId=${user.id}"/> ">${tag}</a>
                         </c:forEach>
                     </div>
-                        <%--<div class="post-nav">--%>
-                        <%--<a href="/emotion/last-twilight.html" class="next">最后的黄昏</a>--%>
-                        <%--</div>--%>
+                    <%--<div class="post-nav">--%>
+                    <%--<a href="/emotion/last-twilight.html" class="next">最后的黄昏</a>--%>
+                    <%--</div>--%>
                 </div>
             </div>
         </div>

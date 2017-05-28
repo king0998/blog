@@ -1,5 +1,10 @@
 package hgrx.util;
 
+import com.vladsch.flexmark.ast.Node;
+import com.vladsch.flexmark.html.HtmlRenderer;
+import com.vladsch.flexmark.parser.Parser;
+import com.vladsch.flexmark.util.options.MutableDataSet;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -14,5 +19,15 @@ public class ElFunUtil {
 
     public static String date(Long timestamp) {
         return new SimpleDateFormat("yyyy/MM/dd").format(new Date(timestamp));
+    }
+
+
+    public static String md(String md) {
+
+        MutableDataSet options = new MutableDataSet();
+        Parser parser = Parser.builder(options).build();
+        HtmlRenderer renderer = HtmlRenderer.builder(options).build();
+        Node document = parser.parse(md);
+        return renderer.render(document);
     }
 }

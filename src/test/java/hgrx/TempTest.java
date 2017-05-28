@@ -2,11 +2,18 @@ package hgrx;
 
 import com.google.common.collect.Lists;
 import com.google.gson.Gson;
+import com.vladsch.flexmark.ast.Node;
+import com.vladsch.flexmark.html.HtmlRenderer;
+import com.vladsch.flexmark.parser.Parser;
+import com.vladsch.flexmark.util.options.MutableDataSet;
 import org.apache.commons.collections.CollectionUtils;
 import org.junit.Test;
 
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.List;
 
 /**
  * Created by HGRX on 2017/5/11
@@ -42,4 +49,14 @@ public class TempTest {
         System.out.println(sdf.format(new Date(1495784252044L)));
     }
 
+    @Test
+    public void testJavaMD() {
+        MutableDataSet options = new MutableDataSet();
+        Parser parser = Parser.builder(options).build();
+        HtmlRenderer renderer = HtmlRenderer.builder(options).build();
+        Node document = parser.parse("### hello");
+        String html = renderer.render(document);  // "<p>This is <em>Sparta</em></p>\n"
+        System.out.println(html);
+    }
 }
+

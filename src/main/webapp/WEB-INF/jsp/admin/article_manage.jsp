@@ -1,6 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="elf" uri="/WEB-INF/tlds/elfunc.tld" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="elf" uri="/WEB-INF/tlds/elfunc.tld" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!doctype html>
 <html lang="en">
@@ -65,7 +65,8 @@
 
                 <c:forEach items="${advoList}" var="advo">
                 <tr>
-                    <td>${advo.title}</td>
+                        <%--<td>${advo.title}</td>--%>
+                    <td><a href="/article/${advo.id}">${advo.title}</a></td>
 
                         <%--<td>${advo.timestamp}</td>--%>
                     <td>${elf:date(advo.timestamp)}</td>

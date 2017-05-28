@@ -12,12 +12,22 @@
 
     <!--<function>元素用于描述一个EL自定义函数 -->
     <function>
-        <description>用于连接两个字符串</description>
+        <description>将Unix时间戳转换为yyyy/MM/dd</description>
         <name>date</name>
         <function-class>hgrx.util.ElFunUtil
         </function-class>
         <function-signature>java.lang.String date(java.lang.Long)</function-signature>
         <example>${elf:date(timestamp)}</example>
+    </function>
+
+
+    <function>
+        <description>将md文档转为html</description>
+        <name>md</name>
+        <function-class>hgrx.util.ElFunUtil
+        </function-class>
+        <function-signature>java.lang.String md(java.lang.String)</function-signature>
+        <example>${elf:md(timestamp)}</example>
     </function>
 
 </taglib>
