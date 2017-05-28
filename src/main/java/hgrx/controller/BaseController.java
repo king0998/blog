@@ -166,6 +166,4 @@ public class BaseController {
         List<Article> list = baseService.listLatestArticleByUserId(userId);
         return list.subList(0, list.size() > 10 ? 10 : list.size());
     }
-
-
 }

@@ -1,4 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="elf" uri="/WEB-INF/tlds/elfunc.tld" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!doctype html>
 <html lang="en">
@@ -64,7 +66,10 @@
                 <c:forEach items="${advoList}" var="advo">
                 <tr>
                     <td>${advo.title}</td>
-                    <td>${advo.timestamp}</td>
+
+                        <%--<td>${advo.timestamp}</td>--%>
+                    <td>${elf:date(advo.timestamp)}</td>
+
                     <td>${advo.draft}</td>
                     <td><a href="<c:url value="/admin/article/edit/${advo.id}"/>">编辑</a>
                         <a href="<c:url value="/admin/article/delete/${advo.id}"/>">删除</a>

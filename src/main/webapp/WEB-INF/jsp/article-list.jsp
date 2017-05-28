@@ -1,5 +1,4 @@
-<%@ page import="java.text.SimpleDateFormat" %>
-<%@ page import="java.util.Date" %>
+<%@ taglib prefix="elf" uri="/WEB-INF/tlds/elfunc.tld" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -17,7 +16,7 @@
     <link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css"/>
     <script type="text/javascript" src="<c:url value="/js/jquery.min.js?v=2.0.1"/>"></script>
 </head>
-<body onload="changeTimeFormat()">
+<body>
 <div class="body_container">
     <div id="header">
         <div class="site-name">
@@ -53,7 +52,7 @@
                                 <c:forEach items="${value.value}" var="advo">
                                     <li>
                                         <span class="date">
-                                                ${advo.timestamp}
+                                                ${elf:date(advo.timestamp)}
                                         </span>
 
                                         <a href="<c:url value="/article/${advo.id}"/>"
@@ -80,18 +79,4 @@
 
 </div>
 </body>
-<script>
-
-    function getLocalTime(nS) {
-        return new Date(parseInt(nS)).toLocaleString().substr(0, 9).replace("-", "/").replace("-", "/");
-    }
-
-    function changeTimeFormat() {
-        $(".date").each(function () {
-            $(this).html(getLocalTime($(this).html()));
-        })
-    }
-
-
-</script>
 </html>

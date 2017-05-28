@@ -1,6 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-
+<%@ taglib prefix="elf" uri="/WEB-INF/tlds/elfunc.tld" %>
 <html lang="zh-CN"
       class=" wf-source-han-serif-sc-n4-active wf-source-han-serif-sc-n9-active wf-active wf-loading wf-source-han-serif-sc-n4-loading wf-source-han-serif-sc-n9-loading">
 <head>
@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css"/>
     <script type="text/javascript" src="<c:url value="/js/jquery.min.js?v=2.0.1"/>"></script>
 </head>
-<body onload="changeArticlePageTimeFormat()">
+<body>
 <div class="body_container">
     <div id="header">
         <div class="site-name">
@@ -34,7 +34,7 @@
                     <%--<h1 class="post-title">春去春又来</h1>--%>
                     <h1 class="post-title">${advo.title}</h1>
                     <div id="date" class="post-meta">
-                        ${advo.timestamp}
+                        ${elf:date(advo.timestamp)}
                     </div>
                     <div class="post-content">
                         ${advo.content}
@@ -61,17 +61,5 @@
     </div>
 </div>
 </body>
-<script>
 
-    function getLocalTime(nS) {
-//        return new Date(parseInt(nS)).toLocaleString().replace(/:\d{1,2}$/,' ');
-        return new Date(parseInt(nS)).toLocaleString().substr(0, 9).replace("-", "/").replace("-", "/");
-    }
-
-    function changeArticlePageTimeFormat() {
-        var element = document.getElementById("date");
-        element.innerHTML = getLocalTime(element.innerHTML.toString());
-    }
-
-</script>
 </html>
