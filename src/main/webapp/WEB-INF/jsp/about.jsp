@@ -1,19 +1,18 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-<html lang="zh-CN"
-      class=" wf-source-han-serif-sc-n4-active wf-source-han-serif-sc-n9-active wf-active wf-loading wf-source-han-serif-sc-n4-loading wf-source-han-serif-sc-n9-loading">
+<html lang="zh-CN">
 <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
     <%--<title>春去春又来 | 屠城</title>--%>
     <title>归档 | ${user.nickname}</title>
-    <link rel="stylesheet" type="text/css" href="<c:url value="/css/style.css?v=2.0.1"/>"/>
-    <link rel="stylesheet" type="text/css" href="<c:url value="/css/normalize.min.css?v=2.0.1"/>"/>
-    <link rel="stylesheet" type="text/css" href="<c:url value="/css/pure-min.css?v=2.0.1"/>"/>
-    <link rel="stylesheet" type="text/css" href="<c:url value="/css/grids-responsive-min.css?v=2.0.1"/>"/>
+    <link rel="stylesheet" type="text/css" href="<c:url value="/css/style.css"/>"/>
+    <link rel="stylesheet" type="text/css" href="<c:url value="/css/normalize.min.css"/>"/>
+    <link rel="stylesheet" type="text/css" href="<c:url value="/css/pure-min.css"/>"/>
+    <link rel="stylesheet" type="text/css" href="<c:url value="/css/grids-responsive-min.css"/>"/>
     <link rel="stylesheet" type="text/css" href="<c:url value="/css/my-style.css"/>"/>
     <link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css"/>
-    <script type="text/javascript" src="<c:url value="/js/jquery.min.js?v=2.0.1"/>"></script>
+    <script type="text/javascript" src="<c:url value="/js/jquery.min.js"/>"></script>
 </head>
 <body>
 <div class="body_container">

@@ -9,9 +9,7 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -223,6 +221,22 @@ public class AdminController {
         User user = getUser(session);
         Like like = new Like(id, user.getId());
         return adminService.addLike(like) + "";
+    }
+
+    @RequestMapping(value = "/admin/article/preview", method = RequestMethod.POST)
+    public String previewArticle(@RequestParam String content,
+                                 @RequestParam String title, Model model, HttpSession session) {
+        User user = getUser(session);
+        model.addAttribute("user", user);
+        ArticleDetailVO advo = new ArticleDetailVO();
+        System.out.println(content);
+        advo.setTitle(title);
+        String replaceStr = content.replaceAll("(?<!\\\\)\\\\n", "\n");
+        System.out.println(replaceStr);
+        advo.setContent(replaceStr);
+        advo.setTimestamp(System.currentTimeMillis());
+        model.addAttribute("advo", advo);
+        return "/admin/preview_article";
     }
 
 }

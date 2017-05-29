@@ -52,7 +52,7 @@ public class BaseController {
     public String homePage(@PathVariable Long id, Model model) {
         //TODO id合法性
         User user = baseService.getUserById(id);
-        List<ArticleDetailVO> advoList = baseService.listAdvoByUserId(id);
+        List<ArticleDetailVO> advoList = baseService.listAdvoWithPartContentByUserId(id);
         //TODO 首页文章需要截取部分,并设置单独输出标签输出为html
         model.addAttribute("user", user);
         model.addAttribute("advoList", advoList);
@@ -167,4 +167,5 @@ public class BaseController {
         List<Article> list = baseService.listLatestArticleByUserId(userId);
         return list.subList(0, list.size() > 10 ? 10 : list.size());
     }
+
 }

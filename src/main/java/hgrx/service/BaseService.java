@@ -35,6 +35,7 @@ public class BaseService {
         return advo;
     }
 
+
     public List<ArticleDetailVO> listAdvoByUserId(Long id) {
         List<ArticleDetailVO> list = baseDao.listAdvoWithoutTagsByUserId(id);
         // 使用mybatis配置很麻烦，join的话也不太好写
@@ -85,5 +86,19 @@ public class BaseService {
         par.put("keyword", keyword);
         par.put("userId", userId);
         return baseDao.listAdvoByUserIdAndKeyword(par);
+    }
+
+    public List<ArticleDetailVO> listAdvoWithPartContentByUserId(Long id) {
+        List<ArticleDetailVO> list = listAdvoByUserId(id);
+        list.forEach(
+                //TODO 缓存?感觉每次都截取一次有点蠢
+                it -> {
+                    String tmp = it.getContent();
+                    int end = tmp.indexOf("<--->");
+                    tmp = tmp.substring(0, end == -1 ? (tmp.length() > 200 ? 200 : tmp.length()) : end);
+                    it.setContent(tmp);
+                }
+        );
+        return list;
     }
 }

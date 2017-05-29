@@ -4,7 +4,7 @@
 <html lang="zh-CN">
 <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
-    <title>${advo.title} | ${user.nickname}</title>
+    <title>预览文章 | ${user.nickname}</title>
     <link rel="stylesheet" type="text/css" href="<c:url value="/css/style.css?v=2.0.1"/>"/>
     <link rel="stylesheet" type="text/css" href="<c:url value="/css/normalize.min.css?v=2.0.1"/>"/>
     <link rel="stylesheet" type="text/css" href="<c:url value="/css/pure-min.css?v=2.0.1"/>"/>
@@ -32,7 +32,6 @@
         <div class="pure-u-1 pure-u-md-3-4">
             <div class="content_container">
                 <div class="post">
-                    <%--<h1 class="post-title">春去春又来</h1>--%>
                     <h1 class="post-title">${advo.title}</h1>
                     <div id="date" class="post-meta">
                         ${elf:date(advo.timestamp)}
@@ -43,28 +42,17 @@
                     </div>
 
                     <script src="<c:url value="/js/prism.js"/>"></script>
-
-                    <div class="tags">
-                        <c:forEach items="${advo.tags}" var="tag">
-                            <a href="<c:url value="/archives?name=${tag}&userId=${user.id}"/> ">${tag}</a>
-                        </c:forEach>
-                    </div>
-                    <%--<div class="post-nav">--%>
-                    <%--<a href="/emotion/last-twilight.html" class="next">最后的黄昏</a>--%>
-                    <%--</div>--%>
                 </div>
             </div>
         </div>
 
-
         <div class="pure-u-1-4 pure-u-md-1-4">
-            <%@include file="slice/sideBarSlice.jsp" %>
+            <%@include file="../slice/sideBarSlice.jsp" %>
         </div>
 
-        <%@include file="slice/IncludeJsSlice.jsp" %>
+        <%@include file="../slice/IncludeJsSlice.jsp" %>
 
     </div>
 </div>
 </body>
-
 </html>
