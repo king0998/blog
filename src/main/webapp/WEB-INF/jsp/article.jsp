@@ -11,6 +11,7 @@
     <link rel="stylesheet" type="text/css" href="<c:url value="/css/pure-min.css?v=2.0.1"/>"/>
     <link rel="stylesheet" type="text/css" href="<c:url value="/css/grids-responsive-min.css?v=2.0.1"/>"/>
     <link rel="stylesheet" type="text/css" href="<c:url value="/css/my-style.css"/>"/>
+    <link rel="stylesheet" type="text/css" href="<c:url value="/css/prism.css"/> "/>
     <link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css"/>
     <script type="text/javascript" src="<c:url value="/js/jquery.min.js?v=2.0.1"/>"></script>
 </head>
@@ -41,6 +42,8 @@
                     <div class="post-content" id="code-html">
                         ${elf:md(advo.content)}
                     </div>
+
+                    <script src="<c:url value="/js/prism.js"/>"></script>
 
 
                     <div class="tags">
