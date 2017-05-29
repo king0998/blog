@@ -29,6 +29,7 @@
             <a href="<c:url value="/home-page/${user.id}"/>"><i class="fa fa-home"> 首页</i></a>
             <a href="<c:url value="/archives/${user.id}"/>" class="current"><i class="fa fa-archive"> 归档</i></a>
             <a href="<c:url value="/about/${user.id}"/>"><i class="fa fa-user"> 关于</i></a>
+            <a href="<c:url value="/admin/center"/>"><i class="fa fa-cog"> 个人中心</i></a>
         </div>
     </div>
 

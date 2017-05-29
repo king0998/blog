@@ -50,9 +50,10 @@ public class BaseController {
 
     @RequestMapping("/home-page/{id}")
     public String homePage(@PathVariable Long id, Model model) {
-        //TODO id不为数字
+        //TODO id合法性
         User user = baseService.getUserById(id);
         List<ArticleDetailVO> advoList = baseService.listAdvoByUserId(id);
+        //TODO 首页文章需要截取部分,并设置单独输出标签输出为html
         model.addAttribute("user", user);
         model.addAttribute("advoList", advoList);
         return "home-page";
