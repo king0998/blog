@@ -1,7 +1,6 @@
 package hgrx.controller;
 
 import hgrx.bean.Article;
-import hgrx.bean.Tag;
 import hgrx.bean.User;
 import hgrx.dto.ArticleDetailVO;
 import hgrx.dto.TagWithSize;
@@ -92,14 +91,6 @@ public class BaseController {
         return map;
     }
 
-    @RequestMapping("/tags/{id}")
-    public String tags(@PathVariable Long id, Model model) {
-        List<Tag> tagList = baseService.listTagsByUserId(id);
-        User user = baseService.getUserById(id);
-        model.addAttribute("tagList", tagList);
-        model.addAttribute("user", user);
-        return "tags";
-    }
 
     @RequestMapping("about/{id}")
     public String about(@PathVariable Long id, Model model) {

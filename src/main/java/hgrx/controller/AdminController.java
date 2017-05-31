@@ -231,9 +231,10 @@ public class AdminController {
         ArticleDetailVO advo = new ArticleDetailVO();
         System.out.println(content);
         advo.setTitle(title);
+        // 避免替换\n
         String replaceStr = content.replaceAll("(?<!\\\\)\\\\n", "\n");
-        System.out.println(replaceStr);
-        advo.setContent(replaceStr);
+        //  前后各有一个 " 号
+        advo.setContent(replaceStr.substring(1, replaceStr.length() - 1));
         advo.setTimestamp(System.currentTimeMillis());
         model.addAttribute("advo", advo);
         return "/admin/preview_article";
