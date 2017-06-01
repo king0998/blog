@@ -46,7 +46,7 @@ public interface BaseDao {
     @Select("SELECT about FROM about WHERE user_id = #{userId}")
     String getAboutByUserId(Long id);
 
-    @Select("SELECT id, user_id, title,  content, timestamp, like_num,  star_num  FROM article ORDER BY timestamp DESC")
+    @Select("SELECT article.id, user_id,nickname, title,  content, timestamp, like_num,  star_num  FROM article,user WHERE article.user_id = user.id ORDER BY timestamp DESC limit 0,10")
     List<ArticleDetailVO> listAllAdvo();
 
     @Select("SELECT id,title FROM article WHERE user_id = #{userId} ORDER BY timestamp DESC LIMIT 10")
@@ -61,4 +61,16 @@ public interface BaseDao {
             "  AND title LIKE concat('%', #{keyword} ,'%') " +
             " ORDER BY timestamp DESC")
     List<ArticleDetailVO> listAdvoByUserIdAndKeyword(Map<String, Object> par);
+
+    @Select("SELECT user.id FROM user,follow WHERE user.id = main_user_id AND follower_id = #{id}")
+    List<Integer> listFollowingUser(Long id);
+
+    List<ArticleDetailVO> listFollowingAdvo(List<Integer> following);
+
+    @Select("SELECT id, name  FROM tag")
+    List<Tag> listAllTags();
+
+    @Select("SELECT id,user_id,title,content,timestamp FROM article ORDER BY read_num DESC LIMIT 0,20")
+    List<ArticleDetailVO> listHotAdvo();
+
 }

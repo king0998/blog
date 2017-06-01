@@ -43,6 +43,7 @@ public class AdminController {
     @RequestMapping("registerHandle")
     public String handleRegister(User user, HttpSession session) {
         //TODO 校验参数，暂时假设全部都是完美输入条件
+        //TODO 密码加盐值保存
         adminService.addUser(user);
 
         log.info("新注册了用户:" + user);

@@ -58,7 +58,10 @@ public class BaseService {
     }
 
     public List<ArticleDetailVO> listAllAdvo() {
-        return baseDao.listAllAdvo();
+        //TODO 缓存
+        List<ArticleDetailVO> list = baseDao.listAllAdvo();
+        sliceAdvoListContent(list);
+        return list;
     }
 
     public List<Article> listLatestArticleByUserId(Long userId) {
@@ -81,6 +84,23 @@ public class BaseService {
         return sizeList;
     }
 
+
+    public List<TagWithSize> listAllTagsWithSize() {
+        //TODO 缓存
+        List<Tag> tags = baseDao.listAllTags();
+        List<TagWithSize> tagWithSizes = addSizeToTag(tags);
+        Map<String, TagWithSize> maps = new HashMap<>();
+        tagWithSizes.forEach(it -> {
+            TagWithSize tmp = maps.get(it.getName());
+            if (tmp == null) {
+                maps.put(it.getName(), it);
+            } else {
+                tmp.setSize(it.getSize() + tmp.getSize());
+            }
+        });
+        return new ArrayList<>(maps.values());
+    }
+
     public List<ArticleDetailVO> listAdvoByUserIdAndKeyword(String keyword, Long userId) {
         Map<String, Object> par = new HashMap<>();
         par.put("keyword", keyword);
@@ -90,8 +110,25 @@ public class BaseService {
 
     public List<ArticleDetailVO> listAdvoWithPartContentByUserId(Long id) {
         List<ArticleDetailVO> list = listAdvoByUserId(id);
-        list.forEach(
-                //TODO 缓存?感觉每次都截取一次有点蠢
+        sliceAdvoListContent(list);
+        return list;
+    }
+
+    public List<ArticleDetailVO> listFollowingAdvoList(Long id) {
+        List<Integer> following = baseDao.listFollowingUser(id);
+        return baseDao.listFollowingAdvo(following);
+    }
+
+    public List<ArticleDetailVO> listHotAdvo() {
+        //TODO  缓存,按照时间更新
+        List<ArticleDetailVO> hotAdvoList = baseDao.listHotAdvo();
+        sliceAdvoListContent(hotAdvoList);
+        return hotAdvoList;
+    }
+
+    private void sliceAdvoListContent(List<ArticleDetailVO> hotAdvoList) {
+        hotAdvoList.forEach(
+                //TODO 缓存?感觉每次都截取一次有点蠢,这个地方缓存要设在文章处
                 it -> {
                     String tmp = it.getContent();
                     int end = tmp.indexOf("<--->");
@@ -99,6 +136,5 @@ public class BaseService {
                     it.setContent(tmp);
                 }
         );
-        return list;
     }
 }

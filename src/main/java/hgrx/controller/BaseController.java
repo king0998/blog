@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpSession;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -101,14 +102,7 @@ public class BaseController {
         return "about";
     }
 
-    @RequestMapping("square")
-    public String gotoSquare(Model model) {
-        //TODO 计划在这里还要放上个人follow和收藏的文章,暂时先放所有文章
 
-        List<ArticleDetailVO> advoList = baseService.listAllAdvo();
-        model.addAttribute("advoList", advoList);
-        return "square_page";
-    }
 
 
     /**
@@ -157,6 +151,10 @@ public class BaseController {
         //TODO 缓存
         List<Article> list = baseService.listLatestArticleByUserId(userId);
         return list.subList(0, list.size() > 10 ? 10 : list.size());
+    }
+
+    private User getUser(HttpSession session) {
+        return (User) session.getAttribute("user");
     }
 
 }

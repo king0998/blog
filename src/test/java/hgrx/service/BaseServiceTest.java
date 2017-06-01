@@ -42,6 +42,11 @@ public class BaseServiceTest {
 //        System.out.println(new BaseService(baseDao).getAdvoById(1));
     }
 
+    @Test
+    public void test01() {
+        System.out.println(baseService.listFollowingAdvoList(1L));
+    }
+
 
 }
 

@@ -28,16 +28,27 @@
             <a href="<c:url value="/admin/center"/>"><i class="fa fa-cog"> 个人中心</i></a>
         </div>
     </div>
-
+    <script>
+        function follow(id) {
+            $.ajax({
+                url: "/admin/follow/add/" + id,
+                async: true,
+                success: function (result) {
+                    alert(result);
+                    $("#follow").attr("disabled", true);
+                }
+            })
+        }
+    </script>
 
     <div id="layout" class="pure-g">
         <div class="pure-u-1 pure-u-md-3-4">
             <div class="content_container">
                 <div class="post">
-
+                    <button type="button" id="follow" onclick="follow(${user.id})">关注
+                    </button>
 
                     <h1> ${about} </h1>
-
 
                 </div>
             </div>
