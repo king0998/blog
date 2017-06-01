@@ -32,8 +32,6 @@
         </div>
     </div>
 
-    <%-- header --%>
-
     <div id="layout" class="pure-g">
         <div class="pure-u-1 pure-u-md-3-4">
             <div class="content_container">
@@ -44,49 +42,45 @@
                     <div class="post">
                         <h1 class="post-title"><a href="<c:url value="/article/${advo.id}"/>">${advo.title}</a></h1>
                         <div class="post-meta">
-                                <%--${advo.timestamp}--%>
-                                ${elf:date(advo.timestamp)}
+                                ${elf:date(advo.timestamp)}&nbsp;&nbsp; <a href="/home-page/${advo.userId}"><i
+                                class="fa fa-user"> ${advo.nickname}</i></a>
                         </div>
                         <div class="post-content">
-                                <%--${advo.content}--%>
                                 ${elf:md(advo.content)}
                         </div>
-                            <%--<p class="readmore"><a href="<c:url value="/article/${advo.id}"/>">阅读全文</a></p>--%>
                     </div>
                 </c:forEach>
             </div>
         </div>
-    </div>
 
-
-    <%-- footer and sidebar  --%>
-
-    <div class="pure-u-1-4 pure-u-md-1-4">
-        <div id="sidebar" style="min-width: 222px;">
-            <div class="widget">
-                <form action="<c:url value="/archives/search"/> " method="post" accept-charset="utf-8"
-                      class="search-form">
-                    <input style="width: 172px" type="text" name="keyword" maxlength="20" placeholder="Search"/>
-                    <input type="hidden" name="userId" value="${user.id}">
-                </form>
-            </div>
-            <div class="widget">
-                <div class="widget-title">
-                    <i class="fa fa-star-o"> 标签</i>
+        <div class="pure-u-1-4 pure-u-md-1-4">
+            <div id="sidebar" style="min-width: 222px;">
+                <div class="widget">
+                    <form action="<c:url value="/archives/search"/> " method="post" accept-charset="utf-8"
+                          class="search-form">
+                        <input style="width: 172px" type="text" name="keyword" maxlength="20" placeholder="Search"/>
+                        <input type="hidden" name="userId" value="${user.id}">
+                    </form>
                 </div>
-                <div class="tagcloud">
+                <div class="widget">
+                    <div class="widget-title">
+                        <i class="fa fa-star-o"> 标签</i>
+                    </div>
+                    <div class="tagcloud">
 
-                    <c:forEach items="${tags}" var="tag">
-                        <a href="/square/archives/${tag.name}" style="font-size: 15px;">${tag.name}(${tag.size})</a>
-                    </c:forEach>
+                        <c:forEach items="${tags}" var="tag">
+                            <a href="/square/archives/${tag.name}" style="font-size: 15px;">${tag.name}(${tag.size})</a>
+                        </c:forEach>
 
+                    </div>
                 </div>
             </div>
         </div>
+
     </div>
-</div>
 
 
 </div>
+
 </body>
 </html>
