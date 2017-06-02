@@ -224,12 +224,14 @@ div {
 .post .post-title {
     margin: 0;
     color: #555;
+
     text-align: left;
-    font: bold 25px/1.1 'Noto Serif CJK SC', 'Source Han Serif SC', ‘Source Han Serif’, source-han-serif-sc, '宋体', serif;
+    font: bold 36px/1.1 'Noto Serif CJK SC', 'Source Han Serif SC', ‘Source Han Serif’, source-han-serif-sc, '宋体', serif;
 }
 
 .post .post-title a {
-    color: #555;
+    color: #555555;
+    font-size: 1.2em;
 }
 
 .post .post-meta {
@@ -310,7 +312,9 @@ div {
 
 .post .post-content h2 {
     margin: 1.4em 0 1.1em;
-    border-bottom: 1px solid #eee;
+    /* h2 标签下会干扰摘要*/
+    /*border-bottom: 1px solid #eee;*/
+    font-size: 1.2em;
     overflow: hidden;
 }
 

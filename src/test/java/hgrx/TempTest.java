@@ -6,9 +6,12 @@ import com.vladsch.flexmark.ast.Node;
 import com.vladsch.flexmark.html.HtmlRenderer;
 import com.vladsch.flexmark.parser.Parser;
 import com.vladsch.flexmark.util.options.MutableDataSet;
+import hgrx.util.VerifyCodeUtils;
 import org.apache.commons.collections.CollectionUtils;
 import org.junit.Test;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -57,6 +60,38 @@ public class TempTest {
         Node document = parser.parse("### hello");
         String html = renderer.render(document);  // "<p>This is <em>Sparta</em></p>\n"
         System.out.println(html);
+    }
+
+    @Test
+    public void testBase64() throws IOException {
+        String verifyCode = VerifyCodeUtils.generateVerifyCode(4);
+        int w = 146, h = 33;
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        VerifyCodeUtils.outputImage(w, h, byteArrayOutputStream, verifyCode);
+        byte[] bytes = byteArrayOutputStream.toByteArray();
+        String base64Code = org.apache.commons.codec.binary.Base64.encodeBase64String(bytes);
+        System.out.println(base64Code);
+    }
+
+    @Test
+    public void test023() {
+        byte[] bytes = {-1, -40, 33};
+        for (int i = 0; i < bytes.length; i++) {
+            if (bytes[i] < 0) {// 调整异常数据
+                bytes[i] += 256;
+            }
+        }
+
+        bytes[0] += 256;
+        System.out.println(bytes[0]);
+
+        byte t = -1;
+        t += 256;
+        System.out.println(t + 256);
+
+        for (int i = 0; i < bytes.length; i++) {
+            System.out.println(bytes[i]);
+        }
     }
 }
 

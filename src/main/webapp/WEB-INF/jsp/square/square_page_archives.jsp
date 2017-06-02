@@ -25,7 +25,8 @@
         </div>
         <div id="nav-menu">
             <a href="<c:url value="/square/new"/>"><i class="fa fa-home"> 最新文章</i></a>
-            <a href="<c:url value="/square/hot"/>" class="current"><i class="fa fa-archive"> 最热文章</i></a>
+            <a href="<c:url value="/square/hot"/>"><i class="fa fa-archive"> 最热文章</i></a>
+            <a href="<c:url value="/square/archives"/> " class="current"><i class="fa fa-archive"> 全部文章</i></a>
             <a href="<c:url value="/square/following"/>"><i class="fa fa-user"> 我关注的</i></a>
             <a href="<c:url value="/square/discuss"/>"><i class="fa fa-cog"> 讨论版</i></a>
         </div>
@@ -42,25 +43,9 @@
 
                 <div class="post">
                     <div class="post-archive">
-                        <%-- start --%>
-                        <%--  end  --%>
 
-                        <c:forEach items="${yearMap}" var="value">
-                            <h2>${value.key}</h2>
-                            <ul class="listing">
-                                <c:forEach items="${value.value}" var="advo">
-                                    <li>
-                                        <span class="date">
-                                                ${elf:date(advo.timestamp)}
-                                        </span>
+                        <%-- //TODO 作为全站搜索的预留地,那个全局标签做不做看到时候还有没有时间吧 --%>
 
-                                        <a href="<c:url value="/article/${advo.id}"/>"
-                                           title="${advo.title}">${advo.title}</a>
-                                    </li>
-                                </c:forEach>
-                            </ul>
-                        </c:forEach>
-                        <%-- map end --%>
                     </div>
                 </div>
             </div>

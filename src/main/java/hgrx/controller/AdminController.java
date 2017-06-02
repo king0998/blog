@@ -2,8 +2,10 @@ package hgrx.controller;
 
 import hgrx.bean.*;
 import hgrx.dto.ArticleDetailVO;
+import hgrx.dto.LoginDTO;
 import hgrx.service.AdminService;
 import hgrx.service.BaseService;
+import hgrx.util.VerifyCodeUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,10 +13,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
-import java.util.List;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.util.*;
 
 /**
  * Created by HGRX on 2017/5/14
@@ -51,10 +55,6 @@ public class AdminController {
         return "forward:/square";
     }
 
-    @RequestMapping("login")
-    public String login() {
-        return "login";
-    }
 
     @RequestMapping("autoLogin")
     public String autoLogin(HttpSession session) {
@@ -63,20 +63,58 @@ public class AdminController {
         return "redirect:/admin/center";
     }
 
-    @RequestMapping("loginHandle")
-    public String loginHandle(User user, Model model, HttpSession session) {
+    @RequestMapping(value = "loginVerify", method = RequestMethod.GET)
+    @ResponseBody
+    public Map getYzm(HttpServletResponse response, HttpServletRequest request) throws IOException {
+        response.setHeader("Pragma", "No-cache");
+        response.setHeader("Cache-Control", "no-cache");
+        response.setDateHeader("Expires", 0);
+        response.setContentType("image/jpeg");
+        //生成随机字串
+        String verifyCode = VerifyCodeUtils.generateVerifyCode(4);
+        //存入会话session
+        HttpSession session = request.getSession(true);
+        String loginVerifyCodeId = UUID.randomUUID().toString();
+        session.setAttribute("loginVerifyCodeId", loginVerifyCodeId);
+        session.setAttribute("loginVerifyCode", verifyCode.toLowerCase());
+        //生成图片
+        int w = 146, h = 33;
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        VerifyCodeUtils.outputImage(w, h, byteArrayOutputStream, verifyCode);
+        byte[] bytes = byteArrayOutputStream.toByteArray();
+        String base64Code = org.apache.commons.codec.binary.Base64.encodeBase64String(bytes);
+        Map<String, Object> map = new HashMap<>();
+        map.put("base64Code", "data:image/jpeg;base64," + base64Code);
+        map.put("loginVerifyCodeId", loginVerifyCodeId);
+        return map;
+    }
 
-        User u = adminService.getUserByUsername(user.getUsername());
+    @RequestMapping("login")
+    public String login() {
+        return "login";
+    }
+
+    @RequestMapping("loginHandle")
+    public String loginHandle(LoginDTO loginDTO, Model model, HttpSession session) {
+
+        String verifyCode = (String) session.getAttribute("loginVerifyCode");
+        String verifyCodeId = (String) session.getAttribute("loginVerifyCodeId");
+        if (!loginDTO.getVerify().toLowerCase().equals(verifyCode)) {
+            model.addAttribute("msg", "验证码错误!");
+            return "login";
+        }
+
+        User u = adminService.getUserByUsername(loginDTO.getUsername());
         if (u == null) {   //用户名不合规范和找不到用户名都是返回null
             model.addAttribute("msg", "用户不存在！");
             return "login";
         }
-        if (!u.getPassword().equals(user.getPassword())) {
+        if (!u.getPassword().equals(loginDTO.getPassword())) {
             model.addAttribute("msg", "密码错误！");
             return "login";
         }
         session.setAttribute("user", u);
-        return "forward:/square";
+        return "redirect:/square/new";
     }
 
     @RequestMapping("admin/article/add")
@@ -96,7 +134,7 @@ public class AdminController {
             model.addAttribute("msg", "添加文章失败，请重试");
             return "error";
         }
-        return "forward:/square";
+        return "redirect:/square/new";
     }
 
     @RequestMapping("admin/article/edit/{id}")

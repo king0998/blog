@@ -27,6 +27,7 @@
         <div id="nav-menu">
             <a href="<c:url value="/square/new"/>"><i class="fa fa-home"> 最新文章</i></a>
             <a href="<c:url value="/square/hot"/>"><i class="fa fa-archive"> 最热文章</i></a>
+            <a href="<c:url value="/square/archives"/> "><i class="fa fa-archive"> 全部文章</i></a>
             <a href="<c:url value="/square/following"/>"><i class="fa fa-user"> 我关注的</i></a>
             <a href="<c:url value="/square/discuss"/>" class="current"><i class="fa fa-cog"> 讨论版</i></a>
         </div>
