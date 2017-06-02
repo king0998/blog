@@ -5,6 +5,7 @@ import hgrx.dao.AdminDao;
 import hgrx.dto.ArticleDetailVO;
 import hgrx.util.MyUtils;
 import hgrx.util.RegexUtils;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,6 +30,7 @@ public class AdminService {
     }
 
     public boolean addUser(User user) {
+        user.setPassword(DigestUtils.sha1Hex(user.getPassword() + user.getPassword().length()));
         return adminDao.addUser(user);
     }
 

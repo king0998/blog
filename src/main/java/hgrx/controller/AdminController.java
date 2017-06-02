@@ -6,6 +6,7 @@ import hgrx.dto.LoginDTO;
 import hgrx.service.AdminService;
 import hgrx.service.BaseService;
 import hgrx.util.VerifyCodeUtils;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,7 +53,7 @@ public class AdminController {
 
         log.info("新注册了用户:" + user);
         session.setAttribute("user", user);
-        return "forward:/square";
+        return "redirect:/square/new";
     }
 
 
@@ -109,12 +110,21 @@ public class AdminController {
             model.addAttribute("msg", "用户不存在！");
             return "login";
         }
-        if (!u.getPassword().equals(loginDTO.getPassword())) {
+//        if (!DigestUtils.sha1Hex(u.getPassword() + u.getPassword().length()).equals(loginDTO.getPassword())) {
+        if (checkPassword(loginDTO, u)) {
+
             model.addAttribute("msg", "密码错误！");
             return "login";
         }
         session.setAttribute("user", u);
         return "redirect:/square/new";
+    }
+
+    /**
+     * 校验密码
+     */
+    private boolean checkPassword(LoginDTO loginDTO, User u) {
+        return !u.getPassword().equals(DigestUtils.sha1Hex(loginDTO.getPassword() + loginDTO.getPassword().length()));
     }
 
     @RequestMapping("admin/article/add")
