@@ -64,7 +64,7 @@
                 <tbody>
 
                 <c:forEach items="${advoList}" var="advo">
-                <tr>
+                <tr id="tr-${advo.id}">
                         <%--<td>${advo.title}</td>--%>
                     <td><a href="/article/${advo.id}">${advo.title}</a></td>
 
@@ -73,7 +73,7 @@
 
                     <td>${advo.draft}</td>
                     <td><a href="<c:url value="/admin/article/edit/${advo.id}"/>">编辑</a>
-                        <a href="<c:url value="/admin/article/delete/${advo.id}"/>">删除</a>
+                        <a href="#" onclick="deleteArticle(${advo.id})">删除</a>
                     </td>
                 </tr>
                 </c:forEach>
@@ -83,4 +83,19 @@
 </div>
 
 </body>
+
+<script>
+    function deleteArticle(id) {
+        $.ajax({
+            url: "/admin/article/deleteHandle",
+            type: "POST",
+            data: {id: id, cToken: "${sessionScope.get("cToken")}"},
+            success: function (result) {
+                if (result) {
+                    $("#tr-" + id).css("display", "none");
+                }
+            }
+        })
+    }
+</script>
 </html>

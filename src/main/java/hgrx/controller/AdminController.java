@@ -141,7 +141,6 @@ public class AdminController {
 
     @RequestMapping(value = "admin/article/addHandle", method = RequestMethod.POST)
     public String addArticleHandle(Article article, String tags, HttpSession session, Model model) {
-        //TODO 校验article,tags参数
         User user = getUser(session);
         article.init(user.getId());
         try {
@@ -166,7 +165,6 @@ public class AdminController {
     @SuppressWarnings("unchecked")
     @RequestMapping(value = "admin/article/editHandle", method = RequestMethod.POST)
     public String editArticleHandle(ArticleDetailVO advo, String tags, Boolean updateTimestamp, HttpSession session, Model model) {
-        //TODO 校验article与tags参数
         // 因为id是从客户端过来的,需要加入session中的userId作限制条件以避免可以随意修改他人的文章
         advo.setUserId(getUser(session).getId());
         List<String> beforeEdit = (ArrayList) session.getAttribute("beforeEdit");
@@ -193,18 +191,15 @@ public class AdminController {
         User user = getUser(session);
         List<ArticleDetailVO> advoList = baseService.listAdvoByUserId(user.getId());
         model.addAttribute("advoList", advoList);
-        //TODO 草稿可通过ajax修改
         return "admin/article_manage";
     }
 
-    @RequestMapping(value = "admin/article/delete/{id}", method = RequestMethod.POST)
+    @RequestMapping(value = "admin/article/deleteHandle", method = RequestMethod.POST)
     @ResponseBody
-    public String articleDelete(@PathVariable Long id, HttpSession session, Model model) {
-        //TODO CSRF
+    public boolean articleDelete(Long id, HttpSession session, Model model) {
         User user = getUser(session);
         Boolean f = adminService.deleteArticleByUserIdAndId(user.getId(), id);
-        //TODO ajax操作,返回提示
-        return "" + f;
+        return f;
     }
 
     @RequestMapping(value = "admin/center", method = RequestMethod.GET)
@@ -256,7 +251,6 @@ public class AdminController {
     @RequestMapping(value = "admin/star/deleteHandle", method = RequestMethod.POST)
     @ResponseBody
     public boolean deleteStar(Long id, HttpSession session) {
-        //TODO  CSRF
         User user = getUser(session);
         Star star = new Star(id, user.getId());
         return adminService.deleteStar(star);
@@ -265,7 +259,7 @@ public class AdminController {
     @RequestMapping(value = "admin/star/addHandle", method = RequestMethod.POST)
     @ResponseBody
     public String addStar(Long id, HttpSession session) {
-        //TODO ajax CSRF 状态检测?
+        //TODO  状态检测?
         User user = getUser(session);
         Star star = new Star(id, user.getId());
         return adminService.addStar(star) + "";
@@ -274,7 +268,6 @@ public class AdminController {
     @RequestMapping(value = "admin/like/add/{id}", method = RequestMethod.POST)
     @ResponseBody
     public String addLike(@PathVariable Long id, HttpSession session) {
-        //TODO ajax CSRF
         User user = getUser(session);
         Like like = new Like(id, user.getId());
         return adminService.addLike(like) + "";

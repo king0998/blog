@@ -53,6 +53,7 @@
                 </label>
                 <input type="text" name="tags"/>
                 <input type="checkbox" name="draft">
+                <input name="cToken" style="display: none;" value="${sessionScope.get("cToken")}"/>
                 <input type="submit">
             </form>
 

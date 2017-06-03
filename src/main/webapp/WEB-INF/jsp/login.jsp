@@ -22,6 +22,7 @@
     <br>
     <label>验证码<input type="text" name="verify"> </label><br>
     <input type="hidden" name="verifyId" value=""><br>
+    <input style="display: none;" name="cToken" value="${sessionScope.get("cToken")}" title=""/>
     <input type="submit" value="登录">
 </form>
 

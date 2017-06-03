@@ -63,6 +63,7 @@
 
                 <div id="input-tags-container">
                     <label>
+                        <%--//TODO  js校验tags格式--%>
                         <input name="tags" value="${advo.tags}">
                     </label>
                 </div>
@@ -73,6 +74,7 @@
                     <input type="checkbox" name="updateTimestamp"/>
                 </label>
                 <input name="id" type="hidden" value="${advo.id}"/>
+                <input name="cToken" type="hidden" value="${sessionScope.get("cToken")}"/>
                 <input type="submit" value="发布"/>
                 <button type="button" id="preview">预览</button>
             </form>
