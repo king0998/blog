@@ -66,7 +66,7 @@ public class SquareController {
 
     @RequestMapping("square/discuss")
     public String discuss(Model model) {
-        //TODO
+        //TODO 讨论版计划是先做出来评论系统,然后再以评论系统为基础弄一个出来
         model.addAttribute("tags", baseService.listAllTagsWithSize());
         return "square/square_page_discuss";
     }

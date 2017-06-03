@@ -138,12 +138,16 @@ public class AdminService {
     }
 
     public Boolean deleteStar(Star star) {
+        //TODO 缓存
+        adminDao.updateStarNumDelete(star.getArticleId());
         return adminDao.deleteStar(star);
     }
 
     public Boolean addStar(Star star) {
         //TODO 状态缓存
         try {
+            //TODO star数量更新  缓存
+            adminDao.updateStarNumAdd(star.getArticleId());
             return adminDao.addStar(star);
         } catch (Exception e) {
             e.printStackTrace();

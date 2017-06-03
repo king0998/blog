@@ -265,7 +265,7 @@ public class AdminController {
         return adminService.addStar(star) + "";
     }
 
-    @RequestMapping(value = "admin/like/add/{id}", method = RequestMethod.POST)
+    @RequestMapping(value = "admin/like/add/{id}", method = RequestMethod.GET)
     @ResponseBody
     public String addLike(@PathVariable Long id, HttpSession session) {
         User user = getUser(session);

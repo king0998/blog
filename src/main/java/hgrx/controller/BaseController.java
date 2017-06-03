@@ -39,7 +39,6 @@ public class BaseController {
     public String getArticle(@PathVariable Long id, Model model) {
         ArticleDetailVO advo = baseService.getAdvoById(id);
         User user = baseService.getUserById(advo.getUserId());
-        //TODO 处理没有该文章的情况
         model.addAttribute("advo", advo);
         model.addAttribute("user", user);
         return "article";
@@ -47,10 +46,8 @@ public class BaseController {
 
     @RequestMapping(value = "/home-page/{id}", method = RequestMethod.GET)
     public String homePage(@PathVariable Long id, Model model) {
-        //TODO id合法性
         User user = baseService.getUserById(id);
         List<ArticleDetailVO> advoList = baseService.listAdvoWithPartContentByUserId(id);
-        //TODO 首页文章需要截取部分,并设置单独输出标签输出为html
         model.addAttribute("user", user);
         model.addAttribute("advoList", advoList);
         return "home-page";
@@ -61,7 +58,6 @@ public class BaseController {
      */
     @RequestMapping(value = "/archives/{id}", method = RequestMethod.GET)
     public String archives(@PathVariable Long id, Model model) {
-        //TODO 不考虑分页
         List<ArticleDetailVO> advoList = baseService.listAdvoByUserId(id);
         User user = baseService.getUserById(id);
         Collections.sort(advoList);

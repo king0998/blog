@@ -5,6 +5,7 @@ import hgrx.bean.Tag;
 import hgrx.bean.User;
 import hgrx.dto.ArticleDetailVO;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -73,4 +74,6 @@ public interface BaseDao {
     @Select("SELECT id,user_id,title,content,timestamp FROM article ORDER BY read_num DESC LIMIT 0,20")
     List<ArticleDetailVO> listHotAdvo();
 
+    @Update("UPDATE article SET read_num = read_num + 1 WHERE id = #{id}")
+    void updateReadNum(Long id);
 }

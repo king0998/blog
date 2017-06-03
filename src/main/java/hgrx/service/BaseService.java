@@ -30,7 +30,8 @@ public class BaseService {
 
     public ArticleDetailVO getAdvoById(Long id) {
         ArticleDetailVO advo = baseDao.getAdvoById(id);
-        //TODO 直接在article中加了starNum与likeNum两个变量，考虑是继续使用触发器还是程序来控制这两个值
+        baseDao.updateReadNum(id);
+        //TODO 阅读量 缓存
         advo.setTags(baseDao.listTagsWithArticleId(id));
         return advo;
     }

@@ -2,10 +2,7 @@ package hgrx.dao;
 
 import hgrx.bean.*;
 import hgrx.dto.ArticleDetailVO;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Options;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -77,4 +74,10 @@ public interface AdminDao {
 
     @Insert("INSERT INTO like (article_id, user_id) VALUES (#{articleId},#{userId})")
     Boolean addLike(Like like);
+
+    @Update("UPDATE article SET star_num = star_num + 1 WHERE id = #{id}")
+    void updateStarNumAdd(Long articleId);
+
+    @Update("UPDATE article SET star_num = star_num - 1 WHERE id = #{id}")
+    void updateStarNumDelete(Long articleId);
 }
