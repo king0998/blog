@@ -32,4 +32,7 @@ public class RegexUtils {
         return fileNameRegex;
     }
 
+    public static boolean isNickname(String nickname) {
+        return nickname.matches(usernameRegex);
+    }
 }

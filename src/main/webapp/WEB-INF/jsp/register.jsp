@@ -19,6 +19,7 @@
     <label>email<input type="email" name="email"> </label><br>
     <label>nickname<input type="text" name="nickname"></label><br>
     <label>intro<input type="text" name="intro"></label><br>
+    <input style="display: none;" name="cToken" value="${sessionScope.get("cToken")}" title="cToken">
     <button type="submit">注册</button>
 </form>
 </body>

@@ -5,6 +5,7 @@ import hgrx.dto.ArticleDetailVO;
 import hgrx.dto.LoginDTO;
 import hgrx.service.AdminService;
 import hgrx.service.BaseService;
+import hgrx.util.RegexUtils;
 import hgrx.util.VerifyCodeUtils;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.logging.Log;
@@ -46,13 +47,22 @@ public class AdminController {
     }
 
     @RequestMapping(value = "registerHandle", method = RequestMethod.POST)
-    public String handleRegister(User user, HttpSession session) {
-        //TODO 校验参数，暂时假设全部都是完美输入条件
-        adminService.addUser(user);
+    public String handleRegister(User user, HttpSession session, Model model) {
+
+        //校验参数
+        if (!verifyUser(user) || adminService.addUser(user)) {
+            model.addAttribute("msg", "注册信息不符合规范,请检查后重新输入");
+            return "error";
+        }
 
         log.info("新注册了用户:" + user);
         session.setAttribute("user", user);
         return "redirect:/square/new";
+    }
+
+    private boolean verifyUser(User user) {
+        return (!RegexUtils.isUsername(user.getUsername()) || !RegexUtils.isPassword(user.getPassword())
+                || !RegexUtils.isEmail(user.getEmail()) || !RegexUtils.isNickname(user.getNickname()));
     }
 
 
@@ -235,13 +245,12 @@ public class AdminController {
         return "admin/star_page";
     }
 
-    @RequestMapping(value = "admin/following/delete/{id}", method = RequestMethod.POST)
+    @RequestMapping(value = "admin/following/deleteHandle", method = RequestMethod.POST)
     @ResponseBody
-    public String deleteFollowing(@PathVariable Long id, HttpSession session) {
-        //TODO ajax CSRF
+    public boolean deleteFollowing(Long id, HttpSession session) {
         User user = getUser(session);
         Follow follow = new Follow(id, user.getId());
-        return "" + adminService.deleteFollowing(follow);
+        return adminService.deleteFollowing(follow);
     }
 
     @RequestMapping(value = "admin/star/deleteHandle", method = RequestMethod.POST)

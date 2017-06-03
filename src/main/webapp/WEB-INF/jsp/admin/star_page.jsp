@@ -83,9 +83,7 @@
             data: {id: id, cToken: "${sessionScope.get("cToken")}"},
             success: function (result) {
                 if (result) {
-                    alert("helloworld");
-                    //TODO 一个显示问题,还有一个CSRF问题
-                    $("#tr-" + id).attr("display", "none");
+                    $("#tr-" + id).css("display", "none");
                 }
             }
         })

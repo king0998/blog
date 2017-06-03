@@ -36,7 +36,7 @@
                     <h1 class="post-title">${advo.title}</h1>
                     <div id="date" class="post-meta">
                         ${elf:date(advo.timestamp)}
-
+                        <%--//TODO 是否关注,考虑使用缓存实现,不然数据库压力太大--%>
                         <a href="#" onclick="addStar(${advo.id})">收藏</a>
                     </div>
 

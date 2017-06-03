@@ -10,6 +10,7 @@
     <link rel="stylesheet" type="text/css" href="<c:url value="/css/style.css"/>"/>
     <link rel="stylesheet" href="<c:url value="/css/pure-min.css"/>">
     <link rel="stylesheet" href="<c:url value="/css/side-menu.css"/>">
+    <script type="text/javascript" src="<c:url value="/js/jquery.min.js?v=2.0.1"/>"></script>
 </head>
 <body>
 
@@ -61,13 +62,26 @@
                 <tbody>
 
                 <c:forEach items="${followingList}" var="user">
-                    <tr>
+                    <tr id="tr-${user.id}">
                         <td><a href="/home-page/${user.id}">${user.nickname}</a></td>
                         <td>${user.intro}</td>
-                            <%-- //TODO CRSF --%>
-                        <td><a href="<c:url value="/admin/following/delete/${user.id}"/>">取消关注</a></td>
+                        <td><a href="#" onclick="deleteStar(${user.id})">取消关注</a></td>
                     </tr>
                 </c:forEach>
+                <script>
+                    function deleteStar(id) {
+                        $.ajax({
+                            url: "/admin/following/deleteHandle",
+                            type: "POST",
+                            data: {id: id, cToken: "${sessionScope.get("cToken")}"},
+                            success: function (result) {
+                                if (result) {
+                                    $("#tr-" + id).css("display", "none");
+                                }
+                            }
+                        })
+                    }
+                </script>
 
                 </tbody>
             </table>
