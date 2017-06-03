@@ -24,5 +24,15 @@
             <mvc:mapping path="/admin/**"/>
             <bean class="hgrx.interceptor.PermissionInterceptor"/>
         </mvc:interceptor>
+
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <bean class="hgrx.interceptor.CSRFTokenProduceInterceptor"/>
+        </mvc:interceptor>
+
+        <mvc:interceptor>
+            <mvc:mapping path="/**/*Handle"/>
+            <bean class="hgrx.interceptor.CSRFTokenCheckInterceptor"/>
+        </mvc:interceptor>
     </mvc:interceptors>
 </beans>

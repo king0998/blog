@@ -36,7 +36,22 @@
                     <h1 class="post-title">${advo.title}</h1>
                     <div id="date" class="post-meta">
                         ${elf:date(advo.timestamp)}
+
+                        <a href="#" onclick="addStar(${advo.id})">收藏</a>
                     </div>
+
+                    <script>
+                        function addStar(id) {
+                            $.ajax({
+                                url: "/admin/star/addHandle",
+                                type: "POST",
+                                data: {id: id, cToken: "${sessionScope.get("cToken")}"},
+                                success: function (result) {
+                                    alert(result);
+                                }
+                            })
+                        }
+                    </script>
 
                     <div class="post-content" id="code-html">
                         ${elf:md(advo.content)}

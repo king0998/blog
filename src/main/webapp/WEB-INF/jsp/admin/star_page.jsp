@@ -10,6 +10,7 @@
     <link rel="stylesheet" type="text/css" href="<c:url value="/css/style.css"/>"/>
     <link rel="stylesheet" href="<c:url value="/css/pure-min.css"/>">
     <link rel="stylesheet" href="<c:url value="/css/side-menu.css"/>">
+    <script type="text/javascript" src="<c:url value="/js/jquery.min.js"/>"></script>
 </head>
 <body>
 
@@ -56,11 +57,13 @@
                 </tr>
                 </thead>
                 <tbody>
-                <c:forEach items="${advoList}" var="advo">
-                    <tr>
+                <c:forEach items="${advoList}" var="advo" varStatus="trId">
+                    <tr id="tr-${advo.id}">
                         <td><a href="/article/${advo.id}">${advo.title}</a></td>
                         <td><a href="/home-page/${advo.userId}">${advo.nickname}</a></td>
-                        <td><a href="<c:url value="/admin/star/delete/${advo.id}" />">取消收藏</a></td>
+                        <td>
+                            <a href="#" onclick="deleteStar(${advo.id})">取消收藏</a>
+                        </td>
                     </tr>
                 </c:forEach>
                 </tbody>
@@ -71,4 +74,22 @@
 </div>
 
 </body>
+
+<script>
+    function deleteStar(id) {
+        $.ajax({
+            url: "/admin/star/deleteHandle",
+            type: "POST",
+            data: {id: id, cToken: "${sessionScope.get("cToken")}"},
+            success: function (result) {
+                if (result) {
+                    alert("helloworld");
+                    //TODO 一个显示问题,还有一个CSRF问题
+                    $("#tr-" + id).attr("display", "none");
+                }
+            }
+        })
+    }
+</script>
+
 </html>

@@ -40,15 +40,14 @@ public class AdminController {
         this.adminService = adminService;
     }
 
-    @RequestMapping("register")
+    @RequestMapping(value = "register", method = RequestMethod.GET)
     public String register() {
         return "register";
     }
 
-    @RequestMapping("registerHandle")
+    @RequestMapping(value = "registerHandle", method = RequestMethod.POST)
     public String handleRegister(User user, HttpSession session) {
         //TODO 校验参数，暂时假设全部都是完美输入条件
-        //TODO 密码加盐值保存
         adminService.addUser(user);
 
         log.info("新注册了用户:" + user);
@@ -57,7 +56,7 @@ public class AdminController {
     }
 
 
-    @RequestMapping("autoLogin")
+    @RequestMapping(value = "autoLogin", method = RequestMethod.GET)
     public String autoLogin(HttpSession session) {
         User u = adminService.getUserByUsername("hgrx");
         session.setAttribute("user", u);
@@ -90,12 +89,12 @@ public class AdminController {
         return map;
     }
 
-    @RequestMapping("login")
+    @RequestMapping(value = "login", method = RequestMethod.GET)
     public String login() {
         return "login";
     }
 
-    @RequestMapping("loginHandle")
+    @RequestMapping(value = "loginHandle", method = RequestMethod.POST)
     public String loginHandle(LoginDTO loginDTO, Model model, HttpSession session) {
 
         String verifyCode = (String) session.getAttribute("loginVerifyCode");
@@ -110,9 +109,7 @@ public class AdminController {
             model.addAttribute("msg", "用户不存在！");
             return "login";
         }
-//        if (!DigestUtils.sha1Hex(u.getPassword() + u.getPassword().length()).equals(loginDTO.getPassword())) {
         if (checkPassword(loginDTO, u)) {
-
             model.addAttribute("msg", "密码错误！");
             return "login";
         }
@@ -127,12 +124,12 @@ public class AdminController {
         return !u.getPassword().equals(DigestUtils.sha1Hex(loginDTO.getPassword() + loginDTO.getPassword().length()));
     }
 
-    @RequestMapping("admin/article/add")
+    @RequestMapping(value = "admin/article/add", method = RequestMethod.GET)
     public String addArticle() {
         return "admin/add_article";
     }
 
-    @RequestMapping("admin/article/addHandle")
+    @RequestMapping(value = "admin/article/addHandle", method = RequestMethod.POST)
     public String addArticleHandle(Article article, String tags, HttpSession session, Model model) {
         //TODO 校验article,tags参数
         User user = getUser(session);
@@ -147,7 +144,7 @@ public class AdminController {
         return "redirect:/square/new";
     }
 
-    @RequestMapping("admin/article/edit/{id}")
+    @RequestMapping(value = "admin/article/edit/{id}", method = RequestMethod.GET)
     public String editArticle(@PathVariable Long id, Model model, HttpSession session) {
         ArticleDetailVO advo = baseService.getAdvoById(id);
         // 先将tags存到session中,在提交表单上来的时候检查变动并做相应操作
@@ -157,7 +154,7 @@ public class AdminController {
     }
 
     @SuppressWarnings("unchecked")
-    @RequestMapping("admin/article/editHandle")
+    @RequestMapping(value = "admin/article/editHandle", method = RequestMethod.POST)
     public String editArticleHandle(ArticleDetailVO advo, String tags, Boolean updateTimestamp, HttpSession session, Model model) {
         //TODO 校验article与tags参数
         // 因为id是从客户端过来的,需要加入session中的userId作限制条件以避免可以随意修改他人的文章
@@ -172,7 +169,7 @@ public class AdminController {
     }
 
 
-    @RequestMapping("admin/follow/add/{id}")
+    @RequestMapping(value = "admin/follow/add/{id}", method = RequestMethod.GET)
     @ResponseBody
     public String addFollow(@PathVariable Long id, HttpSession session, HttpServletResponse response) {
         User user = getUser(session);
@@ -181,7 +178,7 @@ public class AdminController {
         return "" + f;
     }
 
-    @RequestMapping("admin/article/manage")
+    @RequestMapping(value = "admin/article/manage", method = RequestMethod.GET)
     public String articleManage(HttpSession session, Model model) {
         User user = getUser(session);
         List<ArticleDetailVO> advoList = baseService.listAdvoByUserId(user.getId());
@@ -190,16 +187,17 @@ public class AdminController {
         return "admin/article_manage";
     }
 
-    @RequestMapping("admin/article/delete/{id}")
+    @RequestMapping(value = "admin/article/delete/{id}", method = RequestMethod.POST)
     @ResponseBody
     public String articleDelete(@PathVariable Long id, HttpSession session, Model model) {
+        //TODO CSRF
         User user = getUser(session);
         Boolean f = adminService.deleteArticleByUserIdAndId(user.getId(), id);
         //TODO ajax操作,返回提示
         return "" + f;
     }
 
-    @RequestMapping("admin/center")
+    @RequestMapping(value = "admin/center", method = RequestMethod.GET)
     public String mainCenter(HttpSession session, Model model) {
         User user = getUser(session);
         model.addAttribute("user", user);
@@ -209,7 +207,7 @@ public class AdminController {
     /**
      * 我的关注
      */
-    @RequestMapping("admin/following")
+    @RequestMapping(value = "admin/following", method = RequestMethod.GET)
     public String following(HttpSession session, Model model) {
         User user = getUser(session);
         List<User> followingList = adminService.listFollowingListByUserId(user.getId());
@@ -220,7 +218,7 @@ public class AdminController {
     /**
      * 关注我的
      */
-    @RequestMapping("admin/follower")
+    @RequestMapping(value = "admin/follower", method = RequestMethod.GET)
     public String follower(HttpSession session, Model model) {
         User user = getUser(session);
         List<User> followerList = adminService.listFollowerListByUserId(user.getId());
@@ -229,7 +227,7 @@ public class AdminController {
         return "admin/follower";
     }
 
-    @RequestMapping("admin/star/list")
+    @RequestMapping(value = "admin/star/list", method = RequestMethod.GET)
     public String listStar(HttpSession session, Model model) {
         User user = getUser(session);
         List<ArticleDetailVO> advoList = adminService.listStarArticleByUserId(user.getId());
@@ -237,36 +235,37 @@ public class AdminController {
         return "admin/star_page";
     }
 
-    @RequestMapping("admin/following/delete/{id}")
+    @RequestMapping(value = "admin/following/delete/{id}", method = RequestMethod.POST)
     @ResponseBody
     public String deleteFollowing(@PathVariable Long id, HttpSession session) {
-        //TODO ajax
+        //TODO ajax CSRF
         User user = getUser(session);
         Follow follow = new Follow(id, user.getId());
         return "" + adminService.deleteFollowing(follow);
     }
 
-    @RequestMapping("admin/star/delete/{id}")
+    @RequestMapping(value = "admin/star/deleteHandle", method = RequestMethod.POST)
     @ResponseBody
-    public String deleteStar(@PathVariable Long id, HttpSession session) {
-        //TODO ajax
+    public boolean deleteStar(Long id, HttpSession session) {
+        //TODO  CSRF
         User user = getUser(session);
         Star star = new Star(id, user.getId());
-        return adminService.deleteStar(star) + "";
+        return adminService.deleteStar(star);
     }
 
-    @RequestMapping("admin/star/add/{id}")
+    @RequestMapping(value = "admin/star/addHandle", method = RequestMethod.POST)
     @ResponseBody
-    public String addStar(@PathVariable Long id, HttpSession session) {
+    public String addStar(Long id, HttpSession session) {
+        //TODO ajax CSRF 状态检测?
         User user = getUser(session);
         Star star = new Star(id, user.getId());
         return adminService.addStar(star) + "";
     }
 
-    @RequestMapping("admin/like/add/{id}")
+    @RequestMapping(value = "admin/like/add/{id}", method = RequestMethod.POST)
     @ResponseBody
     public String addLike(@PathVariable Long id, HttpSession session) {
-        //TODO ajax
+        //TODO ajax CSRF
         User user = getUser(session);
         Like like = new Like(id, user.getId());
         return adminService.addLike(like) + "";

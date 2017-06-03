@@ -142,7 +142,13 @@ public class AdminService {
     }
 
     public Boolean addStar(Star star) {
-        return adminDao.addStar(star);
+        //TODO 状态缓存
+        try {
+            return adminDao.addStar(star);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
     public Boolean addLike(Like like) {

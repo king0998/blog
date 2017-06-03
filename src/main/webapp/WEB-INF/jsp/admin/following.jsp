@@ -64,6 +64,7 @@
                     <tr>
                         <td><a href="/home-page/${user.id}">${user.nickname}</a></td>
                         <td>${user.intro}</td>
+                            <%-- //TODO CRSF --%>
                         <td><a href="<c:url value="/admin/following/delete/${user.id}"/>">取消关注</a></td>
                     </tr>
                 </c:forEach>

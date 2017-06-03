@@ -73,7 +73,7 @@ public interface AdminDao {
     Boolean deleteStar(Star star);
 
     @Delete("INSERT INTO star (article_id, user_id) VALUES (#{articleId},#{userId})")
-    Boolean addStar(Star star);
+    Boolean addStar(Star star) throws Exception;
 
     @Insert("INSERT INTO like (article_id, user_id) VALUES (#{articleId},#{userId})")
     Boolean addLike(Like like);

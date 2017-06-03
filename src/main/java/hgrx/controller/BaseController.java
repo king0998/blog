@@ -9,10 +9,7 @@ import hgrx.service.BaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.text.SimpleDateFormat;
@@ -38,7 +35,7 @@ public class BaseController {
     }
 
 
-    @RequestMapping("/article/{id}")
+    @RequestMapping(value = "/article/{id}", method = RequestMethod.GET)
     public String getArticle(@PathVariable Long id, Model model) {
         ArticleDetailVO advo = baseService.getAdvoById(id);
         User user = baseService.getUserById(advo.getUserId());
@@ -48,7 +45,7 @@ public class BaseController {
         return "article";
     }
 
-    @RequestMapping("/home-page/{id}")
+    @RequestMapping(value = "/home-page/{id}", method = RequestMethod.GET)
     public String homePage(@PathVariable Long id, Model model) {
         //TODO id合法性
         User user = baseService.getUserById(id);
@@ -62,7 +59,7 @@ public class BaseController {
     /**
      * 归档
      */
-    @RequestMapping("/archives/{id}")
+    @RequestMapping(value = "/archives/{id}", method = RequestMethod.GET)
     public String archives(@PathVariable Long id, Model model) {
         //TODO 不考虑分页
         List<ArticleDetailVO> advoList = baseService.listAdvoByUserId(id);
@@ -93,7 +90,7 @@ public class BaseController {
     }
 
 
-    @RequestMapping("about/{id}")
+    @RequestMapping(value = "about/{id}", method = RequestMethod.GET)
     public String about(@PathVariable Long id, Model model) {
         String about = baseService.getAboutMeByUserId(id);
         User user = baseService.getUserById(id);
@@ -111,7 +108,7 @@ public class BaseController {
      * @param name   tag 名称
      * @param userId tag所属的用户id
      */
-    @RequestMapping(value = "archives", params = {"name", "userId"})
+    @RequestMapping(value = "archives", params = {"name", "userId"}, method = RequestMethod.GET)
     public String getTagsByName(@RequestParam String name, @RequestParam Long userId, Model model) {
         List<ArticleDetailVO> advoList = baseService.listAdvoByUserId(userId);
         advoList.removeIf(
@@ -125,7 +122,7 @@ public class BaseController {
         return "article-list";
     }
 
-    @RequestMapping(value = "archives/search", params = {"keyword", "userId"})
+    @RequestMapping(value = "archives/search", params = {"keyword", "userId"}, method = RequestMethod.POST)
     public String listAdvoWithKeyword(@RequestParam String keyword,
                                       @RequestParam Long userId, Model model) {
         List<ArticleDetailVO> advoList = baseService.listAdvoByUserIdAndKeyword(keyword, userId);
@@ -137,7 +134,7 @@ public class BaseController {
         return "article-list";
     }
 
-    @RequestMapping(value = "listTags")
+    @RequestMapping(value = "listTags", method = RequestMethod.GET)
     @ResponseBody
     public List<TagWithSize> listTagsByUserId(@RequestParam Long userId) {
         //TODO 缓存
@@ -145,7 +142,7 @@ public class BaseController {
     }
 
 
-    @RequestMapping(value = "latestArticle")
+    @RequestMapping(value = "latestArticle", method = RequestMethod.GET)
     @ResponseBody
     public List<Article> listLatestArticle(@RequestParam Long userId) {
         //TODO 缓存
