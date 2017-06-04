@@ -45,7 +45,6 @@ public class AdminService {
         //捕获到异常则退出，后期可以考虑在这个地方实践一下事务？
         //存入表后取出id
         adminDao.addArticle(article);
-        //TODO 暂时只考虑实现，后期考虑使用缓存之类的进行控制
 
         setTags(article, tags);
 
@@ -137,16 +136,22 @@ public class AdminService {
         return adminDao.deleteFollowing(follow);
     }
 
+    /**
+     * 取消收藏,针对个人
+     */
     public Boolean deleteStar(Star star) {
-        //TODO 缓存
+        //TODO key : star-#{star.userId} value : Set<Article>
+        //  首先做出假设:收藏或取消收藏的行为少,更多是展示是否收藏以及收藏的数量
+        // 为每个用户保存一个收藏列表,增加和删除都同时对列表进行操作再写入数据库
+        // 读取数据时仅读取缓存
+
         adminDao.updateStarNumDelete(star.getArticleId());
         return adminDao.deleteStar(star);
     }
 
     public Boolean addStar(Star star) {
-        //TODO 状态缓存
         try {
-            //TODO star数量更新  缓存
+            //TODO key : star-#{star.userId} value : Set<Article>
             adminDao.updateStarNumAdd(star.getArticleId());
             return adminDao.addStar(star);
         } catch (Exception e) {

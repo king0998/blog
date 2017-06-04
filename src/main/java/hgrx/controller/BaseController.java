@@ -130,10 +130,16 @@ public class BaseController {
         return "article-list";
     }
 
+
     @RequestMapping(value = "listTags", method = RequestMethod.GET)
     @ResponseBody
     public List<TagWithSize> listTagsByUserId(@RequestParam Long userId) {
-        //TODO 缓存
+        //TODO 缓存   key : listTags-#{userId}  value : List<TagWithSize>
+        // 维护两个变量 listTags-#{userId}-A listTags-#{userId}-B
+        // 查询,如果A和B都为0,则到数据库查询数据,并将数据缓存到map中,A++,B++
+        // 如果出现了修改,如editArticle或addArticle,则将A++
+        // 查询,如果A>B,则向数据库请求最新数据覆盖map中的数据,并令B=A
+        // 否则直接返回map中的缓存数据
         return baseService.listTagsWithSizeByUserId(userId);
     }
 
@@ -141,7 +147,8 @@ public class BaseController {
     @RequestMapping(value = "latestArticle", method = RequestMethod.GET)
     @ResponseBody
     public List<Article> listLatestArticle(@RequestParam Long userId) {
-        //TODO 缓存
+        //TODO 缓存 key: latestArticle value : List<Article>
+        //思路同上
         List<Article> list = baseService.listLatestArticleByUserId(userId);
         return list.subList(0, list.size() > 10 ? 10 : list.size());
     }

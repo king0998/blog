@@ -182,7 +182,6 @@ public class AdminController {
     public String addFollow(@PathVariable Long id, HttpSession session, HttpServletResponse response) {
         User user = getUser(session);
         boolean f = adminService.addFollow(new Follow(id, user.getId()));
-        //TODO 用ajax发送请求
         return "" + f;
     }
 

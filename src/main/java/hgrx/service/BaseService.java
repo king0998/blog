@@ -31,7 +31,7 @@ public class BaseService {
     public ArticleDetailVO getAdvoById(Long id) {
         ArticleDetailVO advo = baseDao.getAdvoById(id);
         baseDao.updateReadNum(id);
-        //TODO 阅读量 缓存
+        //TODO 阅读量 缓存   key : article-readNum-#{articleId} value : int
         advo.setTags(baseDao.listTagsWithArticleId(id));
         return advo;
     }
@@ -59,7 +59,10 @@ public class BaseService {
     }
 
     public List<ArticleDetailVO> listAllAdvo() {
-        //TODO 缓存
+        //TODO 缓存   key : showAllArticle  value : List<ArticleDetailVO>
+        //维护一个unix时间戳,记录每次从数据库获取数据的时间,每次访问都判断是否从数据库拿数据
+        //或者开一个线程专门用来更新数据
+        // TODO 保存数据用的List和Set也要使用线程安全的容器,或者使用普通容器,每次更新容器都new一个新的去更新引用
         List<ArticleDetailVO> list = baseDao.listAllAdvo();
         sliceAdvoListContent(list);
         return list;
@@ -77,7 +80,9 @@ public class BaseService {
      * 算出每个tag所包含的文章数
      */
     private List<TagWithSize> addSizeToTag(List<Tag> tagWithSizes) {
-        //TODO 缓存   还要解决的一个问题是每次循环都会将连接返回池子再拿出来,希望能一次性跑完再放回去
+        //TODO 缓存  key : tags-size-#{tagsId}   value : int 这个搞个 volatile 关键字
+        //TODO 还要解决的一个问题是每次循环都会将连接返回池子再拿出来,希望能一次性跑完再放回去
+
         List<TagWithSize> sizeList = new ArrayList<>(tagWithSizes.size());
         tagWithSizes.forEach(it -> {
             sizeList.add(new TagWithSize(it, baseDao.getSizeOfTag(it.getId())));
@@ -87,7 +92,8 @@ public class BaseService {
 
 
     public List<TagWithSize> listAllTagsWithSize() {
-        //TODO 缓存
+        //TODO 所有标签及大小  key : allTagsWithSizeList  List<TagWithSize>
+        //TODO 按照时间更新
         List<Tag> tags = baseDao.listAllTags();
         List<TagWithSize> tagWithSizes = addSizeToTag(tags);
         Map<String, TagWithSize> maps = new HashMap<>();
@@ -121,7 +127,8 @@ public class BaseService {
     }
 
     public List<ArticleDetailVO> listHotAdvo() {
-        //TODO  缓存,按照时间更新
+        //TODO  key : hotAdvo  value List<ArticleDetailVo>
+        // 理论上是统计每篇文章的访问量,当然是理论上...
         List<ArticleDetailVO> hotAdvoList = baseDao.listHotAdvo();
         sliceAdvoListContent(hotAdvoList);
         return hotAdvoList;
@@ -129,7 +136,6 @@ public class BaseService {
 
     private void sliceAdvoListContent(List<ArticleDetailVO> hotAdvoList) {
         hotAdvoList.forEach(
-                //TODO 缓存?感觉每次都截取一次有点蠢,这个地方缓存要设在文章处
                 it -> {
                     String tmp = it.getContent();
                     int end = tmp.indexOf("<--->");
