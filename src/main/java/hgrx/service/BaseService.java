@@ -6,6 +6,8 @@ import hgrx.bean.User;
 import hgrx.dao.BaseDao;
 import hgrx.dto.ArticleDetailVO;
 import hgrx.dto.TagWithSize;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +15,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.locks.Lock;
+
+import static hgrx.util.CacheUtils.MyCache;
 
 /**
  * Created by HGRX on 2017/5/11
@@ -20,6 +25,8 @@ import java.util.Map;
 
 @Service
 public class BaseService {
+
+    Log log = LogFactory.getLog(this.getClass());
 
     BaseDao baseDao;
 
@@ -72,8 +79,36 @@ public class BaseService {
         return baseDao.listLatestArticleByUserId(userId);
     }
 
+    @SuppressWarnings("unchecked")
     public List<TagWithSize> listTagsWithSizeByUserId(Long userId) {
-        return addSizeToTag(baseDao.listTagsByUserId(userId));
+        //TODO 缓存   key : listTags-#{userId}  value : List<TagWithSize>
+        // 维护两个变量 listTags-#{userId}-A listTags-#{userId}-B
+        // 查询,如果A和B都为0,则到数据库查询数据,并将数据缓存到map中,A++,B++
+        // 如果出现了修改,如editArticle或addArticle,则将A++
+        // 查询,如果A>B,则向数据库请求最新数据覆盖map中的数据,并令B=A
+        // 否则直接返回map中的缓存数据
+        List<Tag> tmp;
+        String identityId = "listTags-" + userId;
+
+        Lock readLock = MyCache.getRWLock(identityId).readLock();
+        Lock writeLock = MyCache.getRWLock(identityId).writeLock();
+        readLock.lock();
+        if (MyCache.isChanged(identityId)) {
+            log.debug("---------------------------");
+            log.debug("isChanged,更新了缓存");
+            readLock.unlock();
+            writeLock.lock();
+            tmp = baseDao.listTagsByUserId(userId);
+            MyCache.updateCache(identityId, tmp);
+            writeLock.unlock();
+
+        } else {
+            log.debug("---------------------------");
+            log.debug("使用了现有的缓存");
+            tmp = (List<Tag>) MyCache.getCache(identityId);
+            readLock.unlock();
+        }
+        return addSizeToTag(tmp);
     }
 
     /**

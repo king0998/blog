@@ -3,6 +3,7 @@ package hgrx.service;
 import hgrx.bean.*;
 import hgrx.dao.AdminDao;
 import hgrx.dto.ArticleDetailVO;
+import hgrx.util.CacheUtils;
 import hgrx.util.MyUtils;
 import hgrx.util.RegexUtils;
 import org.apache.commons.codec.digest.DigestUtils;
@@ -92,6 +93,7 @@ public class AdminService {
 
     @SuppressWarnings("unchecked")
     public void updateArticle(ArticleDetailVO advo, String tags, Boolean updateTimestamp, List<String> beforeEdit) {
+
         Map<String, Object> par = new HashMap<>();
         par.put("advo", advo);
         // 在外面先更新timestamp,sql中决定是否更新到数据库
@@ -117,6 +119,8 @@ public class AdminService {
             ArticleTagsLink atl = new ArticleTagsLink(advo.getId(), getTagId(new Tag(tag, advo.getUserId())));
             adminDao.addTagLink(atl);
         }
+
+        CacheUtils.MyCache.updateAbValue("listTags-" + advo.getUserId());
 
     }
 
