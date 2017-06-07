@@ -230,4 +230,8 @@ public class AdminService {
     public Boolean addLike(Like like) {
         return adminDao.addLike(like);
     }
+
+    public boolean hasStarArticle(User user, Long articleId) {
+        return listStarArticleByUserId(user.getId()).contains(new ArticleDetailVO(articleId));
+    }
 }

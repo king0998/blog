@@ -41,6 +41,7 @@ public class BaseController {
         User user = baseService.getUserById(advo.getUserId());
         model.addAttribute("advo", advo);
         model.addAttribute("user", user);
+        model.addAttribute("isStar", adminService.hasStarArticle(user, id));
         return "article";
     }
 

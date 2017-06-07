@@ -26,6 +26,10 @@ public class ArticleDetailVO implements Comparable<ArticleDetailVO> {
 
     }
 
+    public ArticleDetailVO(Long id) {
+        this.id = id;
+    }
+
     public ArticleDetailVO(Article article) {
         id = article.getId();
         userId = article.getUserId();
@@ -44,6 +48,21 @@ public class ArticleDetailVO implements Comparable<ArticleDetailVO> {
     //tags : java,linux,spring
     private void setTags(String tagsStr) {
         tags = MyUtils.transformTagsToList(tagsStr);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        ArticleDetailVO that = (ArticleDetailVO) o;
+
+        return id == that.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return (int) (id ^ (id >>> 32));
     }
 
     @Override
