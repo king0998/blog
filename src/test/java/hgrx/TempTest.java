@@ -13,10 +13,7 @@ import org.junit.Test;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by HGRX on 2017/5/11
@@ -89,9 +86,14 @@ public class TempTest {
         t += 256;
         System.out.println(t + 256);
 
-        for (int i = 0; i < bytes.length; i++) {
-            System.out.println(bytes[i]);
+        for (byte aByte : bytes) {
+            System.out.println(aByte);
         }
+    }
+
+    @Test
+    public void test011() {
+        System.out.println(new Gson().toJson(new HashMap<>()));
     }
 }
 

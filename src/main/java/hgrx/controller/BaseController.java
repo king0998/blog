@@ -6,6 +6,7 @@ import hgrx.dto.ArticleDetailVO;
 import hgrx.dto.TagWithSize;
 import hgrx.service.AdminService;
 import hgrx.service.BaseService;
+import hgrx.util.CacheUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -42,6 +43,7 @@ public class BaseController {
         model.addAttribute("advo", advo);
         model.addAttribute("user", user);
         model.addAttribute("isStar", adminService.hasStarArticle(user, id));
+        model.addAttribute("pageView", CacheUtils.MyCache.increPageView(id));
         return "article";
     }
 

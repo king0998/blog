@@ -37,10 +37,7 @@
                     <div id="date" class="post-meta">
                         ${elf:date(advo.timestamp)}
                         <%--//TODO 是否关注,考虑使用缓存实现,不然数据库压力太大--%>
-                        <c:if test="${isStar}">
-                            <a href="#" onclick="addStar(${advo.id})">收藏</a>
-                        </c:if>
-
+                        <span>阅读量:${pageView}</span>
                         <c:choose>
                             <c:when test="${isStar}">
                                 <a href="#" onclick="addStar(${advo.id})">收藏</a>
