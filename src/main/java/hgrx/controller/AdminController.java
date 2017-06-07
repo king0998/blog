@@ -5,6 +5,8 @@ import hgrx.dto.ArticleDetailVO;
 import hgrx.dto.LoginDTO;
 import hgrx.service.AdminService;
 import hgrx.service.BaseService;
+import hgrx.util.CacheIdentity;
+import hgrx.util.CacheUtils;
 import hgrx.util.RegexUtils;
 import hgrx.util.VerifyCodeUtils;
 import org.apache.commons.codec.digest.DigestUtils;
@@ -141,6 +143,8 @@ public class AdminController {
 
     @RequestMapping(value = "admin/article/addHandle", method = RequestMethod.POST)
     public String addArticleHandle(Article article, String tags, HttpSession session, Model model) {
+        CacheUtils.MyCache.updateAbValue(CacheIdentity.LIST_TAGS_WITH_USERID.toString() + article.getUserId());
+        CacheUtils.MyCache.updateAbValue(CacheIdentity.LIST_ALL_TAGS.toString());
         User user = getUser(session);
         article.init(user.getId());
         try {

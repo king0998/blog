@@ -1,6 +1,7 @@
 package hgrx.dto;
 
 import hgrx.bean.Article;
+import hgrx.bean.Star;
 import hgrx.util.MyUtils;
 
 import java.util.List;
@@ -32,6 +33,11 @@ public class ArticleDetailVO implements Comparable<ArticleDetailVO> {
         timestamp = article.getTimestamp();
         content = article.getContent();
         draft = article.getDraft();
+    }
+
+    public ArticleDetailVO(Star star) {
+        this.id = star.getArticleId();
+        this.userId = star.getUserId();
     }
 
 

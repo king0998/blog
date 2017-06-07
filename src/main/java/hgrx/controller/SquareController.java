@@ -74,6 +74,8 @@ public class SquareController {
     @RequestMapping("square/archives")
     public String squareArchives(Model model) {
         //TODO
+
+
         model.addAttribute("tags", baseService.listAllTagsWithSize());
         return "square/square_page_archives";
     }

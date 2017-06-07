@@ -47,6 +47,10 @@ public enum CacheUtils {
         return data.get(key);
     }
 
+    public void putCache(String key, Object object) {
+        data.put(key, object);
+    }
+
     public void updateCache(String identityId, List<Tag> tmp) {
         AB.put(identityId + "-B", AB.get(identityId + "-A"));
         data.put(identityId, tmp);
@@ -55,7 +59,7 @@ public enum CacheUtils {
     public ReentrantReadWriteLock getRWLock(String identity) {
         ReentrantReadWriteLock lock = locks.get(identity);
         if (lock == null) {
-            synchronized (this) {
+            synchronized (this) {   //防止堵在if里面的冲进来又重设一个锁
                 if (lock == null) {
                     locks.put(identity, new ReentrantReadWriteLock());
                 }

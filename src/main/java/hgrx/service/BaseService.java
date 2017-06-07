@@ -6,6 +6,7 @@ import hgrx.bean.User;
 import hgrx.dao.BaseDao;
 import hgrx.dto.ArticleDetailVO;
 import hgrx.dto.TagWithSize;
+import hgrx.util.CacheIdentity;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -88,7 +89,7 @@ public class BaseService {
         // 查询,如果A>B,则向数据库请求最新数据覆盖map中的数据,并令B=A
         // 否则直接返回map中的缓存数据
         List<Tag> tmp;
-        String identityId = "listTags-" + userId;
+        String identityId = CacheIdentity.LIST_TAGS_WITH_USERID + "" + userId;
 
         Lock readLock = MyCache.getRWLock(identityId).readLock();
         Lock writeLock = MyCache.getRWLock(identityId).writeLock();
@@ -115,7 +116,7 @@ public class BaseService {
      * 算出每个tag所包含的文章数
      */
     private List<TagWithSize> addSizeToTag(List<Tag> tagWithSizes) {
-        //TODO 缓存  key : tags-size-#{tagsId}   value : int 这个搞个 volatile 关键字
+        //TODO 缓存  key : tags-size-#{tagsId}   value : int
         //TODO 还要解决的一个问题是每次循环都会将连接返回池子再拿出来,希望能一次性跑完再放回去
 
         List<TagWithSize> sizeList = new ArrayList<>(tagWithSizes.size());
@@ -125,11 +126,31 @@ public class BaseService {
         return sizeList;
     }
 
-
+    @SuppressWarnings("unchecked")
     public List<TagWithSize> listAllTagsWithSize() {
-        //TODO 所有标签及大小  key : allTagsWithSizeList  List<TagWithSize>
-        //TODO 按照时间更新
-        List<Tag> tags = baseDao.listAllTags();
+
+        List<Tag> tags;
+        String identityId = CacheIdentity.LIST_ALL_TAGS + "";
+
+        Lock readLock = MyCache.getRWLock(identityId).readLock();
+        Lock writeLock = MyCache.getRWLock(identityId).writeLock();
+        readLock.lock();
+        if (MyCache.isChanged(identityId)) {
+            log.debug("---------------------------");
+            log.debug("isChanged,更新了缓存");
+            readLock.unlock();
+            writeLock.lock();
+            tags = baseDao.listAllTags();
+            MyCache.updateCache(identityId, tags);
+            writeLock.unlock();
+
+        } else {
+            log.debug("---------------------------");
+            log.debug("使用了现有的缓存");
+            tags = (List<Tag>) MyCache.getCache(identityId);
+            readLock.unlock();
+        }
+
         List<TagWithSize> tagWithSizes = addSizeToTag(tags);
         Map<String, TagWithSize> maps = new HashMap<>();
         tagWithSizes.forEach(it -> {
