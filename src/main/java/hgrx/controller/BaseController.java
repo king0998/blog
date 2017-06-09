@@ -37,12 +37,12 @@ public class BaseController {
 
 
     @RequestMapping(value = "/article/{id}", method = RequestMethod.GET)
-    public String getArticle(@PathVariable Long id, Model model) {
+    public String getArticle(@PathVariable Long id, Model model, HttpSession session) {
         ArticleDetailVO advo = baseService.getAdvoById(id);
         User user = baseService.getUserById(advo.getUserId());
         model.addAttribute("advo", advo);
         model.addAttribute("user", user);
-        model.addAttribute("isStar", adminService.hasStarArticle(user, id));
+        model.addAttribute("isStar", adminService.hasStarArticle(getUser(session), id));
         model.addAttribute("pageView", CacheUtils.MyCache.increPageView(id));
         return "article";
     }

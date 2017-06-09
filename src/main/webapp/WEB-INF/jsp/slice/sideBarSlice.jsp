@@ -21,6 +21,7 @@
                     async: true,
                     success: function (result) {
                         $(result).each(function () {
+                            //'<a href="/archives?name=&userId=${user.id}" style="font-size: 15px;">' + this.name + '(' + this.size + ')' + '</a>'
                             $(".tagcloud").append('<a href="/archives?name=' + this.name + '&userId=${user.id}" style="font-size: 15px;">' + this.name + '(' + this.size + ')' + '</a>')
                         })
                     }

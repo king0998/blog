@@ -1,15 +1,10 @@
 package hgrx.util;
 
-import com.google.common.base.Charsets;
-import com.google.common.io.Files;
-import com.google.gson.Gson;
 import hgrx.bean.Tag;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.HashMap;
+import java.io.*;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -36,29 +31,31 @@ public enum CacheUtils {
         try {
             log.info("开始数据初始化");
             pageViews = CacheUtils.loadLocalPageViewsData();
+        } catch (IOException e) {
+            log.error("初始化阅读量数据文件失败,尝试new一个新的");
+            log.error(e.getMessage());
+            pageViews = new ConcurrentHashMap<>();
+        } finally {
             new Thread(() -> {
                 while (true) {
                     try {
-                        Thread.sleep(60 * 5 * 1000);
+                        Thread.sleep(60 * 1000);
                     } catch (InterruptedException e) {
                         //无关紧要
                         log.error(e.getMessage());
                     }
-                    log.info("持久化成功");
                     savePageViewsData();
                 }
             }).start();
-        } catch (IOException e) {
-            log.error("初始化阅读量数据文件失败");
-            log.error(e.getMessage());
-            System.exit(1);
         }
     }
 
     private static void savePageViewsData() {
-        String dataJson = new Gson().toJson(pageViews);
         try {
-            Files.write(dataJson.getBytes(), new File("D:\\code\\myblog\\src\\main\\resources\\pageViewsData"));
+            ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(new File("D:\\code\\myblog\\src\\main\\resources\\pageViewsData")));
+            oos.writeObject(pageViews);
+            oos.close();
+            log.info("持久化成功");
         } catch (IOException e) {
             System.exit(1);
             // 在本次运行中是没有问题的,但是重启之后数据就没了,所以还是直接宕掉吧
@@ -67,8 +64,16 @@ public enum CacheUtils {
 
     @SuppressWarnings("unchecked")
     private static ConcurrentHashMap<Long, Integer> loadLocalPageViewsData() throws IOException {
-        String data = Files.asCharSource(new File("D:\\code\\myblog\\src\\main\\resources\\pageViewsData"), Charsets.UTF_8).read();
-        Map<Long, Integer> map = new Gson().fromJson(data, HashMap.class);
+        ObjectInputStream ois = new ObjectInputStream(new FileInputStream(new File("D:\\code\\myblog\\src\\main\\resources\\pageViewsData")));
+        Map<Long, Integer> map = null;
+        try {
+            map = (Map<Long, Integer>) ois.readObject();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+            System.exit(1);//正常情况不可能,但还是直接宕掉吧
+        }
+
+        log.debug("阅读初始化数据如下! " + map);
         return new ConcurrentHashMap<>(map);
     }
 
@@ -107,6 +112,7 @@ public enum CacheUtils {
         ReentrantReadWriteLock lock = locks.get(identity);
         if (lock == null) {
             synchronized (this) {   //防止堵在if里面的冲进来又重设一个锁
+                lock = locks.get(identity);
                 if (lock == null) {
                     locks.put(identity, new ReentrantReadWriteLock());
                 }

@@ -158,6 +158,7 @@ public class AdminService {
         }
         log.debug("################################");
         log.debug("我的收藏:使用了缓存");
+        log.debug(list);
         readLock.unlock();
         return list;
     }
@@ -179,6 +180,7 @@ public class AdminService {
         String identity = CacheIdentity.USER_STAR_LIST_WITH_USERID.toString() + star.getUserId();
         Lock writeLock = MyCache.getRWLock(identity).writeLock();
         //程序读取star列表仅读取该
+        writeLock.lock();
         List<ArticleDetailVO> starListWIthUserId = (List<ArticleDetailVO>) MyCache.getCache(identity);
         //不能传函数进去好蠢=_=
         if (starListWIthUserId == null) {
@@ -232,6 +234,10 @@ public class AdminService {
     }
 
     public boolean hasStarArticle(User user, Long articleId) {
-        return listStarArticleByUserId(user.getId()).contains(new ArticleDetailVO(articleId));
+        if (user == null) {
+            return false;
+        }
+        List<ArticleDetailVO> list = listStarArticleByUserId(user.getId());
+        return list.contains(new ArticleDetailVO(articleId));
     }
 }
