@@ -44,6 +44,8 @@ public class BaseController {
         model.addAttribute("user", user);
         model.addAttribute("isStar", adminService.hasStarArticle(getUser(session), id));
         model.addAttribute("pageView", CacheUtils.MyCache.increPageView(id));
+        model.addAttribute("tags", baseService.listTagsWithSizeByUserId(user.getId()));
+        model.addAttribute("latestAdvo", listLatestArticle(user.getId()));
         return "article";
     }
 
@@ -53,6 +55,8 @@ public class BaseController {
         List<ArticleDetailVO> advoList = baseService.listAdvoWithPartContentByUserId(id);
         model.addAttribute("user", user);
         model.addAttribute("advoList", advoList);
+        model.addAttribute("tags", baseService.listTagsWithSizeByUserId(user.getId()));
+        model.addAttribute("latestAdvo", listLatestArticle(user.getId()));
         return "home-page";
     }
 
@@ -66,9 +70,10 @@ public class BaseController {
         Collections.sort(advoList);
         model.addAttribute("num", advoList.size());
         model.addAttribute("user", user);
-
         Map<String, List<ArticleDetailVO>> yearMap = getYearMap(advoList);
         model.addAttribute("yearMap", yearMap);
+        model.addAttribute("tags", baseService.listTagsWithSizeByUserId(user.getId()));
+        model.addAttribute("latestAdvo", listLatestArticle(user.getId()));
         return "article-list";
     }
 
@@ -95,6 +100,8 @@ public class BaseController {
         User user = baseService.getUserById(id);
         model.addAttribute("about", about);
         model.addAttribute("user", user);
+        model.addAttribute("tags", baseService.listTagsWithSizeByUserId(user.getId()));
+        model.addAttribute("latestAdvo", listLatestArticle(user.getId()));
         return "about";
     }
 
@@ -118,6 +125,8 @@ public class BaseController {
         model.addAttribute("user", user);
         model.addAttribute("desc", name);
         model.addAttribute("yearMap", yearMap);
+        model.addAttribute("tags", baseService.listTagsWithSizeByUserId(user.getId()));
+        model.addAttribute("latestAdvo", listLatestArticle(user.getId()));
         return "article-list";
     }
 
@@ -130,6 +139,8 @@ public class BaseController {
         model.addAttribute("user", user);
         model.addAttribute("desc", keyword);
         model.addAttribute("yearMap", yearMap);
+        model.addAttribute("tags", baseService.listTagsWithSizeByUserId(user.getId()));
+        model.addAttribute("latestAdvo", listLatestArticle(user.getId()));
         return "article-list";
     }
 

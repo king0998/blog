@@ -15,18 +15,10 @@
         </div>
         <div class="tagcloud">
 
-            <script>
-                $.ajax({
-                    url: "/listTags?userId=${user.id}",
-                    async: true,
-                    success: function (result) {
-                        $(result).each(function () {
-                            //'<a href="/archives?name=&userId=${user.id}" style="font-size: 15px;">' + this.name + '(' + this.size + ')' + '</a>'
-                            $(".tagcloud").append('<a href="/archives?name=' + this.name + '&userId=${user.id}" style="font-size: 15px;">' + this.name + '(' + this.size + ')' + '</a>')
-                        })
-                    }
-                });
-            </script>
+            <c:forEach items="${tags}" var="tag">
+                <a href="<c:url value="/archives?name=${tag.name}&userId=${user.id}"/>"
+                   style="font-size: 15px;">${tag.name}(${tag.size})</a>
+            </c:forEach>
 
         </div>
     </div>
@@ -36,18 +28,10 @@
         </div>
         <ul class="post-list">
 
-            <script>
-                $.ajax({
-                    url: "/latestArticle?userId=${user.id}",
-                    async: true,
-                    success: function (result) {
-                        $(result).each(function () {
-                            <%--$(".tagcloud").append('<a href="/archives?name=' + this.name + '&userId=${user.id}" style="font-size: 15px;">' + this.name + '</a>')--%>
-                            $(".post-list").append('<li class="post-list-item"><a class="post-list-link" href="/article/' + this.id + '">' + this.title + '</a></li>')
-                        })
-                    }
-                });
-            </script>
+            <c:forEach items="${latestAdvo}" var="advo">
+                <li class="post-list-item"><a class="post-list-link" href="/article/${advo.id}">${advo.title}</a></li>
+
+            </c:forEach>
 
         </ul>
     </div>
