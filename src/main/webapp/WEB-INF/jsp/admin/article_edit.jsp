@@ -50,33 +50,39 @@
         </div>
 
         <div class="admin_content">
-            <form action="<c:url value="/admin/article/editHandle"/>" method="post">
-                <div id="input-title-container">
-                    <label>标题:<br><input type="text" id="input_title" name="title" value="${advo.title}"></label>
-                </div>
+            <form action="<c:url value="/admin/article/editHandle"/>" class="pure-form-stacked pure-form editArticle"
+                  method="post">
+                <fieldset>
+                    <div id="input-title-container">
+                        <label></label>
+                        <input placeholder="标题" type="text" id="input_title" name="title" value="${advo.title}">
+                    </div>
 
-                <div id="input-content-container">
-                    <label>
-                        <textarea id="article_content" name="content">${advo.content}</textarea>
-                    </label>
-                </div>
+                    <div id="input-content-container">
+                        <label>
+                            <textarea placeholder="正文" id="article_content" name="content">${advo.content}</textarea>
+                        </label>
+                    </div>
 
-                <div id="input-tags-container">
-                    <label>
-                        <%--//TODO  js校验tags格式--%>
-                        <input name="tags" value="${advo.tags}">
-                    </label>
-                </div>
-                <label>是否发布
-                    <input type="checkbox" name="draft" value="${advo.draft}"/>
-                </label>
-                <label>更新时间戳:
-                    <input type="checkbox" name="updateTimestamp"/>
-                </label>
-                <input name="id" type="hidden" value="${advo.id}"/>
-                <input name="cToken" type="hidden" value="${sessionScope.get("cToken")}"/>
-                <input type="submit" value="发布"/>
-                <button type="button" id="preview">预览</button>
+                    <div id="input-tags-container">
+                        <label>
+                            <%--//TODO  js校验tags格式--%>
+                            <input placeholder="标签" type="text" name="tags" value="${advo.tags}">
+                        </label>
+                    </div>
+                    <div>
+                        是否发布
+                        <input type="checkbox" name="draft" value="${advo.draft}"/>
+                        更新时间戳:
+                        <input type="checkbox" name="updateTimestamp"/>
+                    </div>
+                    <input name="id" type="hidden" value="${advo.id}"/>
+                    <input name="cToken" type="hidden" value="${sessionScope.get("cToken")}"/>
+                    <div class="button-group">
+                        <button type="submit" class="pure-button pure-button-primary">发布</button>
+                        <button type="button" class="pure-button pure-button-primary" id="preview">预览</button>
+                    </div>
+                </fieldset>
             </form>
 
             <script>
@@ -105,6 +111,5 @@
 
     </div>
 </div>
-
 </body>
 </html>

@@ -46,7 +46,6 @@
                             <%--<p class="readmore"><a href="<c:url value="/article/${advo.id}"/>">阅读全文</a></p>--%>
                     </div>
                 </c:forEach>
-
                 <%--<nav class="page-navigator">--%>
                 <%--<span class="page-number current">1</span>--%>
                 <%--<a class="page-number" href="/page/2/">2</a>--%>
@@ -55,7 +54,6 @@
                 <%--<a class="page-number" href="/page/20/">20</a>--%>
                 <%--<a class="extend next" rel="next" href="/page/2/">下一页</a>--%>
                 <%--</nav>--%>
-
             </div>
         </div>
 
@@ -70,5 +68,14 @@
     <%@include file="slice/IncludeJsSlice.jsp" %>
 
 </div>
+
+<div class="footer-container">
+    <div class="footer">
+        <p>@2017<span class="with-love">
+        <i class="fa fa-heart"></i>
+        </span>HGRX</p>
+    </div>
+</div>
+
 </body>
 </html>

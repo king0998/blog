@@ -1,9 +1,92 @@
 
 .admin_content {
     /*width: 100%;*/
-    margin: 40px;
 }
 
 #main > div.header {
     height: 155px;
+}
+
+.dashboard {
+    margin: 0 auto;
+    width: 70%;
+}
+
+.dashboard div {
+    width: 47%;
+    height: 100px;
+    margin: 10px;
+}
+
+.dashboard-item-1 {
+    background-color: #00aced;
+}
+
+.dashboard-item-2 {
+    background-color: #00aced;
+}
+
+.dashboard-item-3 {
+    background-color: #00aced;
+}
+
+.dashboard-item-4 {
+    background-color: #00aced;
+}
+
+.editArticle {
+    margin-left: auto;
+    margin-right: auto;
+    width: 70%;
+}
+
+.editArticle input[type=text] {
+    width: 100%;
+}
+
+.editArticle textarea {
+    width: 100%;
+}
+
+.editArticle textarea {
+    height: 544px !important;
+}
+
+.editArticle button {
+    width: 49%;
+    margin: 0 auto;
+}
+
+.editArticle fieldset div {
+    margin-top: 10px;
+}
+
+.editArticle .button-group {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.addArticle {
+    margin-left: auto;
+    margin-right: auto;
+    width: 70%;
+}
+
+.addArticle input[type=text] {
+    width: 100%;
+}
+
+.addArticle textarea {
+    width: 100%;
+}
+
+.addArticle textarea {
+    height: 600px;
+}
+
+.addArticle button {
+    display: block;
+    width: 100%;
+    margin: 0 auto;
 }

@@ -45,25 +45,23 @@
             <h2>无fuck说</h2>
         </div>
 
-        <div>
-            <form action="<c:url value="/admin/article/addHandle"/>" method="post">
-                <input type="text" name="title"/>
-                <label>
-                    <textarea name="content"></textarea>
-                </label>
-                <input type="text" name="tags"/>
-                <input type="checkbox" name="draft">
-                <input name="cToken" style="display: none;" value="${sessionScope.get("cToken")}"/>
-                <input type="submit">
-            </form>
-
-            <h1>HELLO</h1>
-            <h1>WORLD</h1>
-        </div>
-
-
+        <form class="pure-form addArticle" action="<c:url value="/admin/article/addHandle"/>" method="post">
+            <fieldset class="pure-group">
+                <input type="text" name="title" placeholder="标题"/>
+            </fieldset>
+            <fieldset class="pure-group">
+                <textarea name="content" placeholder="文章内容"></textarea>
+            </fieldset>
+            <fieldset class="pure-group">
+                <input type="text" placeholder="标签" name="tags"/>
+            </fieldset>
+            <input id="draft" type="checkbox" name="draft">草稿
+            <input name="cToken" style="display: none;" value="${sessionScope.get("cToken")}"/>
+            <fieldset class="pure-group">
+                <button type="submit" class="pure-button pure-button-primary ">提交</button>
+            </fieldset>
+        </form>
     </div>
 </div>
-
 </body>
 </html>

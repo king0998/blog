@@ -95,5 +95,10 @@ public class TempTest {
     public void test011() {
         System.out.println(new Gson().toJson(new HashMap<>()));
     }
+
+    @Test
+    public void test033() {
+        new ArrayList().forEach(System.out::println);
+    }
 }
 

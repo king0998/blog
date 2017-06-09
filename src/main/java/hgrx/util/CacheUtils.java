@@ -56,7 +56,7 @@ public enum CacheUtils {
     }
 
     private static void savePageViewsData() {
-        String dataJson = pageViews.toString();
+        String dataJson = new Gson().toJson(pageViews);
         try {
             Files.write(dataJson.getBytes(), new File("D:\\code\\myblog\\src\\main\\resources\\pageViewsData"));
         } catch (IOException e) {
@@ -124,7 +124,7 @@ public enum CacheUtils {
         log.debug("更新了键:" + identity + " 的A值");
     }
 
-    //这个synchronized不能省,效率上话,看看再说
+    //这个synchronized不能省,效率的话,看看再说
     public synchronized Integer increPageView(Long articleId) {
         //如果是第一次访问,直接返回put的返回值,会返回一个null,页面上显示空白
         Integer t = pageViews.computeIfAbsent(articleId, k -> 1);
