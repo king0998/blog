@@ -6,6 +6,8 @@
 /.idea/*
 /myblog.iml
 
+#阅读数据量文件
+/src/main/resources/pageViewsData
 
 # maven
 /target/*

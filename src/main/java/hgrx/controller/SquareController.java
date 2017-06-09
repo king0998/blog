@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -30,7 +31,7 @@ public class SquareController {
         this.baseService = baseService;
     }
 
-    @RequestMapping("square/new")
+    @RequestMapping(value = {"square/new", "square"}, method = RequestMethod.GET)
     public String gotoSquare(HttpSession session, Model model) {
 
         // 只取最新20篇文章,且做缓存处理-,-

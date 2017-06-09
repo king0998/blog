@@ -77,5 +77,6 @@
     <%@include file="slice/IncludeJsSlice.jsp" %>
 
 </div>
+<%@include file="slice/footer.jsp" %>
 </body>
 </html>
