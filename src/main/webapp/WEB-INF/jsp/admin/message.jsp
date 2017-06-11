@@ -11,6 +11,8 @@
     <link rel="stylesheet" href="<c:url value="/css/pure-min.css"/>">
     <link rel="stylesheet" href="<c:url value="/css/side-menu.css"/>">
 </head>
+
+
 <body>
 
 <div id="layout">
@@ -31,42 +33,48 @@
                                               class="pure-menu-link">文章管理</a></li>
                 <li class="pure-menu-item"><a href="<c:url value="/admin/following"/>" class="pure-menu-link">我的关注</a>
                 </li>
-                <li class="menu-item-divided pure-menu-selected"><a href="<c:url value="/admin/follower"/>"
-                                                                    class="pure-menu-link">关注我的</a></li>
+                <li class="menu-item-divided"><a href="<c:url value="/admin/follower"/>" class="pure-menu-link">关注我的</a>
+                </li>
                 <li class="pure-menu-item"><a href="<c:url value="/admin/star/list"/>" class="pure-menu-link">我的收藏</a>
                 </li>
-                <li class="pure-menu-item"><a href="<c:url value="/admin/msg/list"/>" class="pure-menu-link">系统消息</a>
-                </li>
+                <li class="pure-menu-item pure-menu-selected"><a href="<c:url value="/admin/msg/list"/>"
+                                                                 class="pure-menu-link">系统消息</a></li>
+
+
             </ul>
         </div>
     </div>
 
     <div id="main">
         <div class="header">
-            <h1>关注我的</h1>
+            <h1>消息列表</h1>
             <h2>世上一切痛苦,本质都是对自己无能的愤怒</h2>
         </div>
 
 
         <div class="admin_content">
-            <table class="pure-table pure-table-horizontal">
-                <thead>
-                <tr>
-                    <th width="50%">昵称</th>
-                    <th>签名</th>
-                </tr>
-                </thead>
-                <tbody>
-                <c:forEach items="${followerList}" var="item">
-                    <tr>
-                        <td><a href="/home-page/${item.id}">${item.nickname}</a></td>
-                        <td>${item.intro}</td>
-                    </tr>
-                </c:forEach>
-                </tbody>
-            </table>
-        </div>
+            <ul>
+                <c:forEach items="${conversations}" var="con">
+                    <li>
+                        <div>
+                            <div>
+                                <div>
+                                    <span>${(con.get("message")).createdDate}</span>
+                                    <a href="#" class="user-name">${con.get("user").nickname}</a>
+                                </div>
+                                <div>
+                                    <p>${con.get("message").content}</p>
+                                    <a href="<c:url value="/admin/msg/detail?conversationId=${(con.get(\"message\")).conversationId}"/>">查看详情</a>
+                                </div>
+                            </div>
+                            <div>共 ${con.get("message").id} 条消息</div>
+                        </div>
+                        <br/>
+                    </li>
 
+                </c:forEach>
+            </ul>
+        </div>
 
     </div>
 </div>

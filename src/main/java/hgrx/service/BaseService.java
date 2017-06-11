@@ -38,8 +38,7 @@ public class BaseService {
 
     public ArticleDetailVO getAdvoById(Long id) {
         ArticleDetailVO advo = baseDao.getAdvoById(id);
-        baseDao.updateReadNum(id);
-        //TODO 阅读量 缓存   key : article-readNum-#{articleId} value : int
+        //TODO  缓存   key : article-readNum-#{articleId} value : int
         advo.setTags(baseDao.listTagsWithArticleId(id));
         return advo;
     }

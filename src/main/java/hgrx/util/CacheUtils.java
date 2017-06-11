@@ -112,6 +112,7 @@ public enum CacheUtils {
         ReentrantReadWriteLock lock = locks.get(identity);
         if (lock == null) {
             synchronized (this) {   //防止堵在if里面的冲进来又重设一个锁
+                // synchronized 虽然关键字可以保证可见性，但是进来的lock一定会是一个null，所以需要重新获取一次再做判断
                 lock = locks.get(identity);
                 if (lock == null) {
                     locks.put(identity, new ReentrantReadWriteLock());

@@ -39,6 +39,8 @@
                 </li>
                 <li class="pure-menu-item"><a href="<c:url value="/admin/star/list"/>" class="pure-menu-link">我的收藏</a>
                 </li>
+                <li class="pure-menu-item"><a href="<c:url value="/admin/msg/list"/>" class="pure-menu-link">系统消息</a>
+                </li>
             </ul>
         </div>
     </div>

@@ -35,6 +35,8 @@
                 </li>
                 <li class="pure-menu-item"><a href="<c:url value="/admin/star/list"/>" class="pure-menu-link">我的收藏</a>
                 </li>
+                <li class="pure-menu-item"><a href="<c:url value="/admin/msg/list"/>" class="pure-menu-link">系统消息</a>
+                </li>
             </ul>
         </div>
     </div>
@@ -42,7 +44,7 @@
     <div id="main">
         <div class="header">
             <h1>文章管理</h1>
-            <h2>无fuck说</h2>
+            <h2>你不能把希望放在别人会主动为你做些什么上，这是很没有道理的事</h2>
         </div>
 
         <form class="pure-form addArticle" action="<c:url value="/admin/article/addHandle"/>" method="post">

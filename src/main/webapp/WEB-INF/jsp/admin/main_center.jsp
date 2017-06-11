@@ -35,6 +35,8 @@
                 </li>
                 <li class="pure-menu-item"><a href="<c:url value="/admin/star/list"/>" class="pure-menu-link">我的收藏</a>
                 </li>
+                <li class="pure-menu-item"><a href="<c:url value="/admin/msg/list"/>" class="pure-menu-link">系统消息</a>
+                </li>
             </ul>
         </div>
     </div>
@@ -42,15 +44,25 @@
     <div id="main">
         <div class="header">
             <h1>个人中心</h1>
-            <h2>A subtitle for your page goes here</h2>
+            <h2>你的内在只有通过所做的事情才能表现出来</h2>
         </div>
-        <div class="pure-g dashboard">
-            <div class="dashboard-item-1"><h2> 发表了 </h2>
-                <p>23篇</p>
-                <p>文章</p></div>
-            <div class="dashboard-item-2"><p>三分之一</p></div>
-            <div class="dashboard-item-3"><p>三分之一</p></div>
-            <div class="dashboard-item-4"><p>三分之一</p></div>
+        <div class="dashboard">
+            <div class="dashboard-item-1">
+                <h2>23</h2>
+                <p>文章</p>
+            </div>
+            <div class="dashboard-item-2">
+                <h2>23</h2>
+                <p>文章</p>
+            </div>
+            <div class="dashboard-item-3">
+                <h2>23</h2>
+                <p>文章</p>
+            </div>
+            <div class="dashboard-item-4">
+                <h2>23</h2>
+                <p>文章</p>
+            </div>
         </div>
     </div>
 </div>

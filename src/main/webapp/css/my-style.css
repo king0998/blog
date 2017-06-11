@@ -19,19 +19,6 @@ div.tagcloud > a {
     display: inline-block
 }
 
-.footer-container {
-    margin-top: 80px;
-    padding: 10px 0;
-    background: #eeeeee;
-    color: #666;
-
-}
-
-.footer {
-    width: 1000px;
-    margin: 0 auto;
-}
-
 .with-love {
     display: inline-block;
     margin: 0 5px;

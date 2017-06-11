@@ -14,9 +14,6 @@ public class CSRFTokenCheckInterceptor implements HandlerInterceptor {
         HttpSession session = request.getSession();
         String sessionToken = (String) session.getAttribute("cToken");
         String clientToken = request.getParameter("cToken");
-        System.out.println("---------------------");
-        System.out.println(sessionToken);
-        System.err.println(clientToken);
         if (sessionToken == null || clientToken == null || !sessionToken.equals(clientToken)) {
             request.setAttribute("msg", "CSRF测试");
             request.getRequestDispatcher("/WEB-INF/jsp/error.jsp").forward(request, response);

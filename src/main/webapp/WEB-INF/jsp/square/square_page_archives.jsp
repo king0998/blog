@@ -80,5 +80,6 @@
 
 
 </div>
+<%@include file="../slice/footer.jsp" %>
 </body>
 </html>

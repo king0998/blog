@@ -43,28 +43,26 @@
 
     <div id="main">
         <div class="header">
-            <h1>关注我的</h1>
+            <h1>消息详情</h1>
             <h2>世上一切痛苦,本质都是对自己无能的愤怒</h2>
         </div>
 
 
         <div class="admin_content">
-            <table class="pure-table pure-table-horizontal">
-                <thead>
-                <tr>
-                    <th width="50%">昵称</th>
-                    <th>签名</th>
-                </tr>
-                </thead>
-                <tbody>
-                <c:forEach items="${followerList}" var="item">
-                    <tr>
-                        <td><a href="/home-page/${item.id}">${item.nickname}</a></td>
-                        <td>${item.intro}</td>
-                    </tr>
+            空白
+            <ul>
+                <c:forEach items="${messages}" var="m">
+                    <li>
+                        <div>
+                            <span>${m.get("user").nickname}</span>
+                        </div>
+                        <div>
+                            <span>${m.get("message").content}</span>
+                            <span>${m.get("message").createdDate}</span>
+                        </div>
+                    </li>
                 </c:forEach>
-                </tbody>
-            </table>
+            </ul>
         </div>
 
 

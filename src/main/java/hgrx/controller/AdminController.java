@@ -1,5 +1,8 @@
 package hgrx.controller;
 
+import hgrx.async.EventModel;
+import hgrx.async.EventProducer;
+import hgrx.async.EventType;
 import hgrx.bean.*;
 import hgrx.dto.ArticleDetailVO;
 import hgrx.dto.LoginDTO;
@@ -37,10 +40,13 @@ public class AdminController {
 
     final BaseService baseService;
 
+    final EventProducer eventProducer;
+
     @Autowired
-    public AdminController(AdminService adminService, BaseService baseService) {
+    public AdminController(AdminService adminService, BaseService baseService, EventProducer eventProducer) {
         this.baseService = baseService;
         this.adminService = adminService;
+        this.eventProducer = eventProducer;
     }
 
     @RequestMapping(value = "register", method = RequestMethod.GET)
@@ -230,7 +236,6 @@ public class AdminController {
     public String follower(HttpSession session, Model model) {
         User user = getUser(session);
         List<User> followerList = adminService.listFollowerListByUserId(user.getId());
-        System.out.println(followerList);
         model.addAttribute("followerList", followerList);
         return "admin/follower";
     }
@@ -265,6 +270,11 @@ public class AdminController {
         //TODO  状态检测?
         User user = getUser(session);
         Star star = new Star(id, user.getId());
+
+        eventProducer.fireEvent(new EventModel(EventType.LIKE)
+                .setActorId(user.getId())
+                .setExt("articleId", String.valueOf(id)));
+
         return adminService.addStar(star) + "";
     }
 
@@ -282,7 +292,6 @@ public class AdminController {
         User user = getUser(session);
         model.addAttribute("user", user);
         ArticleDetailVO advo = new ArticleDetailVO();
-        System.out.println(content);
         advo.setTitle(title);
         // 避免替换\n
         String replaceStr = content.replaceAll("(?<!\\\\)\\\\n", "\n");

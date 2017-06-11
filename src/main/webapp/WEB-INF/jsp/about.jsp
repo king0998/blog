@@ -1,6 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-
+<%@ taglib prefix="elf" uri="/WEB-INF/tlds/elfunc.tld" %>
 <html lang="zh-CN">
 <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
@@ -44,13 +44,13 @@
     <div id="layout" class="pure-g">
         <div class="pure-u-1 pure-u-md-3-4">
             <div class="content_container">
-                <div class="post">
+                <%--<div class="post">--%>
                     <button type="button" id="follow" onclick="follow(${user.id})">关注
                     </button>
 
-                    <h1> ${about} </h1>
+                ${elf:md(about)}
 
-                </div>
+                <%--</div>--%>
             </div>
         </div>
 

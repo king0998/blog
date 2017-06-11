@@ -158,7 +158,6 @@ public class AdminService {
         }
         log.debug("################################");
         log.debug("我的收藏:使用了缓存");
-        log.debug(list);
         readLock.unlock();
         return list;
     }

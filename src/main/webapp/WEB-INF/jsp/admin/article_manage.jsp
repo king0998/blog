@@ -37,6 +37,8 @@
                 </li>
                 <li class="pure-menu-item"><a href="<c:url value="/admin/star/list"/>" class="pure-menu-link">我的收藏</a>
                 </li>
+                <li class="pure-menu-item"><a href="<c:url value="/admin/msg/list"/>" class="pure-menu-link">系统消息</a>
+                </li>
             </ul>
         </div>
     </div>
@@ -44,7 +46,7 @@
     <div id="main">
         <div class="header">
             <h1>文章管理</h1>
-            <h2>无fuck说</h2>
+            <h2>『（根据相关法律法规，相关内容已被屏蔽。）』</h2>
         </div>
 
         <table>
