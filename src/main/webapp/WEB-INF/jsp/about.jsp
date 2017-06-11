@@ -4,7 +4,6 @@
 <html lang="zh-CN">
 <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
-    <%--<title>春去春又来 | 屠城</title>--%>
     <title>归档 | ${user.nickname}</title>
     <link rel="stylesheet" type="text/css" href="<c:url value="/css/style.css"/>"/>
     <link rel="stylesheet" type="text/css" href="<c:url value="/css/normalize.min.css"/>"/>
@@ -36,7 +35,6 @@
                 success: function (result) {
                     alert(result.msg);
                     if (result.code == 200) {
-//                        $("#date").find("> a").html("已收藏").attr('onclick', '');
                         $("#follow").attr("disabled", true).html("已关注");
                     }
                 }
@@ -47,7 +45,6 @@
     <div id="layout" class="pure-g">
         <div class="pure-u-1 pure-u-md-3-4">
             <div class="content_container">
-                <%--<div class="post">--%>
 
                 <c:choose>
                     <c:when test="${hasFollow}">
@@ -58,11 +55,8 @@
                     </c:otherwise>
                 </c:choose>
 
-
-
                 ${elf:md(about)}
 
-                <%--</div>--%>
             </div>
         </div>
 
