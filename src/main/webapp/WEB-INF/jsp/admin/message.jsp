@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="elf" uri="/WEB-INF/tlds/elfunc.tld" %>
 <!doctype html>
 <html lang="en">
 <head>
@@ -54,30 +55,28 @@
 
         <div class="admin_content">
             <ul>
+
                 <c:forEach items="${conversations}" var="con">
-                    <li>
                         <div>
-                            <div>
-                                <div>
-                                    <span>${(con.get("message")).createdDate}</span>
-                                    <a href="#" class="user-name">${con.get("user").nickname}</a>
+                            <div class="message-container">
+                                <div class="user-container">
+                                    <img class="user-img" src="https://chopstack.com/visitor.png" alt="">
+                                    <a href="#" class="user-name"> ${con.get("user").nickname}</a>
+                                    <span class="user-time">${ elf:date((con.get("message")).createdDate)}</span>
                                 </div>
                                 <div>
                                     <p>${con.get("message").content}</p>
-                                    <a href="<c:url value="/admin/msg/detail?conversationId=${(con.get(\"message\")).conversationId}"/>">查看详情</a>
+                                    <a href="<c:url value="/admin/msg/detail?conversationId=${(con.get(\"message\")).conversationId}"/>">查看详情(共 ${con.get("message").id}
+                                        条消息)</a>
                                 </div>
                             </div>
-                            <div>共 ${con.get("message").id} 条消息</div>
+                            <div></div>
                         </div>
-                        <br/>
-                    </li>
-
                 </c:forEach>
             </ul>
         </div>
 
     </div>
 </div>
-
 </body>
 </html>

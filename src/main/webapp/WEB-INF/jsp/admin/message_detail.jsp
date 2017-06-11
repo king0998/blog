@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="elf" uri="/WEB-INF/tlds/elfunc.tld" %>
 <!doctype html>
 <html lang="en">
 <head>
@@ -47,27 +48,67 @@
             <h2>世上一切痛苦,本质都是对自己无能的愤怒</h2>
         </div>
 
-
         <div class="admin_content">
-            空白
-            <ul>
                 <c:forEach items="${messages}" var="m">
-                    <li>
-                        <div>
-                            <span>${m.get("user").nickname}</span>
+                    <div class="message-container">
+                        <div class="user-container">
+                            <img class="user-img" src="https://chopstack.com/visitor.png" alt="">
+                            <span class="user-name">${m.get("user").nickname}</span>
+                            <span class="user-time">${elf:date( m.get("message").createdDate)}</span>
                         </div>
                         <div>
-                            <span>${m.get("message").content}</span>
-                            <span>${m.get("message").createdDate}</span>
-                        </div>
-                    </li>
-                </c:forEach>
-            </ul>
-        </div>
+                            <p>${m.get("message").content}</p>
 
+                        </div>
+                    </div>
+                </c:forEach>
+        </div>
 
     </div>
 </div>
+<style>
+    .admin_content {
+        color: #444;
+        padding: 24px 20px;
+    }
 
+    .user-name {
+        position: relative;
+        top: -22px;
+        left: 10px;
+        line-height: 1.3;
+        background-color: #fff;
+        color: #000;
+        padding: 0;
+        font-weight: normal;
+    }
+
+    .user-time {
+        position: relative;
+        left: -50px;
+        font-size: 80%;
+        top: -4px;
+    }
+
+    .user-img {
+        width: 36px;
+        height: 36px;
+        border-radius: 100%;
+    }
+
+    .message-container {
+        padding: 24px 20px;
+        background-color: #fff;
+        border: 1px solid rgba(150, 150, 150, 0.18);
+        margin: 30px 0 0;
+        list-style: none;
+        border-radius: 5px;
+        font-family: 'TIBch', 'Classic Grotesque W01', 'Helvetica Neue', Arial, 'Hiragino Sans GB', 'STHeiti', 'Microsoft YaHei', 'WenQuanYi Micro Hei', SimSun, sans-serif;
+    }
+
+    user-container {
+        margin-left: 48px;
+    }
+</style>
 </body>
 </html>

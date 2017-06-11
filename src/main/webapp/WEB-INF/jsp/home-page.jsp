@@ -14,7 +14,7 @@
     <script type="text/javascript" src="<c:url value="/js/jquery.min.js"/>"></script>
 </head>
 <body>
-<div class="body_container" style="position: relative;right:4px">
+<div class="body_container">
     <div id="header">
         <div class="site-name">
             <a id="logo" href="#">${user.nickname}</a>
