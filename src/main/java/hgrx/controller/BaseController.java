@@ -6,8 +6,10 @@ import hgrx.dto.ArticleDetailVO;
 import hgrx.dto.TagWithSize;
 import hgrx.service.AdminService;
 import hgrx.service.BaseService;
+import hgrx.service.CommentService;
 import hgrx.service.FollowService;
 import hgrx.util.CacheUtils;
+import hgrx.util.MyUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,6 +32,9 @@ public class BaseController {
     AdminService adminService;
 
     @Autowired
+    CommentService commentService;
+
+    @Autowired
     FollowService followService;
 
     @Autowired
@@ -49,6 +54,12 @@ public class BaseController {
         model.addAttribute("pageView", CacheUtils.MyCache.increPageView(id));
         model.addAttribute("tags", baseService.listTagsWithSizeByUserId(user.getId()));
         model.addAttribute("latestAdvo", listLatestArticle(user.getId()));
+
+        model.addAttribute("entityType", MyUtils.COMMENT_ENTITY_TYPE_ARTICLE);
+        model.addAttribute("entityId", id);
+        model.addAttribute("commentList", commentService.listAllCommentWithTypeAndId(MyUtils.COMMENT_ENTITY_TYPE_ARTICLE, id));
+
+
         return "article";
     }
 
@@ -107,10 +118,11 @@ public class BaseController {
         model.addAttribute("tags", baseService.listTagsWithSizeByUserId(user.getId()));
         model.addAttribute("latestAdvo", listLatestArticle(user.getId()));
         model.addAttribute("hasFollow", followService.hasFollow(u, user));
+        model.addAttribute("entityType", MyUtils.COMMENT_ENTITY_TYPE_ABOUT);
+        model.addAttribute("entityId", id);
+        model.addAttribute("commentList", commentService.listAllCommentWithTypeAndId(MyUtils.COMMENT_ENTITY_TYPE_ABOUT, id));
         return "about";
     }
-
-
 
 
     /**

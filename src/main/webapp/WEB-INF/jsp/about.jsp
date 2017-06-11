@@ -1,6 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="elf" uri="/WEB-INF/tlds/elfunc.tld" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <html lang="zh-CN">
 <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
@@ -10,6 +11,7 @@
     <link rel="stylesheet" type="text/css" href="<c:url value="/css/pure-min.css"/>"/>
     <link rel="stylesheet" type="text/css" href="<c:url value="/css/grids-responsive-min.css"/>"/>
     <link rel="stylesheet" type="text/css" href="<c:url value="/css/my-style.css"/>"/>
+    <link rel="stylesheet" type="text/css" href="<c:url value="/css/comment.css"/> "/>
     <link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css"/>
     <script type="text/javascript" src="<c:url value="/js/jquery.min.js"/>"></script>
 </head>
@@ -58,6 +60,16 @@
                 ${elf:md(about)}
 
             </div>
+            <br/><br/>
+            <h2>留言板</h2>
+            <hr>
+            <br/><br/>
+
+
+            <%@include file="slice/comment_slice.jsp" %>
+
+
+
         </div>
 
 

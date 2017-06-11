@@ -20,6 +20,9 @@ public class FollowService {
      * @param target 要查询的人
      */
     public boolean hasFollow(User self, User target) {
+        if (self == null) {
+            return false;
+        }
         return followDao.hasFollow(self.getId(), target.getId());
     }
 }

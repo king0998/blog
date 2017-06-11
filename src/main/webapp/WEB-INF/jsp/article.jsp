@@ -1,6 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="elf" uri="/WEB-INF/tlds/elfunc.tld" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <html lang="zh-CN">
 <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
@@ -11,7 +12,9 @@
     <link rel="stylesheet" type="text/css" href="<c:url value="/css/grids-responsive-min.css?v=2.0.1"/>"/>
     <link rel="stylesheet" type="text/css" href="<c:url value="/css/my-style.css"/>"/>
     <link rel="stylesheet" type="text/css" href="<c:url value="/css/prism.css"/> "/>
+    <link rel="stylesheet" type="text/css" href="<c:url value="/css/comment.css"/> "/>
     <link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css"/>
+
     <script type="text/javascript" src="<c:url value="/js/jquery.min.js?v=2.0.1"/>"></script>
 </head>
 <body>
@@ -79,39 +82,15 @@
                     <%--</div>--%>
                 </div>
             </div>
-            <p>发表评论</p>
-            <div class="comment-container">
-                <form action="">
-                    <textarea name="" id="" rows="2"></textarea>
-                    <div class="input-body">
-                        <input class="" type="text" placeholder="昵称">
-                        <input class="" type="text" placeholder="邮箱">
-                        <button>提交评论</button>
-                    </div>
-                </form>
-            </div>
-            <div class="message-container">
-                <div class="user-container">
-                    <img class="user-img" src="https://chopstack.com/visitor.png" alt="">
-                    <span class="user-name">系统通知</span>
-                    <span class="user-time">2017/06/11</span>
-                </div>
-                <div>
-                    <p>用户[ 挥戈入巷 ]收藏了你的文章:[ 再次测试marked ]</p>
 
-                </div>
-            </div>
-            <div class="message-container">
-                <div class="user-container">
-                    <img class="user-img" src="https://chopstack.com/visitor.png" alt="">
-                    <span class="user-name">系统通知</span>
-                    <span class="user-time">2017/06/11</span>
-                </div>
-                <div>
-                    <p>用户[ 挥戈入巷 ]收藏了你的文章:[ 再次测试marked ]</p>
+            <br><br>
+            <h2>评论</h2>
+            <hr>
+            <br>
 
-                </div>
-            </div>
+            <%@include file="slice/comment_slice.jsp" %>
+
+
         </div>
 
 
@@ -127,117 +106,5 @@
 <%@include file="slice/footer.jsp" %>
 
 </body>
-<style>
-    .comment-container {
-        width: 100%;
-        margin-top: 15px;
-        padding: 24px 0 0;
-        background-color: #fff;
-        border: 1px solid rgba(150, 150, 150, 0.2);
-    }
 
-    .comment-container textarea {
-        width: 100%;
-        line-height: 1.8;
-        padding: 0 20px 0 20px;
-        background-color: transparent;
-        resize: none;
-        height: 55px;
-        border: none;
-        max-width: none !important;
-        font-size: 1em;
-        outline: none;
-    }
-
-    .input-body {
-        padding-top: 15px;
-        padding-bottom: 15px;
-        height: 48px;
-        margin-top: 12px;
-        position: relative;
-        background-color: #fbfbfb;
-    }
-
-    .input-body input {
-        padding: 0;
-        line-height: 1.4;
-        border: none;
-        background-color: transparent;
-        max-width: none !important;
-        font-size: 1em;
-        outline: none;
-        padding-left: 20px;
-        padding-right: 20px;
-    }
-
-    .comment-container form {
-        margin-bottom: 0px;
-    }
-
-    .input-body button {
-        padding-left: 25px;
-        padding-right: 25px;
-        width: auto;
-        position: absolute;
-        right: 0;
-        top: 0;
-        background-color: #000;
-        color: #fff;
-        height: 32px;
-        line-height: 32px;
-        margin: 8px 10px 8px 0;
-        border-radius: 20px;
-        text-decoration: none;
-        border: none;
-        max-width: none !important;
-        font-size: 1em;
-        -webkit-box-sizing: border-box;
-        -moz-box-sizing: border-box;
-        box-sizing: border-box;
-        outline: none;
-    }
-
-    .admin_content {
-        color: #444;
-        padding: 24px 20px;
-    }
-
-    .user-name {
-        position: relative;
-        top: -22px;
-        left: 10px;
-        line-height: 1.3;
-        background-color: #fff;
-        color: #000;
-        padding: 0;
-        font-weight: normal;
-    }
-
-    .user-time {
-        position: relative;
-        left: -50px;
-        font-size: 80%;
-        top: -4px;
-    }
-
-    .user-img {
-        width: 36px;
-        height: 36px;
-        border-radius: 100%;
-    }
-
-    .message-container {
-        padding: 24px 20px;
-        background-color: #fff;
-        border: 1px solid rgba(150, 150, 150, 0.18);
-        margin: 30px 0 0;
-        list-style: none;
-        border-radius: 5px;
-        font-family: 'TIBch', 'Classic Grotesque W01', 'Helvetica Neue', Arial, 'Hiragino Sans GB', 'STHeiti', 'Microsoft YaHei', 'WenQuanYi Micro Hei', SimSun, sans-serif;
-    }
-
-    user-container {
-        margin-left: 48px;
-    }
-</style>
 </html>

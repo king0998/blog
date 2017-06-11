@@ -19,6 +19,15 @@
         <example>${elf:date(timestamp)}</example>
     </function>
 
+    <function>
+        <description>将Unix时间戳转换为yyyy/MM/dd</description>
+        <name>datehhmm</name>
+        <function-class>hgrx.util.ElFunUtil
+        </function-class>
+        <function-signature>java.lang.String datehhmm(java.lang.Long)</function-signature>
+        <example>${elf:datehhmm(timestamp)}</example>
+    </function>
+
 
     <function>
         <description>将md文档转为html</description>

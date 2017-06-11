@@ -44,4 +44,9 @@
         <property name="mapperInterface" value="hgrx.dao.FollowDao"/>
     </bean>
 
+    <bean id="commentDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+        <property name="mapperInterface" value="hgrx.dao.CommentDao"/>
+    </bean>
+
 </beans>
