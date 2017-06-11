@@ -19,6 +19,7 @@ public class CommentController {
 
     @RequestMapping("/comment/addHandle")
     public String addComment(Comment comment) {
+        //TODO 参数校验
         comment.setCreatedDate(System.currentTimeMillis());
         commentService.addComment(comment);
         String urlSuffix;

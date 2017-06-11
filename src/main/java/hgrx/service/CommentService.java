@@ -1,5 +1,9 @@
 package hgrx.service;
 
+import com.google.gson.Gson;
+import hgrx.async.EventModel;
+import hgrx.async.EventProducer;
+import hgrx.async.EventType;
 import hgrx.bean.Comment;
 import hgrx.dao.CommentDao;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +21,15 @@ public class CommentService {
     @Autowired
     CommentDao commentDao;
 
+    @Autowired
+    EventProducer eventProducer;
+
     public void addComment(Comment comment) {
+
+        EventModel eventModel = new EventModel(EventType.COMMENT)
+                .setExt("comment", new Gson().toJson(comment));
+        eventProducer.fireEvent(eventModel);
+
         commentDao.addComment(comment);
     }
 
