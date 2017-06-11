@@ -8,10 +8,7 @@ import hgrx.dto.ArticleDetailVO;
 import hgrx.dto.LoginDTO;
 import hgrx.service.AdminService;
 import hgrx.service.BaseService;
-import hgrx.util.CacheIdentity;
-import hgrx.util.CacheUtils;
-import hgrx.util.RegexUtils;
-import hgrx.util.VerifyCodeUtils;
+import hgrx.util.*;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -187,12 +184,12 @@ public class AdminController {
     }
 
 
-    @RequestMapping(value = "admin/follow/add/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "admin/follow/add/{id}", method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
     @ResponseBody
     public String addFollow(@PathVariable Long id, HttpSession session, HttpServletResponse response) {
         User user = getUser(session);
         boolean f = adminService.addFollow(new Follow(id, user.getId()));
-        return "" + f;
+        return MyUtils.getJSONString(f);
     }
 
     @RequestMapping(value = "admin/article/manage", method = RequestMethod.GET)
@@ -264,7 +261,7 @@ public class AdminController {
         return adminService.deleteStar(star);
     }
 
-    @RequestMapping(value = "admin/star/addHandle", method = RequestMethod.POST)
+    @RequestMapping(value = "admin/star/addHandle", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
     @ResponseBody
     public String addStar(Long id, HttpSession session) {
         //TODO  状态检测?
@@ -275,7 +272,7 @@ public class AdminController {
                 .setActorId(user.getId())
                 .setExt("articleId", String.valueOf(id)));
 
-        return adminService.addStar(star) + "";
+        return MyUtils.getJSONString(adminService.addStar(star));
     }
 
     @RequestMapping(value = "admin/like/add/{id}", method = RequestMethod.GET)
@@ -283,7 +280,7 @@ public class AdminController {
     public String addLike(@PathVariable Long id, HttpSession session) {
         User user = getUser(session);
         Like like = new Like(id, user.getId());
-        return adminService.addLike(like) + "";
+        return MyUtils.getJSONString(adminService.addLike(like));
     }
 
     @RequestMapping(value = "/admin/article/preview", method = RequestMethod.POST)

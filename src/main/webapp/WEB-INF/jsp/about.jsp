@@ -34,8 +34,11 @@
                 url: "/admin/follow/add/" + id,
                 async: true,
                 success: function (result) {
-                    alert(result);
-                    $("#follow").attr("disabled", true);
+                    alert(result.msg);
+                    if (result.code == 200) {
+//                        $("#date").find("> a").html("已收藏").attr('onclick', '');
+                        $("#follow").attr("disabled", true).html("已关注");
+                    }
                 }
             })
         }
@@ -45,8 +48,17 @@
         <div class="pure-u-1 pure-u-md-3-4">
             <div class="content_container">
                 <%--<div class="post">--%>
-                    <button type="button" id="follow" onclick="follow(${user.id})">关注
-                    </button>
+
+                <c:choose>
+                    <c:when test="${hasFollow}">
+                        <button type="button" id="follow" disabled="disabled">已关注</button>
+                    </c:when>
+                    <c:otherwise>
+                        <button type="button" id="follow" onclick="follow(${user.id})">关注</button>
+                    </c:otherwise>
+                </c:choose>
+
+
 
                 ${elf:md(about)}
 

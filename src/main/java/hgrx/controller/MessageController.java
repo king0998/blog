@@ -6,7 +6,6 @@ import hgrx.bean.ViewObject;
 import hgrx.service.AdminService;
 import hgrx.service.BaseService;
 import hgrx.service.MessageService;
-import hgrx.util.MyUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +14,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
@@ -74,39 +72,6 @@ public class MessageController {
             logger.error("获取详情失败" + e.getMessage());
         }
         return "admin/message_detail";
-    }
-
-    @RequestMapping(path = {"/admin/msg/addMessage"}, method = {RequestMethod.POST})
-    @ResponseBody
-    public String addMessage(@RequestParam("toName") String toName,
-                             @RequestParam("content") String content,
-                             HttpSession session,
-                             Model model) {
-        User u = getUser(session);
-        try {
-            if (u == null) {
-                model.addAttribute("msg", "未登录");
-                return "error";
-            }
-
-            User user = adminService.getUserByUsername(toName);
-            if (user == null) {
-                model.addAttribute("msg", "用户不存在");
-                return "error";
-            }
-
-            Message message = new Message();
-            message.setCreatedDate(System.currentTimeMillis());
-            message.setFromId(u.getId());
-            message.setToId(user.getId());
-            message.setContent(content);
-            messageService.addMessage(message);
-            return MyUtils.getJSONString(200, "发送成功");
-
-        } catch (Exception e) {
-            logger.error("发送消息失败" + e.getMessage());
-            return MyUtils.getJSONString(400, "发送失败");
-        }
     }
 
 

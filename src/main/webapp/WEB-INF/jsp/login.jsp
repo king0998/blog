@@ -1,4 +1,4 @@
-<%@ taglib prefix="c" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: 75747
@@ -13,7 +13,7 @@
     <script type="text/javascript" src="<c:url value="/js/jquery.min.js"/>"></script>
     <link rel="stylesheet" type="text/css" href="<c:url value="/css/normalize.min.css"/>"/>
     <link rel="stylesheet" type="text/css" href="<c:url value="/css/pure-min.css"/>"/>
-    <link rel="stylesheet" href="/css/login.css">
+    <link rel="stylesheet" href="<c:url value="/css/login.css"/>">
 </head>
 <body>
 <div class="container">
@@ -22,7 +22,7 @@
         <input type="text" name="username" placeholder="用户名">
         <input type="password" name="password" placeholder="密码">
         <input type="text" class="verifyInput" name="verify" placeholder="验证码">
-        <img class="verifyImg" src="/loginVerify" id="verifyImage">
+        <img class="verifyImg" src="<c:url value="/loginVerify"/>" id="verifyImage">
         <input type="hidden" name="verifyId" value="">
         <input style="display: none;" name="cToken" value="${sessionScope.get("cToken")}" title=""/>
         <input type="submit" class="pure-button pure-button-primary" value="登录">
@@ -38,8 +38,8 @@
                 $("#verifyImage").attr("src", result.base64Code);
             }
         })
-    }
-    window.onload = getNewImg
+    };
+    window.onload = getNewImg;
     document.querySelector("img").addEventListener("click", getNewImg)
 </script>
 

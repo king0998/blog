@@ -52,7 +52,8 @@ public enum CacheUtils {
 
     private static void savePageViewsData() {
         try {
-            ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(new File("D:\\code\\myblog\\src\\main\\resources\\pageViewsData")));
+            File pageViewsData = new File(CacheUtils.class.getClassLoader().getResource("pageViewsData").getFile());
+            ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(pageViewsData));
             oos.writeObject(pageViews);
             oos.close();
             log.info("持久化成功");
@@ -64,7 +65,8 @@ public enum CacheUtils {
 
     @SuppressWarnings("unchecked")
     private static ConcurrentHashMap<Long, Integer> loadLocalPageViewsData() throws IOException {
-        ObjectInputStream ois = new ObjectInputStream(new FileInputStream(new File("D:\\code\\myblog\\src\\main\\resources\\pageViewsData")));
+        File pageViewsData = new File(CacheUtils.class.getClassLoader().getResource("pageViewsData").getFile());
+        ObjectInputStream ois = new ObjectInputStream(new FileInputStream(pageViewsData));
         Map<Long, Integer> map = null;
         try {
             map = (Map<Long, Integer>) ois.readObject();

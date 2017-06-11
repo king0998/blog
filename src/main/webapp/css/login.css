@@ -1,7 +1,6 @@
 .container {
     width: 370px;
-    margin: 0 auto;
-    margin-top: 9%;
+    margin: 9% auto 0;
 }
 
 .container form input {

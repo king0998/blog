@@ -54,7 +54,10 @@
                                 type: "POST",
                                 data: {id: id, cToken: "${sessionScope.get("cToken")}"},
                                 success: function (result) {
-                                    alert(result);
+                                    alert(result.msg);
+                                    if (result.code == 200) {
+                                        $("#date").find("> a").html("已收藏").attr('onclick', '');
+                                    }
                                 }
                             })
                         }

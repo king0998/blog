@@ -20,12 +20,17 @@ public class MyUtils {
     }
 
     /**
-     *   ["java","linux","spring"]
+     * ["java","linux","spring"]
      */
     public static String transformListToTags(List<String> list) {
         return new Gson().toJson(list);
     }
 
+    public static String getJSONString(String msg) {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("msg", msg);
+        return jsonObject.toJSONString();
+    }
 
     public static String getJSONString(int code) {
         JSONObject json = new JSONObject();
@@ -49,4 +54,10 @@ public class MyUtils {
         return json.toJSONString();
     }
 
+    public static String getJSONString(Boolean aBoolean) {
+        JSONObject json = new JSONObject();
+        json.put("code", aBoolean ? 200 : 400);
+        json.put("msg", aBoolean ? "操作成功!" : "操作失败!");
+        return json.toJSONString();
+    }
 }

@@ -47,14 +47,7 @@
                             <%--<p class="readmore"><a href="<c:url value="/article/${advo.id}"/>">阅读全文</a></p>--%>
                     </div>
                 </c:forEach>
-                <%--<nav class="page-navigator">--%>
-                <%--<span class="page-number current">1</span>--%>
-                <%--<a class="page-number" href="/page/2/">2</a>--%>
-                <%--<a class="page-number" href="/page/3/">3</a>--%>
-                <%--<span class="space">…</span>--%>
-                <%--<a class="page-number" href="/page/20/">20</a>--%>
-                <%--<a class="extend next" rel="next" href="/page/2/">下一页</a>--%>
-                <%--</nav>--%>
+
             </div>
         </div>
 

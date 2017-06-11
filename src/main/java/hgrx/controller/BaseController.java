@@ -6,6 +6,7 @@ import hgrx.dto.ArticleDetailVO;
 import hgrx.dto.TagWithSize;
 import hgrx.service.AdminService;
 import hgrx.service.BaseService;
+import hgrx.service.FollowService;
 import hgrx.util.CacheUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -28,6 +29,8 @@ public class BaseController {
     final
     AdminService adminService;
 
+    @Autowired
+    FollowService followService;
 
     @Autowired
     public BaseController(BaseService baseService, AdminService adminService) {
@@ -95,13 +98,15 @@ public class BaseController {
 
 
     @RequestMapping(value = "about/{id}", method = RequestMethod.GET)
-    public String about(@PathVariable Long id, Model model) {
+    public String about(@PathVariable Long id, Model model, HttpSession session) {
+        User u = getUser(session);
         String about = baseService.getAboutMeByUserId(id);
         User user = baseService.getUserById(id);
         model.addAttribute("about", about);
         model.addAttribute("user", user);
         model.addAttribute("tags", baseService.listTagsWithSizeByUserId(user.getId()));
         model.addAttribute("latestAdvo", listLatestArticle(user.getId()));
+        model.addAttribute("hasFollow", followService.hasFollow(u, user));
         return "about";
     }
 

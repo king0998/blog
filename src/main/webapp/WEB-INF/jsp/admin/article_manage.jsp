@@ -59,7 +59,6 @@
                 <tr>
                     <th>标题</th>
                     <th>时间</th>
-                    <th>草稿</th>
                     <th>操作</th>
                 </tr>
                 </thead>
@@ -73,7 +72,6 @@
                         <%--<td>${advo.timestamp}</td>--%>
                     <td>${elf:date(advo.timestamp)}</td>
 
-                    <td>${advo.draft}</td>
                     <td><a href="<c:url value="/admin/article/edit/${advo.id}"/>">编辑</a>
                         <a href="#" onclick="deleteArticle(${advo.id})">删除</a>
                     </td>
