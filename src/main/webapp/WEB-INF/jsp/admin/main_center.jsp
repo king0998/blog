@@ -48,20 +48,20 @@
         </div>
         <div class="dashboard">
             <div class="dashboard-item-1">
-                <h2>23</h2>
+                <h2> ${articleNum} </h2>
                 <p>文章</p>
             </div>
             <div class="dashboard-item-2">
-                <h2>23</h2>
-                <p>文章</p>
+                <h2>${messageNum}</h2>
+                <p>留言</p>
             </div>
             <div class="dashboard-item-3">
-                <h2>23</h2>
-                <p>文章</p>
+                <h2>${commentNum}</h2>
+                <p>评论</p>
             </div>
             <div class="dashboard-item-4">
-                <h2>23</h2>
-                <p>文章</p>
+                <h2>${visitNum}</h2>
+                <p>访问</p>
             </div>
         </div>
     </div>

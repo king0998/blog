@@ -4,6 +4,7 @@ import hgrx.bean.Article;
 import hgrx.bean.Tag;
 import hgrx.bean.User;
 import hgrx.dto.ArticleDetailVO;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Repository;
@@ -76,4 +77,7 @@ public interface BaseDao {
 
     @Update("UPDATE article SET read_num = read_num + 1 WHERE id = #{id}")
     void updateReadNum(Long id);
+
+    @Select("SELECT count(*) FROM article WHERE user_id = #{id}")
+    Integer countArticleNum(@Param("id") Long id);
 }

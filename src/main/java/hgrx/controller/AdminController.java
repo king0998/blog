@@ -8,6 +8,7 @@ import hgrx.dto.ArticleDetailVO;
 import hgrx.dto.LoginDTO;
 import hgrx.service.AdminService;
 import hgrx.service.BaseService;
+import hgrx.service.CommentService;
 import hgrx.util.*;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.logging.Log;
@@ -38,6 +39,9 @@ public class AdminController {
     final BaseService baseService;
 
     final EventProducer eventProducer;
+
+    @Autowired
+    CommentService commentService;
 
     @Autowired
     public AdminController(AdminService adminService, BaseService baseService, EventProducer eventProducer) {
@@ -212,6 +216,14 @@ public class AdminController {
     public String mainCenter(HttpSession session, Model model) {
         User user = getUser(session);
         model.addAttribute("user", user);
+        Integer articleNum = baseService.countArticleNumByUserId(user.getId());
+        Integer messageNum = commentService.listMessageNum(user.getId());
+        Integer commentNum = commentService.listCommentNum(user.getId());
+        Integer visitNum = CacheUtils.MyCache.getVisitNumByUserId(baseService.listAdvoWithoutTagsByUserId(user.getId()));
+        model.addAttribute("articleNum", articleNum);
+        model.addAttribute("messageNum", messageNum);
+        model.addAttribute("commentNum", commentNum);
+        model.addAttribute("visitNum", visitNum);
         return "admin/main_center";
     }
 

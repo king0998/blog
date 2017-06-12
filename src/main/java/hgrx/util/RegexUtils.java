@@ -4,6 +4,8 @@ package hgrx.util;
  * Created by HGRX on 2017/3/24
  */
 public class RegexUtils {
+    private RegexUtils() {
+    }
 
     private static final String fileNameRegex = "\\d{1,20}-[\\u4e00-\\u9fa5]{2,5}-[\\u4E00-\\u9FA5\\w-_]+{1,50}";
 

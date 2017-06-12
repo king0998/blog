@@ -36,4 +36,12 @@ public class CommentService {
     public List<Comment> listAllCommentWithTypeAndId(int entityType, Long entityId) {
         return commentDao.listCommentWithTypeAndId(entityType, entityId);
     }
+
+    public Integer listMessageNum(Long id) {
+        return commentDao.listMessageNum(id);
+    }
+
+    public Integer listCommentNum(Long id) {
+        return commentDao.getCommentNum(id);
+    }
 }

@@ -11,6 +11,9 @@ import java.util.Map;
  * Created by HGRX on 2017/5/15
  */
 public class MyUtils {
+    private MyUtils() {
+    }
+
     public static final int COMMENT_ENTITY_TYPE_ARTICLE = 1;
     public static final int COMMENT_ENTITY_TYPE_ABOUT = 2;
     public static final int COMMENT_ENTITY_TYPE_COMMENT = 3;

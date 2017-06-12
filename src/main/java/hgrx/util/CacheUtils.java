@@ -1,6 +1,7 @@
 package hgrx.util;
 
 import hgrx.bean.Tag;
+import hgrx.dto.ArticleDetailVO;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -16,7 +17,6 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 public enum CacheUtils {
     MyCache;
 
-
     static Log log = LogFactory.getLog(CacheUtils.class);
     //储存需要两个变量来标识是否更新缓存的,那两个标识
     private ConcurrentHashMap<String, Integer> AB = new ConcurrentHashMap<>();
@@ -25,6 +25,7 @@ public enum CacheUtils {
     //单个读写锁
     private ConcurrentHashMap<String, ReentrantReadWriteLock> locks = new ConcurrentHashMap<>();
 
+    //阅读量缓存
     private static ConcurrentHashMap<Long, Integer> pageViews;
 
     static {    //初始化阅读量数据并定时写入本地文件
@@ -140,8 +141,19 @@ public enum CacheUtils {
         return pageViews.put(articleId, t + 1);
     }
 
+
     public Integer getPageViewById(Long articleId) {
         return pageViews.get(articleId);
     }
 
+    public Integer getVisitNumByUserId(List<ArticleDetailVO> list) {
+        int num = 0;
+
+        for (Map.Entry<Long, Integer> entry : pageViews.entrySet()) {
+            if (list.contains(new ArticleDetailVO(entry.getKey()))) {
+                num += entry.getValue();
+            }
+        }
+        return num;
+    }
 }

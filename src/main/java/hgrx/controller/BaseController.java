@@ -10,6 +10,8 @@ import hgrx.service.CommentService;
 import hgrx.service.FollowService;
 import hgrx.util.CacheUtils;
 import hgrx.util.MyUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,6 +26,8 @@ import java.util.*;
  */
 @Controller
 public class BaseController {
+
+    private Log log = LogFactory.getLog(BaseController.class);
 
     final
     BaseService baseService;
@@ -41,6 +45,13 @@ public class BaseController {
     public BaseController(BaseService baseService, AdminService adminService) {
         this.adminService = adminService;
         this.baseService = baseService;
+        try {
+//            this.getClass().getClassLoader().loadClass();
+            Class.forName("hgrx.util.CacheUtils");
+            log.debug("加载缓存类成功~");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
 

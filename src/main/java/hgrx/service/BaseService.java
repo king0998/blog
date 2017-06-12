@@ -43,6 +43,9 @@ public class BaseService {
         return advo;
     }
 
+    public List<ArticleDetailVO> listAdvoWithoutTagsByUserId(Long id) {
+        return baseDao.listAdvoWithoutTagsByUserId(id);
+    }
 
     public List<ArticleDetailVO> listAdvoByUserId(Long id) {
         List<ArticleDetailVO> list = baseDao.listAdvoWithoutTagsByUserId(id);
@@ -198,5 +201,9 @@ public class BaseService {
                     it.setContent(tmp);
                 }
         );
+    }
+
+    public Integer countArticleNumByUserId(Long id) {
+        return baseDao.countArticleNum(id);
     }
 }

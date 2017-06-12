@@ -13,6 +13,9 @@ import java.util.Date;
  */
 public class ElFunUtil {
 
+    private ElFunUtil() {
+    }
+
     /**
      * 将Long格式的Unix时间戳转换为 yyyy/mm/dd 格式的字符串
      */
