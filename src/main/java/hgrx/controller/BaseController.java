@@ -18,8 +18,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
-import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by HGRX on 2017/5/11
@@ -95,7 +96,7 @@ public class BaseController {
         Collections.sort(advoList);
         model.addAttribute("num", advoList.size());
         model.addAttribute("user", user);
-        Map<String, List<ArticleDetailVO>> yearMap = getYearMap(advoList);
+        Map<String, List<ArticleDetailVO>> yearMap = BaseService.getYearMap(advoList);
         model.addAttribute("yearMap", yearMap);
         model.addAttribute("tags", baseService.listTagsWithSizeByUserId(user.getId()));
         model.addAttribute("latestAdvo", listLatestArticle(user.getId()));
@@ -103,20 +104,7 @@ public class BaseController {
     }
 
 
-    public Map<String, List<ArticleDetailVO>> getYearMap(List<ArticleDetailVO> advoList) {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy");
-        // 归档页面,需要年份,时间都是逆序
-        Collections.sort(advoList);
-        Map<String, List<ArticleDetailVO>> map = new TreeMap<>((a, b) -> -a.compareTo(b));
-        advoList.forEach(it -> {
-            String year = sdf.format(it.getTimestamp());
-            if (!map.containsKey(year)) {
-                map.put(year, new ArrayList<>());
-            }
-            map.get(year).add(it);
-        });
-        return map;
-    }
+
 
 
     @RequestMapping(value = "about/{id}", method = RequestMethod.GET)
@@ -148,7 +136,7 @@ public class BaseController {
         advoList.removeIf(
                 it -> !it.getTags().contains(name)
         );
-        Map<String, List<ArticleDetailVO>> yearMap = getYearMap(advoList);
+        Map<String, List<ArticleDetailVO>> yearMap = BaseService.getYearMap(advoList);
         User user = baseService.getUserById(userId);
         model.addAttribute("user", user);
         model.addAttribute("desc", name);
@@ -162,7 +150,7 @@ public class BaseController {
     public String listAdvoWithKeyword(@RequestParam String keyword,
                                       @RequestParam Long userId, Model model) {
         List<ArticleDetailVO> advoList = baseService.listAdvoByUserIdAndKeyword(keyword, userId);
-        Map<String, List<ArticleDetailVO>> yearMap = getYearMap(advoList);
+        Map<String, List<ArticleDetailVO>> yearMap = BaseService.getYearMap(advoList);
         User user = baseService.getUserById(userId);
         model.addAttribute("user", user);
         model.addAttribute("desc", keyword);

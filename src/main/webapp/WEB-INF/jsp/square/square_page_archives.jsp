@@ -43,9 +43,25 @@
 
                 <div class="post">
                     <div class="post-archive">
+                        <%-- start --%>
+                        <%--  end  --%>
 
-                        <%-- //TODO 作为全站搜索的预留地,那个全局标签做不做看到时候还有没有时间吧 --%>
+                        <c:forEach items="${yearMap}" var="value">
+                            <h2>${value.key}</h2>
+                            <ul class="listing">
+                                <c:forEach items="${value.value}" var="advo">
+                                    <li>
+                                        <span class="date">
+                                                ${elf:date(advo.timestamp)}
+                                        </span>
 
+                                        <a href="<c:url value="/article/${advo.id}"/>"
+                                           title="${advo.title}">${advo.title}</a>
+                                    </li>
+                                </c:forEach>
+                            </ul>
+                        </c:forEach>
+                        <%-- map end --%>
                     </div>
                 </div>
             </div>

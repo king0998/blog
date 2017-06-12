@@ -48,7 +48,7 @@ public interface BaseDao {
     @Select("SELECT about FROM about WHERE user_id = #{userId}")
     String getAboutByUserId(Long id);
 
-    @Select("SELECT article.id, user_id,nickname, title,  content, timestamp, like_num,  star_num  FROM article,user WHERE article.user_id = user.id ORDER BY timestamp DESC limit 0,10")
+    @Select("SELECT article.id, user_id,nickname, title,  content, timestamp  FROM article,user WHERE article.user_id = user.id ORDER BY timestamp DESC")
     List<ArticleDetailVO> listAllAdvo();
 
     @Select("SELECT id,title FROM article WHERE user_id = #{userId} ORDER BY timestamp DESC LIMIT 10")
@@ -80,4 +80,9 @@ public interface BaseDao {
 
     @Select("SELECT count(*) FROM article WHERE user_id = #{id}")
     Integer countArticleNum(@Param("id") Long id);
+
+    @Select("SELECT article.id,user_id,title,content,timestamp, nickname " +
+            "FROM article JOIN user ON article.user_id = user.id " +
+            "WHERE article.id IN (SELECT id FROM tag WHERE name = #{tagName})")
+    List<ArticleDetailVO> listAllAdvoByTags(@Param("tagName") String tagName);
 }

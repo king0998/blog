@@ -12,10 +12,8 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.text.SimpleDateFormat;
+import java.util.*;
 import java.util.concurrent.locks.Lock;
 
 import static hgrx.util.CacheUtils.MyCache;
@@ -196,7 +194,7 @@ public class BaseService {
         hotAdvoList.forEach(
                 it -> {
                     String tmp = it.getContent();
-                    int end = tmp.indexOf("<--->");
+                    int end = tmp.indexOf("<<---");
                     tmp = tmp.substring(0, end == -1 ? (tmp.length() > 200 ? 200 : tmp.length()) : end);
                     it.setContent(tmp);
                 }
@@ -205,5 +203,32 @@ public class BaseService {
 
     public Integer countArticleNumByUserId(Long id) {
         return baseDao.countArticleNum(id);
+    }
+
+    public List<ArticleDetailVO> listAllAdvoByTags(String tagName) {
+        List<ArticleDetailVO> list = baseDao.listAllAdvoByTags(tagName);
+        for (ArticleDetailVO advo : list) {
+            advo.setTags(baseDao.listTagsWithArticleId(advo.getId()));
+        }
+        return (list);
+    }
+
+    public static Map<String, List<ArticleDetailVO>> getYearMap(List<ArticleDetailVO> advoList) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy");
+        // 归档页面,需要年份,时间都是逆序
+        Collections.sort(advoList);
+        Map<String, List<ArticleDetailVO>> map = new TreeMap<>((a, b) -> -a.compareTo(b));
+        advoList.forEach(it -> {
+            String year = sdf.format(it.getTimestamp());
+            if (!map.containsKey(year)) {
+                map.put(year, new ArrayList<>());
+            }
+            map.get(year).add(it);
+        });
+        return map;
+    }
+
+    public List<ArticleDetailVO> listAllAdvoInSquare() {
+        return baseDao.listAllAdvo();
     }
 }

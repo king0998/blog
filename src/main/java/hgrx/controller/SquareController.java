@@ -7,11 +7,13 @@ import hgrx.service.BaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by HGRX on 2017/6/1
@@ -72,12 +74,24 @@ public class SquareController {
         return "square/square_page_discuss";
     }
 
-    @RequestMapping("square/archives")
-    public String squareArchives(Model model) {
-        //TODO
+    @RequestMapping("square/archives/{tagName}")
+    public String squareArchives(Model model, @PathVariable String tagName) {
+        List<ArticleDetailVO> list = baseService.listAllAdvoByTags(tagName);
 
-
+        Map<String, List<ArticleDetailVO>> yearMap = BaseService.getYearMap(list);
         model.addAttribute("tags", baseService.listAllTagsWithSize());
+        model.addAttribute("yearMap", yearMap);
+        model.addAttribute("desc", tagName);
+        return "square/square_page_archives";
+    }
+
+    @RequestMapping("square/archives")
+    public String allArticle(Model model) {
+        List<ArticleDetailVO> list = baseService.listAllAdvoInSquare();
+
+        Map<String, List<ArticleDetailVO>> yearMap = BaseService.getYearMap(list);
+        model.addAttribute("tags", baseService.listAllTagsWithSize());
+        model.addAttribute("yearMap", yearMap);
         return "square/square_page_archives";
     }
 
