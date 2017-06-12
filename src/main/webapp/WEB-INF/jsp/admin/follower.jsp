@@ -44,7 +44,7 @@
     <div id="main">
         <div class="header">
             <h1>关注我的</h1>
-            <h2>世上一切痛苦,本质都是对自己无能的愤怒</h2>
+            <h2>${applicationScope.get("interesting")}</h2>
         </div>
 
 

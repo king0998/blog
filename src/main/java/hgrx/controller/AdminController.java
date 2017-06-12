@@ -56,11 +56,18 @@ public class AdminController {
     }
 
     @RequestMapping(value = "registerHandle", method = RequestMethod.POST)
-    public String handleRegister(User user, HttpSession session, Model model) {
+    public String handleRegister(User user, @RequestParam String formCode, HttpSession session, Model model) {
+
+        String verifyCode = (String) session.getAttribute("registerVerifyCode");
+        String verifyCodeId = (String) session.getAttribute("registerVerifyCodeId");
+        if (!formCode.toLowerCase().equals(verifyCode)) {
+            model.addAttribute("msg", "验证码错误!");
+            return "error";
+        }
 
         //校验参数
-        if (!verifyUser(user) || adminService.addUser(user)) {
-            model.addAttribute("msg", "注册信息不符合规范,请检查后重新输入");
+        if (!verifyUser(user) || !adminService.addUser(user)) {
+            model.addAttribute("msg", "注册信息不符合规范,请检查后重新输入,昵称不能包含<>.\"'&| 等非法字符");
             return "error";
         }
 
@@ -70,8 +77,9 @@ public class AdminController {
     }
 
     private boolean verifyUser(User user) {
-        return (!RegexUtils.isUsername(user.getUsername()) || !RegexUtils.isPassword(user.getPassword())
-                || !RegexUtils.isEmail(user.getEmail()) || !RegexUtils.isNickname(user.getNickname()));
+        return (RegexUtils.isUsername(user.getUsername()) &&
+                RegexUtils.isPassword(user.getPassword()) &&
+                RegexUtils.isNickname(user.getNickname()));
     }
 
 
@@ -105,6 +113,28 @@ public class AdminController {
         Map<String, Object> map = new HashMap<>();
         map.put("base64Code", "data:image/jpeg;base64," + base64Code);
         map.put("loginVerifyCodeId", loginVerifyCodeId);
+        return map;
+    }
+
+    @RequestMapping(value = "registerVerify", method = RequestMethod.GET)
+    @ResponseBody
+    public Map registerGetYzm(HttpSession session) throws IOException {
+
+        //生成随机字串
+        String verifyCode = VerifyCodeUtils.generateVerifyCode(4);
+        //存入会话session
+        String registerVerifyCodeId = UUID.randomUUID().toString();
+        session.setAttribute("registerVerifyCodeId", registerVerifyCodeId);
+        session.setAttribute("registerVerifyCode", verifyCode.toLowerCase());
+        //生成图片
+        int w = 146, h = 33;
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        VerifyCodeUtils.outputImage(w, h, byteArrayOutputStream, verifyCode);
+        byte[] bytes = byteArrayOutputStream.toByteArray();
+        String base64Code = org.apache.commons.codec.binary.Base64.encodeBase64String(bytes);
+        Map<String, Object> map = new HashMap<>();
+        map.put("base64Code", "data:image/jpeg;base64," + base64Code);
+        map.put("registerVerifyCodeId", registerVerifyCodeId);
         return map;
     }
 

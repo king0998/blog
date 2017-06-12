@@ -25,7 +25,7 @@ public class ElFunUtil {
     }
 
     public static String datehhmm(Long timestamp) {
-        return new SimpleDateFormat("yyyy/MM/dd-HH:mm").format(new Date(timestamp));
+        return new SimpleDateFormat("yyyy-MM-dd HH:mm").format(new Date(timestamp));
     }
 
 

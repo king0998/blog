@@ -44,7 +44,7 @@
     <div id="main">
         <div class="header">
             <h1>个人中心</h1>
-            <h2>你的内在只有通过所做的事情才能表现出来</h2>
+            <h2>${applicationScope.get("interesting")}</h2>
         </div>
         <div class="dashboard">
             <div class="dashboard-item-1">

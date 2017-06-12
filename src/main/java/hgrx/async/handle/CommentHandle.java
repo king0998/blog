@@ -46,8 +46,8 @@ public class CommentHandle implements EventHandler {
         } else {
             ArticleDetailVO advo = baseService.getAdvoById(comment.getEntityId());
             m.setToId(advo.getUserId());
-            m.setContent("用户 " + comment.getNickname() + " 评价了你的文章  "
-                    + advo.getTitle() + " : " + comment.getContent());
+            m.setContent("用户 [" + comment.getNickname() + "] 评价了你的文章  [ "
+                    + advo.getTitle() + " ]: " + comment.getContent());
 
         }
 

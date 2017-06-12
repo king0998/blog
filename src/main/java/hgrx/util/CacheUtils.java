@@ -48,6 +48,8 @@ public enum CacheUtils {
                     savePageViewsData();
                 }
             }).start();
+
+
         }
     }
 

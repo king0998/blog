@@ -45,7 +45,7 @@
     <div id="main">
         <div class="header">
             <h1>我的收藏</h1>
-            <h2>随口答应不如认真拒绝。</h2>
+            <h2>${applicationScope.get("interesting")}</h2>
         </div>
 
 

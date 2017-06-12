@@ -46,7 +46,8 @@
     <div id="main">
         <div class="header">
             <h1>文章管理</h1>
-            <h2>『（根据相关法律法规，相关内容已被屏蔽。）』</h2>
+            <h2></h2>
+            <h2>${applicationScope.get("interesting")}</h2>
         </div>
 
         <table>

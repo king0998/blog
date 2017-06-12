@@ -45,7 +45,7 @@
     <div id="main">
         <div class="header">
             <h1>我的关注</h1>
-            <h2>人们很少做他们相信是对的事，他们做比较方便的事，然后后悔。</h2>
+            <h2>${applicationScope.get("interesting")}</h2>
         </div>
 
         <ol>

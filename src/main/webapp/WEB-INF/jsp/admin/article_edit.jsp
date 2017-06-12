@@ -48,7 +48,7 @@
     <div id="main">
         <div class="header">
             <h1>修改 文章</h1>
-            <h2>todo:添加一个在线md文档编辑器</h2>
+            <h2>${applicationScope.get("interesting")}</h2>
         </div>
 
         <div class="admin_content">

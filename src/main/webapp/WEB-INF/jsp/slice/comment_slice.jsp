@@ -5,7 +5,7 @@
         <textarea name="content" id="" rows="2"></textarea>
         <div class="input-body">
             <input class="" type="text" name="nickname" placeholder="昵称">
-            <input class="" type="text" name="email" placeholder="邮箱">
+            <input class="" type="email" name="email" placeholder="邮箱">
             <input class="hidden" type="text" name="entityType" value="${entityType}">
             <input class="hidden" type="text" name="entityId" value="${entityId}">
             <input class="hidden" type="text" name="cToken" value="${sessionScope.get("cToken")}">
@@ -19,8 +19,12 @@
     <div class="message-container">
         <div class="user-container">
             <img class="user-img" src="/img/visitor.png" alt="">
-            <span class="user-name">${fn:escapeXml(comment.nickname)}</span>
-            <span class="user-time">${elf:date(comment.createdDate)}</span>
+            <div>
+                <p class="user-name">${fn:escapeXml(comment.nickname)}</p>
+                <p class="user-time">
+                    <small>${elf:datehhmm(comment.createdDate)}</small>
+                </p>
+            </div>
         </div>
         <div>
             <p>${fn:escapeXml(comment.content)}</p>

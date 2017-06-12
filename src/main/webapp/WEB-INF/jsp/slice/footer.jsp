@@ -7,7 +7,7 @@
 <%--</div>--%>
 
 
-<div id="footer"><a href="#">HGRX' Blog</a>
+<div id="footer" style="padding-bottom: 15px;"><a href="#">HGRX' Blog</a>
     <span><i class="fa fa-heart"></i> Powered by</span>
     <a target="_blank" href="#">HGRX</a>
     <span>. Theme by</span>
