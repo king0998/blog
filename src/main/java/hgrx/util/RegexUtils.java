@@ -1,5 +1,9 @@
 package hgrx.util;
 
+import com.google.gson.Gson;
+
+import java.util.ArrayList;
+
 /**
  * Created by HGRX on 2017/3/24
  */
@@ -38,7 +42,17 @@ public class RegexUtils {
         return fileNameRegex;
     }
 
-    public static boolean isNickname(String nickname) {
+    public static boolean checkTagsStr(String tags) {
+        boolean f = true;
+        try {
+            new Gson().fromJson(tags, ArrayList.class);
+        } catch (Exception e) {
+            f = false;
+        }
+        return hasIllegalChar(tags) && f;
+    }
+
+    public static boolean hasIllegalChar(String nickname) {
         return !nickname.contains("<") &&
                 !nickname.contains(".") &&
                 !nickname.contains(">") &&

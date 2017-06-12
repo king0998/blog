@@ -30,6 +30,7 @@
             <a href="<c:url value="/square/archives"/> "><i class="fa fa-archive"> 全部文章</i></a>
             <a href="<c:url value="/square/following"/>"><i class="fa fa-user"> 我关注的</i></a>
             <a href="<c:url value="/square/discuss"/>" class="current"><i class="fa fa-cog"> 讨论版</i></a>
+            <a href="<c:url value="/admin/center"/> "><i class="fa fa-cog">个人中心 </i></a>
         </div>
     </div>
 

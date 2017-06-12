@@ -23,3 +23,8 @@ div.tagcloud > a {
     display: inline-block;
     margin: 0 5px;
 }
+
+.author {
+    font-size: 0.9em;
+    text-decoration: underline
+}

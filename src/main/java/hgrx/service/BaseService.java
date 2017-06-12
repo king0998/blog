@@ -179,6 +179,9 @@ public class BaseService {
 
     public List<ArticleDetailVO> listFollowingAdvoList(Long id) {
         List<Integer> following = baseDao.listFollowingUser(id);
+        if (following == null || following.size() == 0) {
+            return new ArrayList<>();
+        }
         return baseDao.listFollowingAdvo(following);
     }
 

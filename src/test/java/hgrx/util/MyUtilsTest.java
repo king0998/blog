@@ -12,4 +12,9 @@ public class MyUtilsTest {
         System.out.println(MyUtils.getJSONString(false));
     }
 
+    @Test
+    public void test01() {
+        System.out.println(MyUtils.transformTagsToList("[,,java,,.,spring,,]"));
+    }
+
 }

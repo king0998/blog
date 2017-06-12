@@ -72,7 +72,7 @@ public interface BaseDao {
     @Select("SELECT id, name  FROM tag")
     List<Tag> listAllTags();
 
-    @Select("SELECT id,user_id,title,content,timestamp FROM article ORDER BY read_num DESC LIMIT 0,20")
+    @Select("SELECT article.id,nickname,user_id,title,content,timestamp FROM article,user where user.id = article.user_id ORDER BY read_num DESC LIMIT 0,20")
     List<ArticleDetailVO> listHotAdvo();
 
     @Update("UPDATE article SET read_num = read_num + 1 WHERE id = #{id}")

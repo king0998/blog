@@ -16,6 +16,7 @@ public interface AdminDao {
 
     @Insert("INSERT INTO user (nickname, intro, username, password, email) VALUES " +
             "(#{nickname},#{intro},#{username},#{password},#{email})")
+    @Options(useGeneratedKeys = true, keyColumn = "id")
     Boolean addUser(User user);
 
     @Select("SELECT id,nickname,intro,username,password,email FROM user WHERE username = #{_parameter}")

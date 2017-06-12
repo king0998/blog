@@ -75,7 +75,12 @@ public class BaseController {
         return "article";
     }
 
-    @RequestMapping(value = {"/home-page/{id}", "/"}, method = RequestMethod.GET)
+    @RequestMapping(value = "/")
+    public String index() {
+        return "redirect:/square/new";
+    }
+
+    @RequestMapping(value = {"/home-page/{id}"}, method = RequestMethod.GET)
     public String homePage(@PathVariable Long id, Model model) {
         User user = baseService.getUserById(id);
         List<ArticleDetailVO> advoList = baseService.listAdvoWithPartContentByUserId(id);

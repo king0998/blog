@@ -22,6 +22,9 @@ public class CommentService {
     CommentDao commentDao;
 
     @Autowired
+    SensitiveService sensitiveService;
+
+    @Autowired
     EventProducer eventProducer;
 
     public void addComment(Comment comment) {
@@ -29,7 +32,7 @@ public class CommentService {
         EventModel eventModel = new EventModel(EventType.COMMENT)
                 .setExt("comment", new Gson().toJson(comment));
         eventProducer.fireEvent(eventModel);
-
+        comment.setContent(sensitiveService.filter(comment.getContent()));
         commentDao.addComment(comment);
     }
 

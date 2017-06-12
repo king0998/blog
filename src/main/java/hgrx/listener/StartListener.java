@@ -33,7 +33,7 @@ public class StartListener implements Runnable, ServletContextListener {
         while (true) {
             servletContext.setAttribute("interesting", data.get((int) (Math.random() * 1000) % data.size()));
             try {
-                Thread.sleep(10 * 1000);
+                Thread.sleep(2 * 1000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

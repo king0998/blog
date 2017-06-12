@@ -13,7 +13,8 @@ public class PermissionInterceptor implements HandlerInterceptor {
         User user = (User) request.getSession().getAttribute("user");
         if (user == null) {
 //            request.setAttribute("msg", "未登录,无权访问!");
-            request.getRequestDispatcher("/login").forward(request, response);
+//            request.getRequestDispatcher("redirect/login").forward(request, response);
+            response.sendRedirect("/login");
             return false;
         }
         return true;

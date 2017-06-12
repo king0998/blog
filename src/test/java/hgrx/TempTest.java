@@ -8,6 +8,7 @@ import com.vladsch.flexmark.parser.Parser;
 import com.vladsch.flexmark.util.options.MutableDataSet;
 import hgrx.util.VerifyCodeUtils;
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang.CharUtils;
 import org.junit.Test;
 
 import java.io.ByteArrayOutputStream;
@@ -316,7 +317,18 @@ public class TempTest {
         });
         list2.removeIf(s -> s.length() > 50);
         list2.forEach(System.out::println);
+    }
 
+
+    @Test
+    public void testDS() {
+        System.out.println();
+    }
+
+    private boolean isSymbol(char c) {
+        int ic = (int) c;
+        // 0x2E80-0x9FFF 东亚文字范围
+        return !CharUtils.isAsciiAlphanumeric(c) && (ic < 0x2E80 || ic > 0x9FFF);
     }
 }
 

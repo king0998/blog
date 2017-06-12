@@ -30,6 +30,7 @@
             <a href="<c:url value="/square/archives"/> "><i class="fa fa-archive"> 全部文章</i></a>
             <a href="<c:url value="/square/following"/>" class="current"><i class="fa fa-user"> 我关注的</i></a>
             <a href="<c:url value="/square/discuss"/>"><i class="fa fa-cog"> 讨论版</i></a>
+            <a href="<c:url value="/admin/center"/> "><i class="fa fa-cog">个人中心 </i></a>
         </div>
     </div>
 
@@ -45,6 +46,7 @@
                         <div class="post-meta">
                                 ${elf:date(advo.timestamp)}&nbsp;&nbsp; <a href="/home-page/${advo.userId}"><i
                                 class="fa fa-user"> ${advo.nickname}</i></a>
+
                         </div>
                         <div class="post-content">
                                 ${elf:md(advo.content)}
@@ -70,7 +72,7 @@
                     <div class="tagcloud">
 
                         <c:forEach items="${tags}" var="tag">
-                            <a href="/square/archives/${tag.name}" style="font-size: 15px;">${tag.name}(${tag.size})</a>
+                            <a href="/square/archives/${tag.name}" style="font-size: 15px;">${tag.name} </a>
                         </c:forEach>
 
                     </div>

@@ -32,12 +32,12 @@
                                               class="pure-menu-link">文章管理</a></li>
                 <li class="pure-menu-item"><a href="<c:url value="/admin/following"/>" class="pure-menu-link">我的关注</a>
                 </li>
-                <li class="menu-item-divided pure-menu-selected"><a href="<c:url value="/admin/follower"/>"
-                                                                    class="pure-menu-link">关注我的</a></li>
+                <li class="menu-item-divided"><a href="<c:url value="/admin/follower"/>" class="pure-menu-link">关注我的</a>
+                </li>
                 <li class="pure-menu-item"><a href="<c:url value="/admin/star/list"/>" class="pure-menu-link">我的收藏</a>
                 </li>
-                <li class="pure-menu-item"><a href="<c:url value="/admin/msg/list"/>" class="pure-menu-link">系统消息</a>
-                </li>
+                <li class="pure-menu-item  pure-menu-selected"><a href="<c:url value="/admin/msg/list"/>"
+                                                                  class="pure-menu-link">系统消息</a></li>
             </ul>
         </div>
     </div>

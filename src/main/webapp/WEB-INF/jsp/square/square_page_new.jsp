@@ -29,6 +29,7 @@
             <a href="<c:url value="/square/archives"/> "><i class="fa fa-archive"> 全部文章</i></a>
             <a href="<c:url value="/square/following"/>"><i class="fa fa-user"> 我关注的</i></a>
             <a href="<c:url value="/square/discuss"/>"><i class="fa fa-cog"> 讨论版</i></a>
+            <a href="<c:url value="/admin/center"/> "><i class="fa fa-cog">个人中心 </i></a>
         </div>
     </div>
 
@@ -42,25 +43,20 @@
                     <div class="post">
                         <h1 class="post-title"><a href="<c:url value="/article/${advo.id}"/>">${advo.title}</a></h1>
                         <div class="post-meta">
-                                <%--${advo.timestamp}--%>
                                 ${elf:date(advo.timestamp)}
+
+                            <a href="<c:url value="/home-page/${advo.userId}"/> "><span
+                                    class="author">${advo.nickname}</span></a>
+
                         </div>
                         <div class="post-content">
-                                <%--${advo.content}--%>
                                 ${elf:md(advo.content)}
                         </div>
                             <%--<p class="readmore"><a href="<c:url value="/article/${advo.id}"/>">阅读全文</a></p>--%>
                     </div>
                 </c:forEach>
 
-                <%--<nav class="page-navigator">--%>
-                <%--<span class="page-number current">1</span>--%>
-                <%--<a class="page-number" href="/page/2/">2</a>--%>
-                <%--<a class="page-number" href="/page/3/">3</a>--%>
-                <%--<span class="space">…</span>--%>
-                <%--<a class="page-number" href="/page/20/">20</a>--%>
-                <%--<a class="extend next" rel="next" href="/page/2/">下一页</a>--%>
-                <%--</nav>--%>
+
 
             </div>
         </div>
@@ -83,7 +79,7 @@
                     <div class="tagcloud">
 
                         <c:forEach items="${tags}" var="tag">
-                            <a href="/square/archives/${tag.name}" style="font-size: 15px;">${tag.name}(${tag.size})</a>
+                            <a href="/square/archives/${tag.name}" style="font-size: 15px;">${tag.name}</a>
                         </c:forEach>
 
                     </div>

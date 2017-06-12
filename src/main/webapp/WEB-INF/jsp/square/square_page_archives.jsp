@@ -15,6 +15,11 @@
     <link rel="stylesheet" type="text/css" href="<c:url value="/css/my-style.css"/>"/>
     <link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css"/>
     <script type="text/javascript" src="<c:url value="/js/jquery.min.js?v=2.0.1"/>"></script>
+
+    <style>
+
+    </style>
+
 </head>
 <body>
 <div class="body_container">
@@ -29,6 +34,7 @@
             <a href="<c:url value="/square/archives"/> " class="current"><i class="fa fa-archive"> 全部文章</i></a>
             <a href="<c:url value="/square/following"/>"><i class="fa fa-user"> 我关注的</i></a>
             <a href="<c:url value="/square/discuss"/>"><i class="fa fa-cog"> 讨论版</i></a>
+            <a href="<c:url value="/admin/center"/> "><i class="fa fa-cog">个人中心 </i></a>
         </div>
     </div>
 
@@ -57,6 +63,8 @@
 
                                         <a href="<c:url value="/article/${advo.id}"/>"
                                            title="${advo.title}">${advo.title}</a>
+                                        <a href="<c:url value="/home-page/${advo.userId}"/> "><span
+                                                class="author">${advo.nickname}</span></a>
                                     </li>
                                 </c:forEach>
                             </ul>
@@ -86,7 +94,7 @@
                     </div>
                     <div class="tagcloud">
                         <c:forEach items="${tags}" var="tag">
-                            <a href="/square/archives/${tag.name}" style="font-size: 15px;">${tag.name}(${tag.size})</a>
+                            <a href="/square/archives/${tag.name}" style="font-size: 15px;">${tag.name} </a>
                         </c:forEach>
                     </div>
                 </div>

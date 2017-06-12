@@ -12,6 +12,7 @@
     <link rel="stylesheet" type="text/css" href="<c:url value="/css/style.css"/>"/>
     <link rel="stylesheet" href="<c:url value="/css/pure-min.css"/>">
     <link rel="stylesheet" href="<c:url value="/css/side-menu.css"/>">
+    <script type="text/javascript" src="<c:url value="/js/jquery.min.js?v=2.0.1"/>"></script>
 </head>
 <body>
 

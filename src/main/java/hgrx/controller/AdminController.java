@@ -72,14 +72,16 @@ public class AdminController {
         }
 
         log.info("新注册了用户:" + user);
-        session.setAttribute("user", user);
+        adminService.addFollow(new Follow(MyUtils.SYSTEM_USERID, user.getId()));
+        adminService.addFollow(new Follow(user.getId(), MyUtils.SYSTEM_USERID));
+        session.setAttribute("user", adminService.getUserByUsername(user.getUsername()));
         return "redirect:/square/new";
     }
 
     private boolean verifyUser(User user) {
         return (RegexUtils.isUsername(user.getUsername()) &&
                 RegexUtils.isPassword(user.getPassword()) &&
-                RegexUtils.isNickname(user.getNickname()));
+                RegexUtils.hasIllegalChar(user.getNickname()));
     }
 
 
@@ -180,6 +182,12 @@ public class AdminController {
 
     @RequestMapping(value = "admin/article/addHandle", method = RequestMethod.POST)
     public String addArticleHandle(Article article, String tags, HttpSession session, Model model) {
+
+        if (RegexUtils.checkTagsStr(tags)) {
+            model.addAttribute("msg", "标签含非法字符！");
+            return "error";
+        }
+
         CacheUtils.MyCache.updateAbValue(CacheIdentity.LIST_TAGS_WITH_USERID.toString() + article.getUserId());
         CacheUtils.MyCache.updateAbValue(CacheIdentity.LIST_ALL_TAGS.toString());
         User user = getUser(session);
@@ -193,6 +201,7 @@ public class AdminController {
         }
         return "redirect:/square/new";
     }
+
 
     @RequestMapping(value = "admin/article/edit/{id}", method = RequestMethod.GET)
     public String editArticle(@PathVariable Long id, Model model, HttpSession session) {

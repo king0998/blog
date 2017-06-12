@@ -25,6 +25,7 @@
             <p class="description">${user.intro}</p>
         </div>
         <div id="nav-menu">
+            <a href="<c:url value="/square"/> "><i class="fa fa-home"> 广场</i></a>
             <a href="<c:url value="/home-page/${user.id}"/>" class="current"><i class="fa fa-home"> 首页</i></a>
             <a href="<c:url value="/archives/${user.id}"/>"><i class="fa fa-archive"> 归档</i></a>
             <a href="<c:url value="/about/${user.id}"/>"><i class="fa fa-user"> 关于</i></a>
